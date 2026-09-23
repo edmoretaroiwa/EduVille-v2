@@ -1,0 +1,493 @@
+/* ============================================================
+   EDUVILLE 2.0 — LAYOUT.CSS
+   Navbar, sidebar, main layout, footer
+   ============================================================ */
+
+/* ============================================================
+   1. NAVBAR (GitHub-style top bar)
+   ============================================================ */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-default);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  min-height: 60px;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-head);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-lg);
+  color: var(--text-bright);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar .logo:hover { text-decoration: none; }
+
+.logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-sm);
+  object-fit: contain;
+}
+
+.logo-text .gold { color: var(--gold); }
+
+/* Search bar inside navbar */
+.search-bar,
+.search-wrap {
+  flex: 1;
+  max-width: 400px;
+  position: relative;
+}
+
+.search-bar input,
+.search-wrap input {
+  width: 100%;
+  padding: 0.5rem 0.85rem 0.5rem 2.3rem;
+  font-size: var(--fs-sm);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border-default);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.search-bar input:focus,
+.search-wrap input:focus {
+  outline: none;
+  border-color: var(--edu-blue-light);
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+
+.search-wrap .icon {
+  position: absolute;
+  left: 0.7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  list-style: none;
+  margin-left: auto;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-sm);
+  transition: all var(--dur-fast) var(--ease);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+  background-color: var(--bg-tertiary);
+  text-decoration: none;
+}
+
+.nav-links a.active {
+  color: var(--gold);
+}
+
+/* Login button in navbar */
+.btn-login {
+  background-color: var(--accent-green) !important;
+  color: #fff !important;
+  padding: 0.45rem 1rem !important;
+  border-radius: var(--r-full) !important;
+  font-weight: var(--fw-semibold) !important;
+  border: 1px solid rgba(240, 246, 252, 0.1) !important;
+}
+
+.btn-login:hover {
+  background-color: var(--accent-green-h) !important;
+  color: #fff !important;
+}
+
+/* Avatar link */
+.avatar-link {
+  width: 32px;
+  height: 32px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: 50% !important;
+  padding: 0 !important;
+  font-size: 0.9rem;
+}
+
+/* User badge (shown when logged in) */
+.user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: 0.4rem 0.9rem;
+  background-color: var(--accent-green);
+  color: #fff;
+  border-radius: var(--r-full);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.user-badge:hover { background-color: var(--accent-green-h); }
+
+/* ============================================================
+   2. MOTTO BAR
+   ============================================================ */
+
+.motto-bar {
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark), var(--gold));
+  color: var(--edu-blue-dark);
+  text-align: center;
+  padding: 0.5rem var(--sp-4);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-sm);
+  letter-spacing: 1.5px;
+}
+
+/* ============================================================
+   3. LAYOUT
+   ============================================================ */
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--sp-6);
+  max-width: var(--container-xl);
+  margin: var(--sp-6) auto;
+  padding: 0 var(--sp-4);
+}
+
+.layout-no-sidebar {
+  display: block;
+  max-width: var(--container-lg);
+  margin: var(--sp-6) auto;
+  padding: 0 var(--sp-4);
+}
+
+.layout-full {
+  max-width: none;
+  padding: 0;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ============================================================
+   4. SIDEBAR
+   ============================================================ */
+
+.sidebar {
+  background-color: var(--bg-secondary);
+  padding: var(--sp-4);
+  border-radius: var(--r-md);
+  border: 1px solid var(--border-default);
+  height: fit-content;
+  position: sticky;
+  top: 80px;
+}
+
+.sidebar-section {
+  margin-bottom: var(--sp-6);
+}
+
+.sidebar-section:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar-heading {
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: var(--sp-3);
+  padding: 0 var(--sp-2);
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-sm);
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+  transition: all var(--dur-fast) var(--ease);
+  margin-bottom: 2px;
+}
+
+.side-link:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.side-link.active {
+  background-color: var(--bg-tertiary);
+  color: var(--gold);
+  font-weight: var(--fw-semibold);
+}
+
+.side-link .coming-soon-badge {
+  margin-left: auto;
+  font-size: 0.6rem;
+  background-color: var(--tag-orange-bg);
+  color: var(--tag-orange-text);
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--r-full);
+  font-weight: var(--fw-semibold);
+}
+
+/* ============================================================
+   5. MAIN FEED
+   ============================================================ */
+
+.main-feed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  min-width: 0;
+}
+
+/* ============================================================
+   6. HERO SECTIONS
+   ============================================================ */
+
+.hero {
+  background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+  color: #fff;
+  padding: var(--sp-12) var(--sp-6);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border-default);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.hero h1 {
+  color: #fff;
+  font-size: clamp(var(--fs-2xl), 5vw, var(--fs-4xl));
+  margin-bottom: var(--sp-3);
+  position: relative;
+}
+
+.hero h1 .gold { color: var(--gold); }
+
+.hero p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--fs-lg);
+  max-width: 600px;
+  margin: 0 auto var(--sp-6);
+  position: relative;
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--sp-3);
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.hero-sm { padding: var(--sp-8) var(--sp-5); }
+.hero-sm h1 { font-size: clamp(var(--fs-xl), 4vw, var(--fs-3xl)); }
+
+/* ============================================================
+   7. FOOTER
+   ============================================================ */
+
+footer {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: var(--sp-10) var(--sp-6) var(--sp-4);
+  margin-top: var(--sp-12);
+  border-top: 1px solid var(--border-default);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--sp-8);
+  max-width: var(--container-xl);
+  margin: 0 auto var(--sp-6);
+}
+
+.footer-content h3,
+.footer-content h4 {
+  color: var(--gold);
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+}
+
+.footer-content p,
+.footer-content a {
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  margin-bottom: var(--sp-1);
+  display: block;
+  text-decoration: none;
+}
+
+.footer-content a:hover {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.footer-content .motto {
+  color: var(--gold);
+  font-style: italic;
+  font-weight: var(--fw-medium);
+}
+
+.copyright {
+  text-align: center;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border-muted);
+  color: var(--text-dim);
+  font-size: var(--fs-xs);
+  max-width: var(--container-xl);
+  margin: 0 auto;
+}
+
+/* ============================================================
+   8. GRID LAYOUTS
+   ============================================================ */
+
+.grid-courses {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--sp-4);
+}
+
+.grid-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--sp-4);
+}
+
+.grid-featured {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--sp-4);
+}
+
+/* ============================================================
+   9. STAT CARD
+   ============================================================ */
+
+.stat-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  text-align: center;
+  transition: all var(--dur-base) var(--ease);
+}
+
+.stat-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.stat-value {
+  color: var(--gold);
+  font-family: var(--font-head);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  margin-bottom: var(--sp-2);
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   10. RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: var(--sp-2) var(--sp-3);
+    gap: var(--sp-2);
+  }
+  .navbar .logo { font-size: var(--fs-base); }
+  .logo-img { width: 28px; height: 28px; }
+  .search-bar,
+  .search-wrap {
+    order: 3;
+    width: 100%;
+    max-width: none;
+  }
+  .nav-links {
+    gap: var(--sp-1);
+    font-size: var(--fs-xs);
+  }
+  .nav-links a { padding: var(--sp-1) var(--sp-2); }
+  .hero { padding: var(--sp-8) var(--sp-4); }
+  .hero p { font-size: var(--fs-base); }
+  .layout { padding: 0 var(--sp-3); margin: var(--sp-4) auto; }
+  footer { padding: var(--sp-6) var(--sp-4) var(--sp-3); }
+  .footer-content { gap: var(--sp-4); }
+  .motto-bar { font-size: var(--fs-xs); letter-spacing: 1px; }
+}
+
+@media (max-width: 480px) {
+  .hide-xs { display: none !important; }
+}
