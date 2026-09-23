@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduVille — Commit to Your Future</title>
+  <meta name="description" content="Free lessons, notes, and past papers for ZIMSEC, BEC and Cambridge students across Africa.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <!-- Fonts — load first for faster rendering -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS — order matters -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-icon.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+
+    <label class="search-wrap">
+      <span class="sr-only">Search</span>
+      <i data-lucide="search" class="icon"></i>
+      <input type="search" placeholder="Search courses, videos, papers...">
+    </label>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li>
+        <a href="login.html" class="btn-login">
+          <i data-lucide="lock" class="icon icon-sm"></i>
+          <span>Login</span>
+        </a>
+      </li>
+      <li>
+        <a href="profile.html" class="avatar-link" aria-label="Profile">
+          <i data-lucide="user" class="icon icon-sm"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <h4 class="sidebar-heading">Quick Links</h4>
+        <a href="index.html" class="side-link active">
+          <i data-lucide="layout-dashboard" class="icon"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="courses.html" class="side-link">
+          <i data-lucide="book-open" class="icon"></i>
+          <span>My Courses</span>
+        </a>
+        <a href="videos.html" class="side-link">
+          <i data-lucide="play-circle" class="icon"></i>
+          <span>Watch Videos</span>
+        </a>
+        <a href="notes.html" class="side-link">
+          <i data-lucide="file-text" class="icon"></i>
+          <span>Notes</span>
+        </a>
+        <a href="resources.html" class="side-link">
+          <i data-lucide="folder-open" class="icon"></i>
+          <span>Past Papers</span>
+        </a>
+        <a href="tymercre.html" class="side-link">
+          <i data-lucide="bot" class="icon"></i>
+          <span>TymerCRE Tutor</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <h4 class="sidebar-heading">Coming Soon</h4>
+        <a href="#" class="side-link">
+          <i data-lucide="clipboard-list" class="icon"></i>
+          <span>Assignments</span>
+          <span class="coming-soon-badge">Soon</span>
+        </a>
+        <a href="#" class="side-link">
+          <i data-lucide="star" class="icon"></i>
+          <span>Starred</span>
+          <span class="coming-soon-badge">Soon</span>
+        </a>
+        <a href="#" class="side-link">
+          <i data-lucide="message-circle" class="icon"></i>
+          <span>Discussions</span>
+          <span class="coming-soon-badge">Soon</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <h4 class="sidebar-heading">Featured Subjects</h4>
+        <a href="courses.html" class="side-link">
+          <i data-lucide="calculator" class="icon"></i>
+          <span>Mathematics</span>
+        </a>
+        <a href="courses.html" class="side-link">
+          <i data-lucide="atom" class="icon"></i>
+          <span>Physics</span>
+        </a>
+        <a href="courses.html" class="side-link">
+          <i data-lucide="flask-conical" class="icon"></i>
+          <span>Chemistry</span>
+        </a>
+        <a href="courses.html" class="side-link">
+          <i data-lucide="dna" class="icon"></i>
+          <span>Biology</span>
+        </a>
+        <a href="courses.html" class="side-link">
+          <i data-lucide="monitor" class="icon"></i>
+          <span>Computer Studies</span>
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-feed" id="main">
+
+      <!-- HERO -->
+      <section class="hero">
+        <h1>Welcome to <span class="gold">EduVille</span> 👋</h1>
+        <p><strong>Free education for every African student.</strong> Lessons, notes, and past papers for ZIMSEC, BEC, and Cambridge.</p>
+        <div class="hero-actions">
+          <a href="courses.html" class="btn btn-gold btn-lg">
+            <i data-lucide="play" class="icon"></i>
+            <span>Start Learning</span>
+          </a>
+          <a href="resources.html" class="btn btn-secondary btn-lg">
+            <i data-lucide="file-text" class="icon"></i>
+            <span>Browse Papers</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section>
+        <div class="section-heading-row">
+          <h3 class="section-heading">
+            <i data-lucide="bar-chart-3" class="icon"></i>
+            <span>Platform Stats</span>
+          </h3>
+        </div>
+        <div class="grid-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-students">—</div>
+            <div class="stat-label">Students</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-courses">—</div>
+            <div class="stat-label">Courses</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-lessons">—</div>
+            <div class="stat-label">Lessons</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-papers">—</div>
+            <div class="stat-label">Papers</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED COURSES -->
+      <section>
+        <div class="section-heading-row">
+          <h3 class="section-heading">
+            <i data-lucide="flame" class="icon"></i>
+            <span>Featured Courses</span>
+          </h3>
+          <a href="courses.html" class="btn btn-ghost btn-sm">
+            <span>View all</span>
+            <i data-lucide="arrow-right" class="icon icon-sm"></i>
+          </a>
+        </div>
+        <div class="grid-courses" id="featured-courses">
+          <a href="courses.html" class="repo-card">
+            <div class="repo-header">
+              <div class="repo-icon">📘</div>
+              <h3 class="repo-title">Mathematics</h3>
+            </div>
+            <p class="repo-desc">Algebra, geometry, calculus and statistics for O-Level and A-Level.</p>
+            <div class="repo-footer">
+              <span class="tag tag-zimsec">ZIMSEC</span>
+              <span class="tag tag-cambridge">Cambridge</span>
+            </div>
+          </a>
+          <a href="courses.html" class="repo-card">
+            <div class="repo-header">
+              <div class="repo-icon">🔬</div>
+              <h3 class="repo-title">Physics</h3>
+            </div>
+            <p class="repo-desc">Mechanics, waves, electricity, and modern physics.</p>
+            <div class="repo-footer">
+              <span class="tag tag-zimsec">ZIMSEC</span>
+              <span class="tag tag-cambridge">Cambridge</span>
+            </div>
+          </a>
+          <a href="courses.html" class="repo-card">
+            <div class="repo-header">
+              <div class="repo-icon">⚗️</div>
+              <h3 class="repo-title">Chemistry</h3>
+            </div>
+            <p class="repo-desc">Organic, physical, and inorganic chemistry with past papers.</p>
+            <div class="repo-footer">
+              <span class="tag tag-zimsec">ZIMSEC</span>
+              <span class="tag tag-cambridge">Cambridge</span>
+            </div>
+          </a>
+          <a href="courses.html" class="repo-card">
+            <div class="repo-header">
+              <div class="repo-icon">🧬</div>
+              <h3 class="repo-title">Biology</h3>
+            </div>
+            <p class="repo-desc">Cells, genetics, ecology, and human physiology.</p>
+            <div class="repo-footer">
+              <span class="tag tag-zimsec">ZIMSEC</span>
+              <span class="tag tag-cambridge">Cambridge</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- LATEST VIDEOS -->
+      <section>
+        <div class="section-heading-row">
+          <h3 class="section-heading">
+            <i data-lucide="play-circle" class="icon"></i>
+            <span>Latest Video Lessons</span>
+          </h3>
+          <a href="videos.html" class="btn btn-ghost btn-sm">
+            <span>View all</span>
+            <i data-lucide="arrow-right" class="icon icon-sm"></i>
+          </a>
+        </div>
+        <div class="grid-featured" id="latest-videos">
+          <p class="loading-text">
+            <span class="spinner"></span>
+            <span>Loading videos...</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- RECENT ACTIVITY -->
+      <section>
+        <div class="section-heading-row">
+          <h3 class="section-heading">
+            <i data-lucide="megaphone" class="icon"></i>
+            <span>Recent Activity</span>
+          </h3>
+        </div>
+        <div class="card">
+          <div class="activity-feed">
+            <div class="activity-item">
+              <span class="dot gold-dot"></span>
+              <p><strong>EduVille launched!</strong> Welcome to the new platform.</p>
+            </div>
+            <div class="activity-item">
+              <span class="dot blue-dot"></span>
+              <p><strong>TymerCRE</strong> — AI Tutor — coming soon.</p>
+            </div>
+            <div class="activity-item">
+              <span class="dot green-dot"></span>
+              <p><strong>Past papers</strong> library now open.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Learn. Build. Share. Together.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="notes.html">Notes</a>
+        <a href="resources.html">Past Papers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+        <a href="tel:+263787279982">+263 78 727 9982</a>
+        <a href="tel:+263788923710">+263 78 892 3710</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

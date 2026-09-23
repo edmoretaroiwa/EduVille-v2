@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson — EduVille</title>
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .breadcrumb a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .breadcrumb .current {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* Lesson header */
+    .lesson-header {
+      margin-bottom: 1.5rem;
+    }
+    .lesson-header h1 {
+      color: var(--text-bright);
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    .lesson-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* Two-column layout */
+    .lesson-content-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .lesson-content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Markdown content */
+    .markdown-body {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 2rem;
+      font-family: var(--font-body);
+      line-height: 1.75;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3,
+    .markdown-body h4 {
+      font-family: var(--font-head);
+      color: var(--text-bright);
+      letter-spacing: -0.02em;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.25;
+    }
+    .markdown-body h1 { font-size: 1.6rem; }
+    .markdown-body h2 {
+      font-size: 1.3rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+    .markdown-body h3 { font-size: 1.1rem; }
+    .markdown-body p { margin-bottom: 1rem; }
+    .markdown-body ul,
+    .markdown-body ol {
+      margin: 0.8rem 0 1rem 1.5rem;
+    }
+    .markdown-body li { margin-bottom: 0.4rem; }
+    .markdown-body strong { color: var(--text-bright); font-weight: 600; }
+    .markdown-body em { color: var(--gold); font-style: italic; }
+    .markdown-body a {
+      color: var(--edu-blue-light);
+      text-decoration: underline;
+    }
+    .markdown-body code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      padding: 0.15em 0.4em;
+      background: var(--bg-tertiary);
+      border-radius: 4px;
+      color: var(--gold);
+    }
+    .markdown-body pre {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-default);
+      padding: 1rem;
+      border-radius: var(--r-sm);
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .markdown-body pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+    }
+    .markdown-body blockquote {
+      border-left: 3px solid var(--gold);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    .markdown-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .markdown-body th,
+    .markdown-body td {
+      border: 1px solid var(--border-default);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+    .markdown-body th {
+      background: var(--bg-tertiary);
+      color: var(--text-bright);
+      font-weight: 600;
+    }
+    .markdown-body img {
+      max-width: 100%;
+      border-radius: var(--r-sm);
+      margin: 1rem 0;
+    }
+    .markdown-body hr {
+      border: none;
+      border-top: 1px solid var(--border-muted);
+      margin: 2rem 0;
+    }
+
+    /* Sidebar (video + meta) */
+    .lesson-sidebar {
+      position: sticky;
+      top: 90px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .video-wrapper {
+      background: #000;
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1px solid var(--border-default);
+      aspect-ratio: 16 / 9;
+    }
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .video-wrapper.no-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+
+    /* Progress actions */
+    .lesson-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 1.2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+    }
+    .lesson-actions h4 {
+      color: var(--text-bright);
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Loading */
+    .loading-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      height: 400px;
+      animation: pulse 1.5s infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-icon.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+
+    <label class="search-wrap">
+      <span class="sr-only">Search</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Search lessons...">
+    </label>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+      <li><a href="profile.html" class="avatar-link" aria-label="Profile">👤</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <!-- MAIN CONTENT -->
+  <div class="layout-no-sidebar">
+    <main class="main-feed" id="main">
+
+      <!-- BREADCRUMB -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <a href="courses.html">Courses</a>
+        <span>›</span>
+        <a href="#" id="breadcrumb-course">...</a>
+        <span>›</span>
+        <span class="current" id="breadcrumb-lesson">Loading...</span>
+      </nav>
+
+      <!-- LESSON HEADER -->
+      <div class="lesson-header">
+        <h1 id="lesson-title">Loading lesson...</h1>
+        <div class="lesson-meta">
+          <span id="lesson-meta">⏳ Loading...</span>
+        </div>
+      </div>
+
+      <!-- LESSON CONTENT -->
+      <div id="lesson-content">
+        <div class="loading-block"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Learn. Build. Share. Together.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="resources.html">Past Papers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+        <a href="tel:+267787279982">+267 78 727 9982</a>
+        <a href="tel:+263788923710">+263 78 892 3710</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/lesson.js"></script>
+</body>
+</html>

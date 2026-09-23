@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course — EduVille</title>
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .course-header-block {
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-lg);
+      padding: 2rem;
+      border: 1px solid var(--border-default);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-header-block::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+
+    .course-header-content {
+      position: relative;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .course-header-emoji {
+      font-size: 3rem;
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .course-header-text {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .course-header-text h1 {
+      color: #fff;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      margin-bottom: 0.4rem;
+    }
+
+    .course-header-text p {
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+    }
+
+    .course-header-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    /* Lesson rows */
+    .lesson-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      margin-bottom: 0.6rem;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .lesson-row:hover {
+      border-color: var(--gold);
+      transform: translateX(4px);
+      text-decoration: none;
+    }
+
+    .lesson-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .lesson-num {
+      width: 40px;
+      height: 40px;
+      background: var(--gold);
+      color: var(--edu-blue-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .lesson-info {
+      min-width: 0;
+    }
+
+    .lesson-info h4 {
+      color: var(--text-bright);
+      font-size: 1rem;
+      margin: 0 0 0.2rem 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .lesson-info p {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin: 0;
+    }
+
+    .lesson-play {
+      color: var(--gold);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-icon.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <label class="search-wrap">
+      <span class="sr-only">Search</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Search courses...">
+    </label>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html" class="active">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+      <li><a href="profile.html" class="avatar-link" aria-label="Profile">👤</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="layout-no-sidebar">
+    <main class="main-feed" id="main">
+
+      <!-- COURSE HEADER -->
+      <div id="course-header">
+        <div class="skeleton-card" style="height:200px;"></div>
+      </div>
+
+      <!-- LESSONS -->
+      <section style="margin-top:1.5rem;">
+        <div class="section-heading-row">
+          <h3 class="section-heading">📖 Lessons</h3>
+          <span class="text-muted" id="lessons-count">Loading...</span>
+        </div>
+        <div id="lessons-list">
+          <div class="skeleton-card" style="height:70px;margin-bottom:0.6rem;"></div>
+          <div class="skeleton-card" style="height:70px;margin-bottom:0.6rem;"></div>
+          <div class="skeleton-card" style="height:70px;"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="resources.html">Past Papers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/course.js"></script>
+</body>
+</html>
