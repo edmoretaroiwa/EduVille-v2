@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TymerCRE — AI Tutor — EduVille</title>
+  <meta name="description" content="Meet TymerCRE — your free AI tutor on EduVille. Ask any question, get clear answers anytime.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .chat-container { display: flex; flex-direction: column; height: calc(100vh - 240px); min-height: 500px; background: var(--bg-secondary); border: 1px solid var(--border-default); border-radius: var(--r-md); overflow: hidden; }
+    .chat-header { padding: 1rem 1.2rem; background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue)); border-bottom: 1px solid var(--border-default); display: flex; align-items: center; gap: 0.8rem; color: #fff; }
+    .chat-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--gold); color: var(--edu-blue-dark); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .chat-title { flex: 1; }
+    .chat-title h1 { color: #fff; font-size: 1.1rem; margin: 0 0 0.2rem 0; font-weight: 600; }
+    .chat-title p { color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin: 0; }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .message { display: flex; gap: 0.7rem; max-width: 90%; animation: fadeIn 0.3s ease; }
+    .message.user { align-self: flex-end; flex-direction: row-reverse; }
+    .message-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+    .message.bot .message-avatar { background: var(--gold); color: var(--edu-blue-dark); }
+    .message.user .message-avatar { background: var(--accent-green); color: #fff; }
+    .message-bubble { padding: 0.8rem 1rem; border-radius: var(--r-md); font-size: 0.92rem; line-height: 1.55; word-wrap: break-word; white-space: pre-wrap; }
+    .message.bot .message-bubble { background: var(--bg-tertiary); border: 1px solid var(--border-default); color: var(--text-primary); border-top-left-radius: 4px; }
+    .message.user .message-bubble { background: var(--accent-green); color: #fff; border-top-right-radius: 4px; }
+    .welcome-block { text-align: center; padding: 2rem 1rem; color: var(--text-secondary); }
+    .welcome-block .emoji { font-size: 3rem; display: block; margin-bottom: 0.5rem; }
+    .welcome-block h2 { color: var(--text-bright); font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .welcome-block p { max-width: 400px; margin: 0 auto 1rem; }
+    .suggestion-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+    .suggestion-chip { padding: 0.5rem 0.9rem; background: var(--bg-tertiary); border: 1px solid var(--border-default); border-radius: var(--r-full); font-size: 0.85rem; color: var(--text-primary); cursor: pointer; transition: all 0.15s ease; font-family: inherit; }
+    .suggestion-chip:hover { border-color: var(--gold); color: var(--gold); }
+    .typing { display: flex; gap: 4px; align-items: center; padding: 0.8rem 1rem; background: var(--bg-tertiary); border: 1px solid var(--border-default); border-radius: var(--r-md); width: fit-content; }
+    .typing span { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 1.4s infinite; }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+    .chat-input-area { padding: 1rem 1.2rem; background: var(--bg-primary); border-top: 1px solid var(--border-default); display: flex; gap: 0.6rem; align-items: flex-end; }
+    .chat-input { flex: 1; min-height: 44px; max-height: 150px; padding: 0.7rem 1rem; border: 1px solid var(--border-default); border-radius: var(--r-md); background: var(--bg-secondary); color: var(--text-primary); font-family: inherit; font-size: 0.95rem; resize: none; line-height: 1.4; outline: none; }
+    .chat-input:focus { border-color: var(--edu-blue-light); box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15); }
+    .chat-send { width: 44px; height: 44px; border-radius: var(--r-md); background: var(--accent-green); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s ease; flex-shrink: 0; }
+    .chat-send:hover { background: var(--accent-green-h); }
+    .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+    .chat-hint { text-align: center; padding: 0.5rem; font-size: 0.75rem; color: var(--text-dim); background: var(--bg-primary); }
+    @media (max-width: 700px) { .chat-container { height: calc(100vh - 220px); } .message { max-width: 95%; } }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-icon.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <label class="search-wrap">
+      <span class="sr-only">Search</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Search...">
+    </label>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="tymercre.html" class="active">🤖 TymerCRE</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="layout-no-sidebar">
+    <main class="main-feed" id="main">
+
+      <div class="chat-container">
+
+        <div class="chat-header">
+          <div class="chat-avatar">🤖</div>
+          <div class="chat-title">
+            <h1>TymerCRE</h1>
+            <p>Your AI tutor · Always available</p>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+          <div class="welcome-block">
+            <span class="emoji">👋</span>
+            <h2>Hello! I'm TymerCRE</h2>
+            <p>Ask me anything about your studies — Maths, Physics, Chemistry, Biology. I'm here to help you learn.</p>
+            <div class="suggestion-chips">
+              <button class="suggestion-chip" onclick="askSuggestion('Explain photosynthesis in simple terms')">🔬 Explain photosynthesis</button>
+              <button class="suggestion-chip" onclick="askSuggestion('Solve 2x + 5 = 15 step by step')">🧮 Solve 2x + 5 = 15</button>
+              <button class="suggestion-chip" onclick="askSuggestion('What are Newton three laws of motion?')">⚡ Newton laws</button>
+              <button class="suggestion-chip" onclick="askSuggestion('Help me understand chemical bonding')">⚗️ Chemical bonding</button>
+            </div>
+          </div>
+        </div>
+
+        <form class="chat-input-area" onsubmit="sendMessage(event)">
+          <textarea class="chat-input" id="chat-input" placeholder="Ask TymerCRE anything..." rows="1" onkeydown="handleKeyDown(event)" oninput="autoResize(this)"></textarea>
+          <button type="submit" class="chat-send" id="chat-send" aria-label="Send">
+            <i data-lucide="send" style="width:20px;height:20px;"></i>
+          </button>
+        </form>
+
+        <p class="chat-hint">⚠️ AI can make mistakes. Always verify important answers.</p>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/tymercre.js"></script>
+</body>
+    </html>
