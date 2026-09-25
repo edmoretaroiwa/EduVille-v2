@@ -165,10 +165,34 @@ function formatDate(isoString) {
 // PLACEHOLDER ACTIONS (to implement later)
 // ============================================================
 
-function markComplete() {
-  alert('✅ Progress tracking coming soon!');
-}
+async function markComplete() {
+  if (!currentLesson) {
+    alert('Lesson data not loaded yet.');
+    return;
+  }
 
+  const btn = event?.target;
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;"></span> Saving...';
+  }
+
+  const success = await markLessonComplete(currentLesson.id, 'completed');
+
+  if (success) {
+    if (btn) {
+      btn.innerHTML = '✅ Completed!';
+      btn.classList.remove('btn-gold');
+      btn.classList.add('btn-secondary');
+    }
+    alert('🎉 Lesson marked as complete!\n\nKeep going — Commit to Your Future ✨');
+  } else {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '✓ Mark as Complete';
+    }
+  }
+}
 function saveLesson() {
   alert('⭐ Bookmarking coming soon!');
 }
