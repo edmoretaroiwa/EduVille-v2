@@ -2,8 +2,8 @@
    EDUVILLE 2.0 — COURSE.JS
    Single course view with lessons
    ============================================================ */
+const courseClient = window.db;
 
-const coursesClient = window.db;
 
 // ============================================================
 // HELPERS
