@@ -2,7 +2,7 @@
    EDUVILLE 2.0 — LESSON.JS
    Single lesson view with markdown + video
    ============================================================ */
-const coursesClient = window.db;
+const lessonClient = window.db;
 
 // Current lesson object (set on load)
 let currentLesson = null;
