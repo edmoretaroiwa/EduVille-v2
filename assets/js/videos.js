@@ -2,12 +2,8 @@
    EDUVILLE 2.0 — VIDEOS.JS
    Loads all videos from Supabase with filter + search
    ============================================================ */
+const videosClient = window.db;
 
-const { createClient } = supabase;
-const videosClient = createClient(
-  EDUVILLE_CONFIG.SUPABASE_URL,
-  EDUVILLE_CONFIG.SUPABASE_ANON_KEY
-);
 
 let allVideos = [];
 let currentFilter = 'all';
