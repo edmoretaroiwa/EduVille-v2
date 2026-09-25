@@ -1,6 +1,6 @@
 /* ============================================================
    EDUVILLE 2.0 — TYMERCRE.JS
-   Chat with the AI Tutor via Supabase Edge Function
+   Bulletproof version with visible debugging
    ============================================================ */
 
 const { createClient } = supabase;
@@ -9,12 +9,8 @@ const chatClient = createClient(
   EDUVILLE_CONFIG.SUPABASE_ANON_KEY
 );
 
-// ============================================================
-// STATE
-// ============================================================
-
 let isProcessing = false;
-let conversationHistory = []; // { role: 'user'|'model', text: string }
+let conversationHistory = [];
 
 // ============================================================
 // SEND MESSAGE
@@ -41,16 +37,24 @@ async function sendMessage(event) {
   const typingEl = showTyping();
 
   try {
-    const { data: { session } } = await chatClient.auth.getSession();
+    // Get user info (optional)
     let userName = 'Student';
-    if (session) {
-      const { data: profile } = await chatClient
-        .from('users')
-        .select('full_name')
-        .eq('id', session.user.id)
-        .single();
-      if (profile?.full_name) userName = profile.full_name;
+    try {
+      const { data: { session } } = await chatClient.auth.getSession();
+      if (session) {
+        const { data: profile } = await chatClient
+          .from('users')
+          .select('full_name')
+          .eq('id', session.user.id)
+          .single();
+        if (profile?.full_name) userName = profile.full_name;
+      }
+    } catch (e) {
+      console.log('Session check failed (OK):', e);
     }
+
+    // Call the function
+    console.log('📤 Calling ask-tymercre with:', { message, userName });
 
     const { data, error } = await chatClient.functions.invoke('ask-tymercre', {
       body: {
@@ -61,45 +65,39 @@ async function sendMessage(event) {
       }
     });
 
+    console.log('📥 Raw response:', { data, error });
+
     typingEl.remove();
 
-    if (error) throw error;
+    if (error) {
+      addMessage('bot', `⚠️ Function error: ${error.message || JSON.stringify(error)}`);
+      return;
+    }
 
     if (data?.error) {
-      throw new Error(data.error);
+      addMessage('bot', `⚠️ AI error: ${data.error}`);
+      return;
     }
 
-    const response = data?.response || "Sorry, I couldn't respond right now.";
-    addMessage('bot', response);
-    conversationHistory.push({ role: 'model', text: response });
+    if (data?.response) {
+      addMessage('bot', data.response);
+      conversationHistory.push({ role: 'model', text: data.response });
+    } else {
+      addMessage('bot', `⚠️ No response from AI. Got: ${JSON.stringify(data)}`);
+    }
 
   } catch (error) {
-    console.error('TymerCRE error:', error);
-    typingEl.remove();
+    console.error('💥 Exception:', error);
+    if (typingEl && typingEl.parentNode) typingEl.remove();
 
     let msg = 'Unknown error';
-    if (error) {
-      if (typeof error === 'string') {
-        msg = error;
-      } else if (error.message) {
-        msg = error.message;
-      } else if (error.error) {
-        msg = error.error;
-      } else {
-        try { msg = JSON.stringify(error); } catch (e) { msg = 'Error object'; }
-      }
+    if (typeof error === 'string') msg = error;
+    else if (error?.message) msg = error.message;
+    else {
+      try { msg = JSON.stringify(error); } catch (e) { msg = 'Error'; }
     }
 
-    if (msg.includes('not found') || msg.includes('404')) {
-      msg = '🚧 TymerCRE is not deployed yet.';
-    } else if (msg.includes('Network') || msg.includes('Failed to fetch')) {
-      msg = '📶 Network error. Check your internet.';
-    } else if (msg.includes('not configured')) {
-      msg = '⚙️ AI not configured. Check Supabase secret.';
-    }
-
-    addMessage('bot', `⚠️ ${msg}`);
-
+    addMessage('bot', `💥 Exception: ${msg}`);
   } finally {
     isProcessing = false;
     sendBtn.disabled = false;
@@ -108,25 +106,20 @@ async function sendMessage(event) {
 }
 
 // ============================================================
-// ADD MESSAGE TO CHAT
+// ADD MESSAGE
 // ============================================================
 
 function addMessage(role, text) {
   const messages = document.getElementById('chat-messages');
-
   const welcome = messages.querySelector('.welcome-block');
   if (welcome) welcome.remove();
 
   const msg = document.createElement('div');
   msg.className = `message ${role}`;
-
-  const avatarIcon = role === 'bot' ? '🤖' : '👤';
-
   msg.innerHTML = `
-    <div class="message-avatar">${avatarIcon}</div>
+    <div class="message-avatar">${role === 'bot' ? '🤖' : '👤'}</div>
     <div class="message-bubble">${escapeHtml(text)}</div>
   `;
-
   messages.appendChild(msg);
   messages.scrollTop = messages.scrollHeight;
 }
@@ -145,9 +138,7 @@ function showTyping() {
   el.id = 'typing-indicator';
   el.innerHTML = `
     <div class="message-avatar">🤖</div>
-    <div class="typing">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="typing"><span></span><span></span><span></span></div>
   `;
   messages.appendChild(el);
   messages.scrollTop = messages.scrollHeight;
@@ -180,10 +171,6 @@ function askSuggestion(text) {
   document.getElementById('chat-input').value = text;
   sendMessage();
 }
-
-// ============================================================
-// PAGE LOAD
-// ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof lucide !== 'undefined') lucide.createIcons();
