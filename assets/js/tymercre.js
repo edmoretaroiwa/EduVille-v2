@@ -30,21 +30,17 @@ async function sendMessage(event) {
 
   if (!message) return;
 
-  // Clear input
   input.value = '';
   input.style.height = 'auto';
 
-  // Add user message to UI
   addMessage('user', message);
   conversationHistory.push({ role: 'user', text: message });
 
-  // Show typing indicator
   isProcessing = true;
   sendBtn.disabled = true;
   const typingEl = showTyping();
 
   try {
-    // Get user info if logged in
     const { data: { session } } = await chatClient.auth.getSession();
     let userName = 'Student';
     if (session) {
@@ -56,17 +52,15 @@ async function sendMessage(event) {
       if (profile?.full_name) userName = profile.full_name;
     }
 
-    // Call the Edge Function
     const { data, error } = await chatClient.functions.invoke('ask-tymercre', {
       body: {
         message: message,
         userName: userName,
         subject: 'General',
-        history: conversationHistory.slice(-6) // last 6 messages for context
+        history: conversationHistory.slice(-6)
       }
     });
 
-    // Remove typing indicator
     typingEl.remove();
 
     if (error) throw error;
@@ -80,35 +74,38 @@ async function sendMessage(event) {
     conversationHistory.push({ role: 'model', text: response });
 
   } catch (error) {
-  console.error('TymerCRE error:', error);
-  typingEl.remove();
+    console.error('TymerCRE error:', error);
+    typingEl.remove();
 
-  // Safely get error text — error might be complex
-  let msg = 'Unknown error';
-  if (error) {
-    if (typeof error === 'string') {
-      msg = error;
-    } else if (error.message) {
-      msg = error.message;
-    } else if (error.error) {
-      msg = error.error;
-    } else if (error.context) {
-      msg = 'Request failed';
-    } else {
-      try { msg = JSON.stringify(error); } catch (e) { msg = 'Error object'; }
+    let msg = 'Unknown error';
+    if (error) {
+      if (typeof error === 'string') {
+        msg = error;
+      } else if (error.message) {
+        msg = error.message;
+      } else if (error.error) {
+        msg = error.error;
+      } else {
+        try { msg = JSON.stringify(error); } catch (e) { msg = 'Error object'; }
+      }
     }
-  }
 
-  if (msg.includes('not found') || msg.includes('404')) {
-    msg = '🚧 TymerCRE is not deployed yet.';
-  } else if (msg.includes('Network') || msg.includes('Failed to fetch')) {
-    msg = '📶 Network error. Check your internet.';
-  } else if (msg.includes('not configured')) {
-    msg = '⚙️ AI not configured. Check Supabase secret.';
-  }
+    if (msg.includes('not found') || msg.includes('404')) {
+      msg = '🚧 TymerCRE is not deployed yet.';
+    } else if (msg.includes('Network') || msg.includes('Failed to fetch')) {
+      msg = '📶 Network error. Check your internet.';
+    } else if (msg.includes('not configured')) {
+      msg = '⚙️ AI not configured. Check Supabase secret.';
+    }
 
-  addMessage('bot', `⚠️ ${msg}`);
-} finally {
+    addMessage('bot', `⚠️ ${msg}`);
+
+  } finally {
+    isProcessing = false;
+    sendBtn.disabled = false;
+    document.getElementById('chat-input').focus();
+  }
+}
 
 // ============================================================
 // ADD MESSAGE TO CHAT
@@ -117,7 +114,6 @@ async function sendMessage(event) {
 function addMessage(role, text) {
   const messages = document.getElementById('chat-messages');
 
-  // Remove welcome block on first message
   const welcome = messages.querySelector('.welcome-block');
   if (welcome) welcome.remove();
 
