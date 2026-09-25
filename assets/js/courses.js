@@ -4,11 +4,7 @@
    ============================================================ */
 
 // Initialize Supabase client
-const { createClient } = supabase;
-const coursesClient = createClient(
-  EDUVILLE_CONFIG.SUPABASE_URL,
-  EDUVILLE_CONFIG.SUPABASE_ANON_KEY
-);
+const coursesClient = window.db;
 
 let allCourses = [];
 let filterBoard = 'all';
