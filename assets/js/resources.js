@@ -3,11 +3,7 @@
    Past papers library with filter + search
    ============================================================ */
 
-const { createClient } = supabase;
-const papersClient = createClient(
-  EDUVILLE_CONFIG.SUPABASE_URL,
-  EDUVILLE_CONFIG.SUPABASE_ANON_KEY
-);
+const papersClient = window.db;
 
 let allPapers = [];
 let filterBoard = 'all';
