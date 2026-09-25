@@ -9,6 +9,9 @@ const lessonClient = createClient(
   EDUVILLE_CONFIG.SUPABASE_ANON_KEY
 );
 
+// Current lesson object (set on load)
+let currentLesson = null;
+
 // ============================================================
 // HELPERS
 // ============================================================
@@ -36,6 +39,12 @@ function extractYouTubeEmbed(url) {
   return null;
 }
 
+function formatDate(isoString) {
+  if (!isoString) return '';
+  const d = new Date(isoString);
+  return d.toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
 // ============================================================
 // LOAD LESSON
 // ============================================================
@@ -54,7 +63,6 @@ async function loadLesson() {
   }
 
   try {
-    // Load lesson
     const { data: lesson, error: lessonError } = await lessonClient
       .from('lessons')
       .select('*')
@@ -66,10 +74,12 @@ async function loadLesson() {
       return;
     }
 
-    // Update page title
+    // Store globally for markComplete
+    currentLesson = lesson;
+
     document.title = lesson.title + ' — EduVille';
 
-    // Load course info for breadcrumb
+    // Load course for breadcrumb
     if (lesson.course_id) {
       const { data: course } = await lessonClient
         .from('courses')
@@ -83,28 +93,35 @@ async function loadLesson() {
       }
     }
 
-    // Update breadcrumb
     if (breadcrumbLesson) breadcrumbLesson.textContent = lesson.title;
 
-    // Update header
     titleEl.textContent = lesson.title;
 
     const duration = lesson.duration_minutes ? `${lesson.duration_minutes} min` : 'Lesson';
     metaEl.innerHTML = `📖 ${duration}${lesson.updated_at ? ' · Updated ' + formatDate(lesson.updated_at) : ''}`;
 
-    // Convert markdown to HTML
     const markdownHtml = lesson.content_markdown
       ? marked.parse(lesson.content_markdown)
       : '<p><em>No content yet for this lesson.</em></p>';
 
-    // Video embed
     const videoEmbed = extractYouTubeEmbed(lesson.video_url);
     const videoBlock = videoEmbed
       ? `<div class="video-wrapper"><iframe src="${videoEmbed}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`
       : `<div class="video-wrapper no-video">📹 No video for this lesson</div>`;
 
-    // Render lesson
+    // Show current progress status if logged in
+    let progressStatus = '';
+    try {
+      if (typeof getLessonProgress === 'function') {
+        const p = await getLessonProgress(lesson.id);
+        if (p?.status === 'completed') {
+          progressStatus = '<div class="alert alert-success" style="margin-bottom:0.8rem;">✅ You completed this lesson</div>';
+        }
+      }
+    } catch (e) {}
+
     contentEl.innerHTML = `
+      ${progressStatus}
       <div class="lesson-content-grid">
         <article class="markdown-body">
           ${markdownHtml}
@@ -113,7 +130,7 @@ async function loadLesson() {
           ${videoBlock}
           <div class="lesson-actions">
             <h4>📌 Quick actions</h4>
-            <button class="btn btn-gold btn-sm" onclick="markComplete()">
+            <button class="btn btn-gold btn-sm" onclick="markComplete(event)">
               ✓ Mark as Complete
             </button>
             <button class="btn btn-secondary btn-sm" onclick="saveLesson()">
@@ -152,20 +169,10 @@ function showNotFound(message) {
 }
 
 // ============================================================
-// UTILITY
+// MARK COMPLETE
 // ============================================================
 
-function formatDate(isoString) {
-  if (!isoString) return '';
-  const d = new Date(isoString);
-  return d.toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' });
-}
-
-// ============================================================
-// PLACEHOLDER ACTIONS (to implement later)
-// ============================================================
-
-async function markComplete() {
+async function markComplete(event) {
   if (!currentLesson) {
     alert('Lesson data not loaded yet.');
     return;
@@ -174,7 +181,16 @@ async function markComplete() {
   const btn = event?.target;
   if (btn) {
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;"></span> Saving...';
+    btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px;"></span> Saving...';
+  }
+
+  if (typeof markLessonComplete !== 'function') {
+    alert('Progress system is still loading. Please refresh and try again.');
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '✓ Mark as Complete';
+    }
+    return;
   }
 
   const success = await markLessonComplete(currentLesson.id, 'completed');
@@ -193,6 +209,11 @@ async function markComplete() {
     }
   }
 }
+
+// ============================================================
+// PLACEHOLDER
+// ============================================================
+
 function saveLesson() {
   alert('⭐ Bookmarking coming soon!');
 }
