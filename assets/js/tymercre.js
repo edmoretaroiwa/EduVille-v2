@@ -3,11 +3,8 @@
    Bulletproof version with visible debugging
    ============================================================ */
 
-const { createClient } = supabase;
-const chatClient = createClient(
-  EDUVILLE_CONFIG.SUPABASE_URL,
-  EDUVILLE_CONFIG.SUPABASE_ANON_KEY
-);
+// Reuse the Supabase client already created by app.js
+const chatClient = window.db;
 
 let isProcessing = false;
 let conversationHistory = [];
