@@ -80,23 +80,35 @@ async function sendMessage(event) {
     conversationHistory.push({ role: 'model', text: response });
 
   } catch (error) {
-    console.error('TymerCRE error:', error);
-    typingEl.remove();
+  console.error('TymerCRE error:', error);
+  typingEl.remove();
 
-    let message = error.message;
-    if (message.includes('Function not found') || message.includes('404')) {
-      message = '🚧 TymerCRE is being set up. Please check back soon!';
-    } else if (message.includes('Failed to fetch') || message.includes('Network')) {
-      message = '📶 Network error. Please check your internet connection.';
+  // Safely get error text — error might be complex
+  let msg = 'Unknown error';
+  if (error) {
+    if (typeof error === 'string') {
+      msg = error;
+    } else if (error.message) {
+      msg = error.message;
+    } else if (error.error) {
+      msg = error.error;
+    } else if (error.context) {
+      msg = 'Request failed';
+    } else {
+      try { msg = JSON.stringify(error); } catch (e) { msg = 'Error object'; }
     }
-
-    addMessage('bot', `⚠️ ${message}`);
-  } finally {
-    isProcessing = false;
-    sendBtn.disabled = false;
-    document.getElementById('chat-input').focus();
   }
-}
+
+  if (msg.includes('not found') || msg.includes('404')) {
+    msg = '🚧 TymerCRE is not deployed yet.';
+  } else if (msg.includes('Network') || msg.includes('Failed to fetch')) {
+    msg = '📶 Network error. Check your internet.';
+  } else if (msg.includes('not configured')) {
+    msg = '⚙️ AI not configured. Check Supabase secret.';
+  }
+
+  addMessage('bot', `⚠️ ${msg}`);
+} finally {
 
 // ============================================================
 // ADD MESSAGE TO CHAT
