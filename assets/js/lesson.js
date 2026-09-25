@@ -2,12 +2,7 @@
    EDUVILLE 2.0 — LESSON.JS
    Single lesson view with markdown + video
    ============================================================ */
-
-const { createClient } = supabase;
-const lessonClient = createClient(
-  EDUVILLE_CONFIG.SUPABASE_URL,
-  EDUVILLE_CONFIG.SUPABASE_ANON_KEY
-);
+const coursesClient = window.db;
 
 // Current lesson object (set on load)
 let currentLesson = null;
