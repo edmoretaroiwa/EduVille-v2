@@ -3,11 +3,7 @@
    Single course view with lessons
    ============================================================ */
 
-const { createClient } = supabase;
-const courseClient = createClient(
-  EDUVILLE_CONFIG.SUPABASE_URL,
-  EDUVILLE_CONFIG.SUPABASE_ANON_KEY
-);
+const coursesClient = window.db;
 
 // ============================================================
 // HELPERS
