@@ -35,10 +35,11 @@
 .navbar .logo:hover { text-decoration: none; }
 
 .logo-img {
-  height: 40px;
+  height: 36px;
   width: auto;
-  border-radius: 0;
+  max-width: 140px;
   object-fit: contain;
+  animation: none; /* Navbar logo should NOT float */
 }
 
 .logo-text .gold { color: var(--gold); }
