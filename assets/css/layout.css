@@ -35,9 +35,9 @@
 .navbar .logo:hover { text-decoration: none; }
 
 .logo-img {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--r-sm);
+  height: 40px;
+  width: auto;
+  border-radius: 0;
   object-fit: contain;
 }
 
