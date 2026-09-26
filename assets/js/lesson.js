@@ -1,43 +1,25 @@
 /* ============================================================
    EDUVILLE 2.0 — LESSON.JS
-   Single lesson view with markdown + video
+   Single lesson view with markdown + video + progress
    ============================================================ */
+
 const lessonClient = window.db;
 
-// Current lesson object (set on load)
 let currentLesson = null;
 
-// ============================================================
-// HELPERS
-// ============================================================
-
 function getLessonId() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get('id');
-}
-
-function escapeHtml(text) {
-  if (!text) return '';
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+  return new URLSearchParams(window.location.search).get('id');
 }
 
 function extractYouTubeEmbed(url) {
   if (!url) return null;
-  let match = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
-  if (match) return 'https://www.youtube.com/embed/' + match[1];
-  match = url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
-  if (match) return 'https://www.youtube.com/embed/' + match[1];
-  match = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
-  if (match) return 'https://www.youtube.com/embed/' + match[1];
+  let m = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+  if (m) return 'https://www.youtube.com/embed/' + m[1];
+  m = url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
+  if (m) return 'https://www.youtube.com/embed/' + m[1];
+  m = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
+  if (m) return 'https://www.youtube.com/embed/' + m[1];
   return null;
-}
-
-function formatDate(isoString) {
-  if (!isoString) return '';
-  const d = new Date(isoString);
-  return d.toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 // ============================================================
@@ -58,23 +40,20 @@ async function loadLesson() {
   }
 
   try {
-    const { data: lesson, error: lessonError } = await lessonClient
+    const { data: lesson, error } = await lessonClient
       .from('lessons')
       .select('*')
       .eq('id', lessonId)
       .single();
 
-    if (lessonError || !lesson) {
+    if (error || !lesson) {
       showNotFound('Lesson not found.');
       return;
     }
 
-    // Store globally for markComplete
     currentLesson = lesson;
-
     document.title = lesson.title + ' — EduVille';
 
-    // Load course for breadcrumb
     if (lesson.course_id) {
       const { data: course } = await lessonClient
         .from('courses')
@@ -89,14 +68,13 @@ async function loadLesson() {
     }
 
     if (breadcrumbLesson) breadcrumbLesson.textContent = lesson.title;
-
     titleEl.textContent = lesson.title;
 
     const duration = lesson.duration_minutes ? `${lesson.duration_minutes} min` : 'Lesson';
-    metaEl.innerHTML = `📖 ${duration}${lesson.updated_at ? ' · Updated ' + formatDate(lesson.updated_at) : ''}`;
+    metaEl.innerHTML = `📖 ${duration}`;
 
     const markdownHtml = lesson.content_markdown
-      ? marked.parse(lesson.content_markdown)
+      ? (typeof marked !== 'undefined' ? marked.parse(lesson.content_markdown) : '<pre>' + escapeHtml(lesson.content_markdown) + '</pre>')
       : '<p><em>No content yet for this lesson.</em></p>';
 
     const videoEmbed = extractYouTubeEmbed(lesson.video_url);
@@ -104,19 +82,7 @@ async function loadLesson() {
       ? `<div class="video-wrapper"><iframe src="${videoEmbed}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`
       : `<div class="video-wrapper no-video">📹 No video for this lesson</div>`;
 
-    // Show current progress status if logged in
-    let progressStatus = '';
-    try {
-      if (typeof getLessonProgress === 'function') {
-        const p = await getLessonProgress(lesson.id);
-        if (p?.status === 'completed') {
-          progressStatus = '<div class="alert alert-success" style="margin-bottom:0.8rem;">✅ You completed this lesson</div>';
-        }
-      }
-    } catch (e) {}
-
     contentEl.innerHTML = `
-      ${progressStatus}
       <div class="lesson-content-grid">
         <article class="markdown-body">
           ${markdownHtml}
@@ -128,9 +94,6 @@ async function loadLesson() {
             <button class="btn btn-gold btn-sm" onclick="markComplete(event)">
               ✓ Mark as Complete
             </button>
-            <button class="btn btn-secondary btn-sm" onclick="saveLesson()">
-              ⭐ Save for Later
-            </button>
             <a href="courses.html" class="btn btn-ghost btn-sm">
               ← Back to Courses
             </a>
@@ -138,22 +101,17 @@ async function loadLesson() {
         </aside>
       </div>
     `;
-
   } catch (error) {
     console.error('Lesson error:', error);
     showNotFound(error.message);
   }
 }
 
-// ============================================================
-// ERROR STATE
-// ============================================================
-
 function showNotFound(message) {
-  const contentEl = document.getElementById('lesson-content');
+  const el = document.getElementById('lesson-content');
   document.getElementById('lesson-title').textContent = '❌ Lesson not found';
   document.getElementById('lesson-meta').textContent = '';
-  contentEl.innerHTML = `
+  el.innerHTML = `
     <div class="empty-state">
       <div class="empty-state-icon">❌</div>
       <h3>Lesson not found</h3>
@@ -168,49 +126,44 @@ function showNotFound(message) {
 // ============================================================
 
 async function markComplete(event) {
-  if (!currentLesson) {
-    alert('Lesson data not loaded yet.');
-    return;
-  }
-
+  if (!currentLesson) return;
   const btn = event?.target;
   if (btn) {
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px;"></span> Saving...';
+    btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;"></span> Saving...';
   }
 
-  if (typeof markLessonComplete !== 'function') {
-    alert('Progress system is still loading. Please refresh and try again.');
-    if (btn) {
-      btn.disabled = false;
-      btn.innerHTML = '✓ Mark as Complete';
+  try {
+    const { data: { session } } = await lessonClient.auth.getSession();
+    if (!session) {
+      alert('Please log in to save progress.');
+      if (btn) { btn.disabled = false; btn.innerHTML = '✓ Mark as Complete'; }
+      return;
     }
-    return;
-  }
 
-  const success = await markLessonComplete(currentLesson.id, 'completed');
+    const { error } = await lessonClient
+      .from('progress')
+      .upsert({
+        user_id: session.user.id,
+        lesson_id: currentLesson.id,
+        status: 'completed',
+        completed_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'user_id,lesson_id' });
 
-  if (success) {
+    if (error) throw error;
+
     if (btn) {
       btn.innerHTML = '✅ Completed!';
       btn.classList.remove('btn-gold');
       btn.classList.add('btn-secondary');
     }
-    alert('🎉 Lesson marked as complete!\n\nKeep going — Commit to Your Future ✨');
-  } else {
-    if (btn) {
-      btn.disabled = false;
-      btn.innerHTML = '✓ Mark as Complete';
-    }
+    alert('🎉 Lesson marked as complete!\n\nCommit to Your Future ✨');
+  } catch (error) {
+    console.error('Progress error:', error);
+    alert('Could not save: ' + error.message);
+    if (btn) { btn.disabled = false; btn.innerHTML = '✓ Mark as Complete'; }
   }
-}
-
-// ============================================================
-// PLACEHOLDER
-// ============================================================
-
-function saveLesson() {
-  alert('⭐ Bookmarking coming soon!');
 }
 
 // ============================================================
