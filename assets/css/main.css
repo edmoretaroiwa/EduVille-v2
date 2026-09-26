@@ -1,4 +1,133 @@
 /* ============================================================
+   ANIMATIONS — Lightweight, mobile-first
+   ============================================================ */
+
+/* Fade up on page load */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gentle float for logos and hero elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Subtle pulse for "soon" badges */
+@keyframes softPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Smooth spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   APPLY ANIMATIONS
+   ============================================================ */
+
+/* Fade in page sections on load */
+.hero,
+.section-heading-row,
+.card,
+.repo-card,
+.course-card,
+.video-card,
+.paper-card,
+.stat-card,
+.dash-stat,
+.lesson-row {
+  animation: fadeUp 0.5s ease-out both;
+}
+
+/* Stagger delay for cards in a grid */
+.grid-courses > *:nth-child(1),
+.grid-stats > *:nth-child(1),
+.grid-featured > *:nth-child(1) { animation-delay: 0.05s; }
+
+.grid-courses > *:nth-child(2),
+.grid-stats > *:nth-child(2),
+.grid-featured > *:nth-child(2) { animation-delay: 0.10s; }
+
+.grid-courses > *:nth-child(3),
+.grid-stats > *:nth-child(3),
+.grid-featured > *:nth-child(3) { animation-delay: 0.15s; }
+
+.grid-courses > *:nth-child(4),
+.grid-stats > *:nth-child(4),
+.grid-featured > *:nth-child(4) { animation-delay: 0.20s; }
+
+.grid-courses > *:nth-child(5) { animation-delay: 0.25s; }
+.grid-courses > *:nth-child(6) { animation-delay: 0.30s; }
+
+/* Hover lift effect — GitHub style */
+.card:hover,
+.repo-card:hover,
+.course-card:hover,
+.video-card:hover,
+.paper-card:hover {
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(35, 134, 54, 0.15);
+}
+
+.stat-card:hover,
+.dash-stat:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+}
+
+/* Floating logo effect */
+.logo-img,
+.hero-logo {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Wait — logo shouldn't float in the navbar */
+.navbar .logo-img {
+  animation: none;
+}
+
+/* Use floating only on hero images */
+.hero-logo-img {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* "Soon" badges pulse gently */
+.coming-soon-badge {
+  animation: softPulse 2s ease-in-out infinite;
+}
+
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Respect reduced motion — accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+   }/* ============================================================
    EDUVILLE 2.0 — MAIN.CSS
    Core design system: tokens, typography, utilities
    ============================================================ */
