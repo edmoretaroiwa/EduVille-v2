@@ -1,14 +1,13 @@
 /* ============================================================
    EDUVILLE 2.0 — COURSES.JS
-   Loads and displays courses from Supabase
+   Browse all courses with filters
    ============================================================ */
 
-// Initialize Supabase client
 const coursesClient = window.db;
 
 let allCourses = [];
 let filterBoard = 'all';
-let filterLevel = 'all';
+let selectedLevel = 'all';
 
 // ============================================================
 // LOAD COURSES
@@ -29,7 +28,6 @@ async function loadCourses() {
 
     allCourses = data || [];
     renderCourses();
-
   } catch (error) {
     console.error('Courses error:', error);
     grid.innerHTML = `
@@ -50,35 +48,29 @@ function renderCourses() {
   const grid = document.getElementById('courses-grid');
   const count = document.getElementById('courses-count');
   const heading = document.getElementById('courses-heading');
-
   if (!grid) return;
 
-  // Filter
   let filtered = allCourses;
+
   if (filterBoard !== 'all') {
     filtered = filtered.filter(c => c.exam_board === filterBoard);
   }
-  if (filterLevel !== 'all') {
-    filtered = filtered.filter(c => c.level === filterLevel);
+  if (selectedLevel !== 'all') {
+    filtered = filtered.filter(c => c.level === selectedLevel);
   }
 
-  // Update heading
   if (heading) {
-    if (filterBoard === 'all' && filterLevel === 'all') {
+    if (filterBoard === 'all' && selectedLevel === 'all') {
       heading.textContent = 'All Courses';
     } else {
-      heading.textContent = [filterBoard, filterLevel]
+      heading.textContent = [filterBoard, selectedLevel]
         .filter(f => f !== 'all')
         .join(' · ');
     }
   }
 
-  // Update count
-  if (count) {
-    count.textContent = filtered.length + (filtered.length === 1 ? ' course' : ' courses');
-  }
+  if (count) count.textContent = filtered.length + (filtered.length === 1 ? ' course' : ' courses');
 
-  // Empty state
   if (filtered.length === 0) {
     grid.innerHTML = `
       <div class="empty-state" style="grid-column: 1 / -1;">
@@ -90,18 +82,16 @@ function renderCourses() {
     return;
   }
 
-  // Render each course
   grid.innerHTML = '';
   filtered.forEach((course) => {
-    const card = document.createElement('a');
-    card.className = 'course-card';
-    card.href = `course.html?id=${course.id}`;
-
-    // Board tag class
     const boardClass = course.exam_board === 'ZIMSEC' ? 'tag-zimsec'
                      : course.exam_board === 'Cambridge' ? 'tag-cambridge'
                      : course.exam_board === 'BEC' ? 'tag-bec'
                      : 'tag';
+
+    const card = document.createElement('a');
+    card.className = 'course-card';
+    card.href = `course.html?id=${course.id}`;
 
     card.innerHTML = `
       <div class="course-card-header">
@@ -137,22 +127,11 @@ function filterCourses(board, btn) {
 }
 
 function filterLevel(level, btn) {
-  filterLevel = level;
+  selectedLevel = level;
   const bar = btn.parentElement;
   bar.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
   renderCourses();
-}
-
-// ============================================================
-// HELPERS
-// ============================================================
-
-function escapeHtml(text) {
-  if (!text) return '';
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
 }
 
 // ============================================================
