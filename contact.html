@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — EduVille</title>
+  <meta name="description" content="Contact EduVille — reach out to the team behind Africa's free education platform.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .contact-hero {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-lg);
+      border-bottom: 4px solid var(--gold);
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .contact-hero h1 {
+      color: #fff;
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      margin-bottom: 0.6rem;
+    }
+    .contact-hero p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+    .contact-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 1rem;
+      border: 2px solid var(--gold);
+    }
+
+    .contact-card h3 {
+      color: var(--text-bright);
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+    .contact-card .contact-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .contact-card a, .contact-card .contact-text {
+      display: block;
+      color: var(--edu-blue-light);
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .contact-card a:hover {
+      color: var(--gold);
+      text-decoration: underline;
+    }
+
+    /* Office/team section */
+    .team-block {
+      max-width: 900px;
+      margin: 2.5rem auto 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 2rem;
+    }
+    .team-block h2 {
+      color: var(--gold);
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+    .team-member {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-sm);
+      padding: 1.2rem;
+    }
+    .team-member h4 {
+      color: var(--text-bright);
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+    .team-member p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Location block */
+    .location-block {
+      max-width: 900px;
+      margin: 1.5rem auto 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 2rem;
+      text-align: center;
+    }
+    .location-block h2 {
+      color: var(--gold);
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+    }
+    .location-block p {
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+    .location-block .flag {
+      font-size: 1.5rem;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    /* Response promise */
+    .promise-block {
+      max-width: 900px;
+      margin: 1.5rem auto 0;
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-md);
+      padding: 2rem;
+      text-align: center;
+      color: #fff;
+    }
+    .promise-block h2 {
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+    }
+    .promise-block p {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+      .team-block, .location-block, .promise-block {
+        padding: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <label class="search-wrap">
+      <span class="sr-only">Search</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Search...">
+    </label>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="legal-page" style="max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem;">
+
+    <!-- HERO -->
+    <header class="contact-hero">
+      <h1>📬 Contact EduVille</h1>
+      <p>We would love to hear from you — students, teachers, parents, or partners.</p>
+    </header>
+
+    <!-- CONTACT CARDS -->
+    <div class="contact-grid">
+
+      <!-- CARD 1: Email -->
+      <div class="contact-card">
+        <div class="contact-icon">📧</div>
+        <h3>Email Us</h3>
+        <p class="contact-desc">For general questions, partnerships, or support.</p>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+      </div>
+
+      <!-- CARD 2: Phone -->
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>Call or WhatsApp</h3>
+        <p class="contact-desc">Available Monday–Friday, 8am–6pm CAT.</p>
+        <a href="tel:+263788923710">+263 78 892 3710</a>
+        <a href="tel:+263787279982">+263 78 727 9982</a>
+      </div>
+
+      <!-- CARD 3: Website -->
+      <div class="contact-card">
+        <div class="contact-icon">🌐</div>
+        <h3>Visit Our Website</h3>
+        <p class="contact-desc">Free lessons, videos, notes, and past papers.</p>
+        <a href="https://eduvillelearning.africa">eduvillelearning.africa</a>
+      </div>
+
+    </div>
+
+    <!-- TEAM -->
+    <div class="team-block">
+      <h2>👥 The Team Behind EduVille</h2>
+      <div class="team-grid">
+
+        <div class="team-member">
+          <h4>Edmore Taroiwa</h4>
+          <p>Founder & Lead Developer · Seke 4 High School (Form 6, A-Level)</p>
+          <a href="mailto:ttaroiwa@gmail.com" style="color: var(--edu-blue-light); font-size: 0.85rem;">ttaroiwa@gmail.com</a>
+        </div>
+
+        <div class="team-member">
+          <h4>Benjamin Nyamukusa</h4>
+          <p>Co-Founder · Seke 4 High School</p>
+          <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">Partner in building the EduVille vision</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- LOCATION -->
+    <div class="location-block">
+      <h2>📍 Where We Are</h2>
+      <p>EduVille is built and operated from <strong>Chitungwiza, Zimbabwe</strong></p>
+      <p>Founded by students at <strong>Seke 4 High School</strong></p>
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 1rem;">
+        🇿🇼 Proudly Zimbabwean — serving students across Africa
+      </p>
+      <span class="flag">🇿🇼</span>
+    </div>
+
+    <!-- RESPONSE PROMISE -->
+    <div class="promise-block">
+      <h2>💬 Our Promise to You</h2>
+      <p>We reply to all emails within 24 hours on weekdays. Whether you're a student with a question, a teacher who wants to contribute, or a partner looking to work with us — we'll respond personally.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Learn. Build. Share. Together.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="resources.html">Past Papers</a>
+        <a href="about.html">About Us</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+        <a href="tel:+263788923710">+263 78 892 3710</a>
+        <a href="tel:+263787279982">+263 78 727 9982</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
