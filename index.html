@@ -3,26 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduVille — Commit to Your Future</title>
-  <meta name="description" content="Free lessons, notes, and past papers for ZIMSEC, BEC and Cambridge students across Africa.">
+  <title>EduVille — Free Education for Every African Student</title>
+  <meta name="description" content="EduVille provides free lessons, notes, past papers, and an AI tutor for ZIMSEC, Cambridge, and BEC students across Africa.">
+  <meta name="keywords" content="EduVille, ZIMSEC, Cambridge, BEC, O-Level, A-Level, free education, Zimbabwe, past papers">
   <meta name="theme-color" content="#0d1117">
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
-  <!-- Fonts — load first for faster rendering -->
+  <!-- Open Graph -->
+  <meta property="og:title" content="EduVille — Free Education for Every African Student">
+  <meta property="og:description" content="Free lessons, notes, past papers, and an AI tutor for ZIMSEC, Cambridge, and BEC students.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://eduvillelearning.africa/">
+  <meta property="og:image" content="https://eduvillelearning.africa/assets/images/hero-bg.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- CSS — order matters -->
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
 
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    /* Hero with background image */
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(15, 30, 74, 0.92), rgba(30, 58, 138, 0.75)),
+        url('assets/images/hero-bg.png') center/cover no-repeat;
+      min-height: 380px;
+    }
+    .hero-tagline {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid var(--gold);
+      border-radius: var(--r-full);
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -31,7 +57,7 @@
   <!-- NAVBAR -->
   <nav class="navbar" aria-label="Main">
     <a href="index.html" class="logo">
-      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
       <span class="logo-text">Edu<span class="gold">Ville</span></span>
     </a>
 
@@ -46,15 +72,11 @@
       <li><a href="courses.html">Courses</a></li>
       <li><a href="videos.html">Videos</a></li>
       <li><a href="resources.html">Resources</a></li>
+      <li><a href="about.html">About</a></li>
       <li>
         <a href="login.html" class="btn-login">
           <i data-lucide="lock" class="icon icon-sm"></i>
           <span>Login</span>
-        </a>
-      </li>
-      <li>
-        <a href="profile.html" class="avatar-link" aria-label="Profile">
-          <i data-lucide="user" class="icon icon-sm"></i>
         </a>
       </li>
     </ul>
@@ -70,21 +92,17 @@
 
       <div class="sidebar-section">
         <h4 class="sidebar-heading">Quick Links</h4>
-        <a href="index.html" class="side-link active">
+        <a href="dashboard.html" class="side-link">
           <i data-lucide="layout-dashboard" class="icon"></i>
           <span>Dashboard</span>
         </a>
         <a href="courses.html" class="side-link">
           <i data-lucide="book-open" class="icon"></i>
-          <span>My Courses</span>
+          <span>Courses</span>
         </a>
         <a href="videos.html" class="side-link">
           <i data-lucide="play-circle" class="icon"></i>
           <span>Watch Videos</span>
-        </a>
-        <a href="notes.html" class="side-link">
-          <i data-lucide="file-text" class="icon"></i>
-          <span>Notes</span>
         </a>
         <a href="resources.html" class="side-link">
           <i data-lucide="folder-open" class="icon"></i>
@@ -92,7 +110,7 @@
         </a>
         <a href="tymercre.html" class="side-link">
           <i data-lucide="bot" class="icon"></i>
-          <span>TymerCRE Tutor</span>
+          <span>TymerCRE AI Tutor</span>
         </a>
       </div>
 
@@ -146,16 +164,17 @@
 
       <!-- HERO -->
       <section class="hero">
-        <h1>Welcome to <span class="gold">EduVille</span> 👋</h1>
-        <p><strong>Free education for every African student.</strong> Lessons, notes, and past papers for ZIMSEC, BEC, and Cambridge.</p>
+        <span class="hero-tagline">Free Forever · For Every African Student</span>
+        <h1>Welcome to <span class="gold">EduVille</span></h1>
+        <p>Free video lessons, study notes, past papers, and an AI tutor for ZIMSEC, Cambridge, and BEC students across Africa.</p>
         <div class="hero-actions">
           <a href="courses.html" class="btn btn-gold btn-lg">
             <i data-lucide="play" class="icon"></i>
             <span>Start Learning</span>
           </a>
-          <a href="resources.html" class="btn btn-secondary btn-lg">
-            <i data-lucide="file-text" class="icon"></i>
-            <span>Browse Papers</span>
+          <a href="about.html" class="btn btn-secondary btn-lg">
+            <i data-lucide="info" class="icon"></i>
+            <span>Our Story</span>
           </a>
         </div>
       </section>
@@ -165,7 +184,7 @@
         <div class="section-heading-row">
           <h3 class="section-heading">
             <i data-lucide="bar-chart-3" class="icon"></i>
-            <span>Platform Stats</span>
+            <span>Platform Overview</span>
           </h3>
         </div>
         <div class="grid-stats">
@@ -193,7 +212,7 @@
         <div class="section-heading-row">
           <h3 class="section-heading">
             <i data-lucide="flame" class="icon"></i>
-            <span>Featured Courses</span>
+            <span>Popular Subjects</span>
           </h3>
           <a href="courses.html" class="btn btn-ghost btn-sm">
             <span>View all</span>
@@ -273,22 +292,22 @@
         <div class="section-heading-row">
           <h3 class="section-heading">
             <i data-lucide="megaphone" class="icon"></i>
-            <span>Recent Activity</span>
+            <span>What's New</span>
           </h3>
         </div>
         <div class="card">
           <div class="activity-feed">
             <div class="activity-item">
               <span class="dot gold-dot"></span>
-              <p><strong>EduVille launched!</strong> Welcome to the new platform.</p>
+              <p><strong>EduVille 2.0 launched</strong> — new platform on eduvillelearning.africa</p>
             </div>
             <div class="activity-item">
               <span class="dot blue-dot"></span>
-              <p><strong>TymerCRE</strong> — AI Tutor — coming soon.</p>
+              <p><strong>TymerCRE AI Tutor</strong> is now live — ask any question, get help instantly</p>
             </div>
             <div class="activity-item">
               <span class="dot green-dot"></span>
-              <p><strong>Past papers</strong> library now open.</p>
+              <p><strong>Past papers library</strong> now open — free downloads for all students</p>
             </div>
           </div>
         </div>
@@ -303,29 +322,34 @@
       <div>
         <h3>Edu<span class="gold">Ville</span></h3>
         <p class="motto"><em>"Commit to Your Future"</em></p>
-        <p>Learn. Build. Share. Together.</p>
+        <p>Free education for every African student.</p>
       </div>
       <div>
         <h4>Explore</h4>
         <a href="courses.html">Courses</a>
         <a href="videos.html">Videos</a>
-        <a href="notes.html">Notes</a>
         <a href="resources.html">Past Papers</a>
+        <a href="about.html">About Us</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact Us</a>
       </div>
       <div>
         <h4>Contact</h4>
         <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
         <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
-        <a href="tel:+263787279982">+263 78 727 9982</a>
         <a href="tel:+263788923710">+263 78 892 3710</a>
+        <a href="tel:+263787279982">+263 78 727 9982</a>
       </div>
     </div>
     <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
   </footer>
 
-  <!-- SCRIPTS -->
   <script src="assets/js/config.js"></script>
-<script src="assets/js/app.js"></script>
-<script src="assets/js/auth.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
 </body>
-</html>
+  </html>
