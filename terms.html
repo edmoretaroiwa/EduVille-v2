@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — EduVille</title>
+  <meta name="description" content="EduVille Terms of Service — the rules for using our free education platform.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .legal-page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    .legal-header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-lg);
+      border-bottom: 4px solid var(--gold);
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .legal-header h1 {
+      color: #fff;
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      margin-bottom: 0.5rem;
+    }
+    .legal-header p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    .legal-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 2rem;
+      line-height: 1.7;
+    }
+    .legal-content h2 {
+      color: var(--gold);
+      font-size: 1.15rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.7rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--border-default);
+    }
+    .legal-content h2:first-child { margin-top: 0; }
+    .legal-content p {
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+    .legal-content ul, .legal-content ol {
+      margin: 0.5rem 0 1rem 1.5rem;
+    }
+    .legal-content li {
+      margin-bottom: 0.4rem;
+      color: var(--text-primary);
+    }
+    .legal-content a {
+      color: var(--edu-blue-light);
+      text-decoration: underline;
+    }
+    .legal-content strong { color: var(--text-bright); }
+    .legal-meta {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-style: italic;
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-default);
+    }
+    @media (max-width: 600px) {
+      .legal-content { padding: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <label class="search-wrap">
+      <span class="sr-only">Search</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Search...">
+    </label>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="legal-page">
+
+    <header class="legal-header">
+      <h1>📜 Terms of Service</h1>
+      <p>The rules for using EduVille</p>
+    </header>
+
+    <div class="legal-content">
+      <p><strong>Last updated:</strong> 27 September 2026</p>
+
+      <h2>1. Welcome to EduVille</h2>
+      <p>EduVille is a free educational platform built to help African students learn, share knowledge, and prepare for their exams. By using EduVille, you agree to these Terms of Service. Please read them carefully.</p>
+
+      <h2>2. Who Can Use EduVille</h2>
+      <p>EduVille is free and open to:</p>
+      <ul>
+        <li><strong>Students</strong> — anyone studying ZIMSEC, Cambridge, BEC, or similar curricula</li>
+        <li><strong>Teachers</strong> — educators who want to share lessons, notes, and resources</li>
+        <li><strong>Self-learners</strong> — anyone interested in learning independently</li>
+      </ul>
+      <p>Users under 13 years old should have a parent or guardian's permission before creating an account.</p>
+
+      <h2>3. Your Account</h2>
+      <p>When you create an EduVille account, you agree to:</p>
+      <ul>
+        <li>Provide accurate information (real name and email)</li>
+        <li>Keep your password secure and private</li>
+        <li>Not share your account with others</li>
+        <li>Notify us immediately if your account is compromised</li>
+      </ul>
+      <p>You are responsible for all activity that happens under your account.</p>
+
+      <h2>4. Acceptable Use</h2>
+      <p>You agree NOT to:</p>
+      <ul>
+        <li>Upload any content that is illegal, harmful, or offensive</li>
+        <li>Post copyrighted material you do not own or have permission to share</li>
+        <li>Harass, bully, or threaten other users</li>
+        <li>Attempt to hack, spam, or disrupt EduVille</li>
+        <li>Use EduVille for any commercial purpose without permission</li>
+        <li>Impersonate another person or organization</li>
+        <li>Share false or misleading educational content</li>
+      </ul>
+      <p><strong>Violation of these rules may result in account suspension or permanent removal.</strong></p>
+
+      <h2>5. Content You Upload</h2>
+      <p>When you upload videos, notes, or past papers to EduVille:</p>
+      <ul>
+        <li><strong>You keep ownership</strong> of your content</li>
+        <li>You give EduVille permission to display it on the platform</li>
+        <li>You confirm that you have the right to share it</li>
+        <li>You understand that other users can view and learn from it</li>
+        <li>You agree not to upload material that infringes on someone else's copyright</li>
+      </ul>
+      <p>EduVille reserves the right to remove any content that violates these terms.</p>
+
+      <h2>6. Educational Content Disclaimer</h2>
+      <p>EduVille provides educational content <strong>for learning purposes only</strong>. While we work hard to ensure accuracy:</p>
+      <ul>
+        <li>Lessons, notes, and videos are created by teachers and users</li>
+        <li>Our AI tutor (TymerCRE) may occasionally make mistakes</li>
+        <li>Content should be used alongside official textbooks and teacher guidance</li>
+        <li>Always verify important information with your teachers or official sources</li>
+      </ul>
+      <p>EduVille is <strong>not responsible</strong> for outcomes related to your exams or academic performance.</p>
+
+      <h2>7. Copyright & Intellectual Property</h2>
+      <p>EduVille respects the copyright of exam boards, publishers, and creators.</p>
+      <p>If you own content on EduVille and want it removed, please contact us at <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a> with:</p>
+      <ul>
+        <li>Your name and contact information</li>
+        <li>Description of the content</li>
+        <li>Proof of ownership</li>
+        <li>URL of the content on EduVille</li>
+      </ul>
+      <p>We will respond within 7 days and remove content promptly if ownership is confirmed.</p>
+
+      <h2>8. Free Service</h2>
+      <p>EduVille is <strong>100% free</strong>. We do not:</p>
+      <ul>
+        <li>Charge for any content or features</li>
+        <li>Require payment details to access the platform</li>
+        <li>Show ads to students</li>
+        <li>Sell your data</li>
+      </ul>
+      <p>We may offer optional premium features in the future, but the core platform will always be free.</p>
+
+      <h2>9. Availability</h2>
+      <p>EduVille is provided "as is" and may occasionally be unavailable due to:</p>
+      <ul>
+        <li>Maintenance or updates</li>
+        <li>Internet connection issues</li>
+        <li>Third-party service outages (Supabase, GitHub, YouTube)</li>
+      </ul>
+      <p>We are not liable for any inconvenience caused by downtime.</p>
+
+      <h2>10. Privacy</h2>
+      <p>Your use of EduVille is also governed by our <a href="privacy.html">Privacy Policy</a>. Please review it to understand how we handle your data.</p>
+
+      <h2>11. Changes to These Terms</h2>
+      <p>We may update these Terms of Service from time to time. Changes will be posted on this page with an updated "Last updated" date. Continued use of EduVille means you accept the new terms.</p>
+
+      <h2>12. Termination</h2>
+      <p>You may delete your EduVille account at any time. We may also suspend or delete accounts that violate these Terms of Service.</p>
+
+      <h2>13. Governing Law</h2>
+      <p>These Terms are governed by the laws of Zimbabwe. Any disputes will be handled in Zimbabwean courts.</p>
+
+      <h2>14. Contact Us</h2>
+      <p>Questions about these Terms? Contact us:</p>
+      <ul>
+        <li>📧 <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a></li>
+        <li>📧 <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a></li>
+        <li>📞 <a href="tel:+263788923710">+263 78 892 3710</a></li>
+        <li>📞 <a href="tel:+263787279982">+263 78 727 9982</a></li>
+      </ul>
+
+      <p class="legal-meta">
+        EduVille — Commit to Your Future<br>
+        Chitungwiza, Zimbabwe 🇿🇼
+      </p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Learn. Build. Share. Together.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="resources.html">Past Papers</a>
+        <a href="about.html">About Us</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+        <a href="tel:+263788923710">+263 78 892 3710</a>
+        <a href="tel:+263787279982">+263 78 727 9982</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
