@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — EduVille</title>
+  <meta name="description" content="News, updates, and study tips from EduVille — for ZIMSEC, Cambridge, and BEC students.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .blog-page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    .blog-hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-lg);
+      border-bottom: 4px solid var(--gold);
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .blog-hero h1 {
+      color: #fff;
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      margin-bottom: 0.5rem;
+    }
+    .blog-hero p {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .blog-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      text-decoration: none;
+    }
+    .blog-card-image {
+      height: 160px;
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-bottom: 3px solid var(--gold);
+    }
+    .blog-card-body {
+      padding: 1.2rem;
+      flex: 1;
+    }
+    .blog-card-category {
+      display: inline-block;
+      padding: 0.15rem 0.6rem;
+      background: var(--tag-blue-bg);
+      color: var(--tag-blue-text);
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: var(--r-full);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.6rem;
+    }
+    .blog-card h2 {
+      color: var(--text-bright);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+    .blog-card p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin-bottom: 0.8rem;
+    }
+    .blog-card-meta {
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <label class="search-wrap">
+      <span class="sr-only">Search</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Search...">
+    </label>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="blog-page">
+
+    <header class="blog-hero">
+      <h1>📰 EduVille Blog</h1>
+      <p>News, exam updates, and study tips for African students</p>
+    </header>
+
+    <div class="blog-grid">
+
+      <a href="blog-zimsec-2027.html" class="blog-card">
+        <div class="blog-card-image">📢</div>
+        <div class="blog-card-body">
+          <span class="blog-card-category">ZIMSEC News</span>
+          <h2>ZIMSEC Mandatory from 2027 — What It Means For You</h2>
+          <p>Big changes coming for Zimbabwean students. Private schools will be required to write ZIMSEC. Here's what it means for your future.</p>
+          <div class="blog-card-meta">27 September 2026 · 5 min read</div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-card-image">📚</div>
+        <div class="blog-card-body">
+          <span class="blog-card-category">Study Tips</span>
+          <h2>How to Prepare for O-Level Maths in 30 Days</h2>
+          <p>A practical guide to catching up on O-Level Mathematics — even if you feel behind.</p>
+          <div class="blog-card-meta">Coming soon</div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card">
+        <div class="blog-card-image">🎓</div>
+        <div class="blog-card-body">
+          <span class="blog-card-category">Guidance</span>
+          <h2>ZIMSEC vs Cambridge: Which Is Right for You?</h2>
+          <p>Breaking down the differences between ZIMSEC, Cambridge, and BEC exams — for students and parents.</p>
+          <div class="blog-card-meta">Coming soon</div>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Free education for every African student.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="resources.html">Past Papers</a>
+        <a href="about.html">About Us</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+        <a href="tel:+263788923710">+263 78 892 3710</a>
+        <a href="tel:+263787279982">+263 78 727 9982</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
