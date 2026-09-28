@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZIMSEC Mandatory from 2027 — What It Means For Every Zimbabwean Student</title>
+  <meta name="description" content="From 2027, all private schools in Zimbabwe must register students for ZIMSEC exams. Here's what students, parents, and teachers need to know — and how to prepare.">
+  <meta name="keywords" content="ZIMSEC 2027, ZIMSEC mandatory, private schools Zimbabwe, ZIMSEC Cambridge, education news Zimbabwe">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <meta property="og:title" content="ZIMSEC Mandatory from 2027 — What It Means For Every Zimbabwean Student">
+  <meta property="og:description" content="Big changes coming for Zimbabwean students. Here's what it means for your future.">
+  <meta property="og:type" content="article">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .article-page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    .article-hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-lg);
+      border-bottom: 4px solid var(--gold);
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .article-category {
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid var(--gold);
+      border-radius: var(--r-full);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+    }
+    .article-hero h1 {
+      color: #fff;
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      margin-bottom: 0.8rem;
+      line-height: 1.25;
+    }
+    .article-meta {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.85rem;
+    }
+    .article-body {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 2rem;
+      line-height: 1.75;
+    }
+    .article-body p {
+      color: var(--text-primary);
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+    .article-body h2 {
+      color: var(--gold);
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+    .article-body h3 {
+      color: var(--text-bright);
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .article-body ul, .article-body ol {
+      margin: 0.8rem 0 1.2rem 1.5rem;
+    }
+    .article-body li {
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    .article-body strong { color: var(--text-bright); }
+    .article-body em { color: var(--gold); font-style: italic; }
+    .article-body a { color: var(--edu-blue-light); text-decoration: underline; }
+    .article-body blockquote {
+      border-left: 4px solid var(--gold);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      background: var(--bg-primary);
+      border-radius: var(--r-sm);
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+    .article-cta {
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      color: #fff;
+      padding: 1.8rem 1.5rem;
+      border-radius: var(--r-md);
+      text-align: center;
+      margin-top: 2rem;
+      border-bottom: 4px solid var(--gold);
+    }
+    .article-cta h3 {
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    .article-cta p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 600px) {
+      .article-body { padding: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <label class="search-wrap">
+      <span class="sr-only">Search</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Search...">
+    </label>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="article-page">
+
+    <header class="article-hero">
+      <span class="article-category">ZIMSEC News</span>
+      <h1>ZIMSEC Mandatory from 2027 — What It Means For Every Zimbabwean Student</h1>
+      <p class="article-meta">📅 27 September 2026 · ⏱️ 5 min read · ✍️ EduVille Team</p>
+    </header>
+
+    <article class="article-body">
+
+      <p>The Zimbabwean education landscape is about to change. From <strong>2027</strong>, all private schools in Zimbabwe will be <strong>required to register their students for ZIMSEC exams</strong>, making Cambridge qualifications optional rather than a primary alternative.</p>
+
+      <p>For students, parents, and teachers — this is a big deal. Let's break down what it actually means, and how you can prepare.</p>
+
+      <h2>What Exactly Is Changing?</h2>
+
+      <p>Under the new policy, private schools in Zimbabwe will:</p>
+
+      <ul>
+        <li>Be <strong>required</strong> to enrol their students for ZIMSEC O-Level and A-Level examinations</li>
+        <li>Continue offering Cambridge exams <em>optionally</em> — as a secondary choice, not a replacement</li>
+        <li>Follow the national curriculum more closely to align with ZIMSEC standards</li>
+      </ul>
+
+      <p>The Ministry of Primary and Secondary Education has stated this move is designed to <strong>standardise education quality across Zimbabwe</strong> — whether a student attends a private school or a government school.</p>
+
+      <h2>Why Is This Happening?</h2>
+
+      <p>There are three main reasons behind this policy shift:</p>
+
+      <h3>1. National Standardisation</h3>
+      <p>The government wants every Zimbabwean student to graduate with a qualification that is <em>recognised nationally and locally relevant</em>. ZIMSEC is designed specifically for Zimbabwe's context, syllabus, and needs.</p>
+
+      <h3>2. Cost and Access</h3>
+      <p>Cambridge exams are significantly more expensive than ZIMSEC. By making ZIMSEC the standard, more students can access a nationally recognised qualification at a fraction of the cost.</p>
+
+      <h3>3. Local Curriculum Alignment</h3>
+      <p>ZIMSEC reflects Zimbabwean history, geography, and context. The government believes every student should have a strong foundation in this national curriculum.</p>
+
+      <h2>What This Means For Students</h2>
+
+      <p>If you are currently studying — or will be studying — through 2027 and beyond, here's what changes for you:</p>
+
+      <h3>1. You Will Sit ZIMSEC Exams</h3>
+      <p>Whether you attend private or government school, you will now write ZIMSEC O-Level and A-Level papers.</p>
+
+      <h3>2. Cambridge Is Still Available</h3>
+      <p>Cambridge qualifications are <strong>not banned</strong> — they are simply no longer mandatory. Some private schools will still offer Cambridge as an option, but ZIMSEC will be the primary qualification for all students.</p>
+
+      <h3>3. More Competition</h3>
+      <p>With more students writing ZIMSEC, the competition will increase. <em>It's more important than ever to prepare well and study consistently.</em></p>
+
+      <h3>4. Affordable Materials Matter</h3>
+      <p>Because every student now needs ZIMSEC preparation material, having access to free and affordable resources becomes critical. Not every family can afford textbooks, private tutors, or revision classes.</p>
+
+      <h2>What This Means For Parents</h2>
+
+      <ul>
+        <li><strong>Lower exam costs:</strong> ZIMSEC is significantly cheaper than Cambridge</li>
+        <li><strong>Nationally recognised qualification:</strong> ZIMSEC results are accepted across Zimbabwean universities and employers</li>
+        <li><strong>Different preparation needs:</strong> Ensure your child studies the right syllabus for ZIMSEC — not Cambridge</li>
+        <li><strong>Seek free resources:</strong> Not every parent can afford private tutoring. Free platforms like <a href="index.html">EduVille</a> help bridge this gap.</li>
+      </ul>
+
+      <h2>What This Means For Teachers</h2>
+
+      <p>Teachers will need to:</p>
+
+      <ul>
+        <li>Align their lessons with the ZIMSEC syllabus more closely</li>
+        <li>Prepare students specifically for ZIMSEC-style questions</li>
+        <li>Use ZIMSEC past papers in their revision classes</li>
+        <li>Adapt their teaching to a broader range of student backgrounds</li>
+      </ul>
+
+      <blockquote>
+        "Every Zimbabwean student deserves a qualification that opens doors — whether to university, employment, or entrepreneurship. This policy is about equalising opportunity."
+      </blockquote>
+
+      <h2>How to Prepare — Starting Today</h2>
+
+      <p>Whether you're in Form 1 or Form 6, here's how to get ahead of the change:</p>
+
+      <h3>1. Understand the ZIMSEC Syllabus</h3>
+      <p>Download the syllabus for your subjects. Compare it with Cambridge or BEC. Understand what topics are covered and how they're tested.</p>
+
+      <h3>2. Study Past Papers</h3>
+      <p>ZIMSEC past papers are the single best study tool. They show you exactly how questions are structured and what the examiners expect.</p>
+
+      <h3>3. Use Free Resources</h3>
+      <p>You don't need expensive textbooks. Free platforms like <strong>EduVille</strong> offer:</p>
+      <ul>
+        <li>📚 Structured lessons for Maths, Physics, Chemistry, and Biology</li>
+        <li>🎬 Video tutorials for difficult topics</li>
+        <li>📄 Past paper references</li>
+        <li>🤖 An AI tutor (TymerCRE) available 24/7</li>
+        <li>📊 Progress tracking to see how you're improving</li>
+      </ul>
+
+      <h3>4. Join Study Groups</h3>
+      <p>Study with classmates. Share notes. Quiz each other. Learning together works better than learning alone.</p>
+
+      <h3>5. Start Early</h3>
+      <p>Don't wait until the year before your exams. Start preparing from Form 1. Small, consistent effort over years beats cramming at the end.</p>
+
+      <h2>What EduVille Is Doing</h2>
+
+      <p>EduVille was built specifically for African students — and we're building it around the changing ZIMSEC landscape.</p>
+
+      <p>Our goals for 2026 and beyond:</p>
+
+      <ul>
+        <li>✅ Expand ZIMSEC content across all O-Level and A-Level subjects</li>
+        <li>✅ Add more past papers (with proper permissions)</li>
+        <li>✅ Improve the AI tutor to focus on ZIMSEC-style questions</li>
+        <li>✅ Keep everything <strong>100% free</strong></li>
+      </ul>
+
+      <p>We've already sent a partnership request to ZIMSEC to host past papers officially. We're committed to doing this the right way.</p>
+
+      <h2>The Bottom Line</h2>
+
+      <p>The 2027 change is <strong>good news for Zimbabwean students</strong>. It means:</p>
+
+      <ul>
+        <li>More equal access to quality exams</li>
+        <li>Lower costs for families</li>
+        <li>A qualification designed for Zimbabwe</li>
+        <li>Clearer, more standardised education</li>
+      </ul>
+
+      <p>But it also means <strong>students need to prepare more seriously</strong> — because the competition will be bigger.</p>
+
+      <p>Start today. Use every free resource available. Study consistently. And remember:</p>
+
+      <p style="text-align: center; font-size: 1.2rem; color: var(--gold); font-weight: 700; margin: 2rem 0; font-style: italic;">
+        "Commit to Your Future."
+      </p>
+
+    </article>
+
+    <!-- CTA -->
+    <div class="article-cta">
+      <h3>🎓 Start Learning Free Today</h3>
+      <p>Lessons, videos, past papers, and an AI tutor — all free on EduVille.</p>
+      <a href="courses.html" class="btn btn-gold btn-lg">📚 Browse Courses</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Free education for every African student.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="resources.html">Past Papers</a>
+        <a href="blog.html">Blog</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+        <a href="tel:+263788923710">+263 78 892 3710</a>
+        <a href="tel:+263787279982">+263 78 727 9982</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+  </html>
