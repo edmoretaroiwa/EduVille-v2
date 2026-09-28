@@ -1,0 +1,10 @@
+# EduVille — Robots.txt
+# https://eduvillelearning.africa
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://eduvillelearning.africa/sitemap.xml
+
+# Block nothing — we want everything indexed
