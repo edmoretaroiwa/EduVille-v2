@@ -170,3 +170,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof lucide !== 'undefined') lucide.createIcons();
   loadLesson();
 });
+<div class="lesson-actions">
+  <h4>📌 Quick actions</h4>
+  <div id="bookmark-slot"></div>
+  <button class="btn btn-gold btn-sm" onclick="markComplete(event)">
+    ✓ Mark as Complete
+  </button>
+  <a href="courses.html" class="btn btn-ghost btn-sm">
+    ← Back to Courses
+  </a>
+</div>
