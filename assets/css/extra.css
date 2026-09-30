@@ -63,8 +63,9 @@
   line-height: 1.5;
 }
 .form-hint {
-  color: var(--text-dim, var(--text-secondary));
+  color: var(--text-secondary);
   font-size: 0.78rem;
+  opacity: 0.85;
 }
 .form-grid {
   display: grid;
@@ -86,9 +87,21 @@
   margin-bottom: 1rem;
 }
 .form-msg.show { display: block; }
-.form-msg.error   { background: rgba(218, 54, 51, 0.15);  border: 1px solid var(--accent-red);   color: #ff7b72; }
-.form-msg.success { background: rgba(63, 185, 80, 0.15);  border: 1px solid var(--accent-green); color: #7ee787; }
-.form-msg a { color: inherit; text-decoration: underline; margin-left: 0.3rem; }
+.form-msg.error {
+  background: rgba(218, 54, 51, 0.15);
+  border: 1px solid var(--accent-red);
+  color: #ff7b72;
+}
+.form-msg.success {
+  background: rgba(63, 185, 80, 0.15);
+  border: 1px solid var(--accent-green);
+  color: #7ee787;
+}
+.form-msg a {
+  color: inherit;
+  text-decoration: underline;
+  margin-left: 0.3rem;
+}
 
 /* ----- Profile ----- */
 .profile-head {
@@ -167,8 +180,15 @@
   font-family: inherit;
   transition: all 0.15s ease;
 }
-.notes-chip:hover { border-color: var(--gold); color: var(--text-primary); }
-.notes-chip.active { background: var(--accent-green); border-color: var(--accent-green); color: #fff; }
+.notes-chip:hover {
+  border-color: var(--gold);
+  color: var(--text-primary);
+}
+.notes-chip.active {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  color: #fff;
+}
 
 .notes-search input {
   width: 100%;
@@ -202,13 +222,20 @@
   padding-bottom: 0.7rem;
   border-bottom: 1px solid var(--border-muted);
 }
-.notes-group-emoji { font-size: 1.5rem; flex-shrink: 0; }
+.notes-group-emoji {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
 .notes-group-title {
   color: var(--text-bright);
   font-size: 1rem;
   margin: 0 0 0.3rem 0;
 }
-.notes-group-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.notes-group-tags {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
 
 .note-row {
   display: flex;
@@ -232,14 +259,17 @@
   color: var(--text-secondary);
   min-width: 24px;
 }
-.note-title { flex: 1; min-width: 0; }
+.note-title {
+  flex: 1;
+  min-width: 0;
+}
 .note-meta {
   font-size: 0.75rem;
   color: var(--text-secondary);
   white-space: nowrap;
 }
 
-/* ----- User badge (for auth.js updateNavbarForUser) ----- */
+/* ----- User badge (used by auth.js) ----- */
 .user-badge {
   display: inline-flex;
   align-items: center;
@@ -255,5 +285,11 @@
   cursor: pointer;
   transition: all var(--dur-fast) var(--ease);
 }
-.user-badge:hover { border-color: var(--gold); color: var(--gold); }
-.user-badge svg { width: 14px; height: 14px; }
+.user-badge:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.user-badge svg {
+  width: 14px;
+  height: 14px;
+}
