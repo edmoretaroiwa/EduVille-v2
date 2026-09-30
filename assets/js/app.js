@@ -61,16 +61,15 @@ async function loadRealStats() {
   if (!statsRow) return;
 
   try {
-    const { count: userCount } = await db.from('users').select('*', { count: 'exact', head: true });
-    const { count: courseCount } = await db.from('courses').select('*', { count: 'exact', head: true });
-    const { count: lessonCount } = await db.from('lessons').select('*', { count: 'exact', head: true });
-    const { count: paperCount } = await db.from('papers').select('*', { count: 'exact', head: true });
+    // Counts come from a database function because the users table is private.
+    const { data, error } = await db.rpc('get_public_stats');
+    if (error) throw error;
 
     const statVals = document.querySelectorAll('.mini-stat h3');
-    if (statVals[0]) statVals[0].textContent = (userCount || 0) + '+';
-    if (statVals[1]) statVals[1].textContent = (courseCount || 0) + '+';
-    if (statVals[2]) statVals[2].textContent = (lessonCount || 0) + '+';
-    if (statVals[3]) statVals[3].textContent = (paperCount || 0) + '+';
+    if (statVals[0]) statVals[0].textContent = (data.users || 0) + '+';
+    if (statVals[1]) statVals[1].textContent = (data.courses || 0) + '+';
+    if (statVals[2]) statVals[2].textContent = (data.lessons || 0) + '+';
+    if (statVals[3]) statVals[3].textContent = (data.papers || 0) + '+';
   } catch (e) {
     console.log('Stats error (OK):', e);
   }
