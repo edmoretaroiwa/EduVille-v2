@@ -13,6 +13,28 @@ let conversationHistory = [];
 // SEND MESSAGE
 // ============================================================
 
+const LOGIN_MESSAGE = '🔐 Please log in to chat with TymerCRE. It is free! Tap Login at the top of the page.';
+const GENERIC_ERROR = '⚠️ TymerCRE could not answer just now. Please try again in a moment.';
+
+// supabase-js hides our JSON reply inside error.context when the status is not 200
+async function readErrorInfo(error) {
+  try {
+    if (error && error.context && typeof error.context.json === 'function') {
+      return await error.context.json();
+    }
+  } catch (e) { /* not JSON, fall through */ }
+  return null;
+}
+
+function friendlyMessage(info) {
+  if (!info) return GENERIC_ERROR;
+  if (info.code === 'login_required') return LOGIN_MESSAGE;
+  if (info.error && ['rate_limited', 'too_long', 'ai_unavailable'].includes(info.code)) {
+    return '⚠️ ' + info.error;
+  }
+  return GENERIC_ERROR;
+}
+
 async function sendMessage(event) {
   if (event) event.preventDefault();
   if (isProcessing) return;
@@ -34,45 +56,28 @@ async function sendMessage(event) {
   const typingEl = showTyping();
 
   try {
-    // Get user info (optional)
-    let userName = 'Student';
-    try {
-      const { data: { session } } = await chatClient.auth.getSession();
-      if (session) {
-        const { data: profile } = await chatClient
-          .from('users')
-          .select('full_name')
-          .eq('id', session.user.id)
-          .single();
-        if (profile?.full_name) userName = profile.full_name;
-      }
-    } catch (e) {
-      console.log('Session check failed (OK):', e);
+    // TymerCRE is for logged-in students. Check first to save a round trip.
+    const { data: { session } } = await chatClient.auth.getSession();
+    if (!session) {
+      typingEl.remove();
+      addMessage('bot', LOGIN_MESSAGE);
+      return;
     }
 
-    // Call the function
-    console.log('📤 Calling ask-tymercre with:', { message, userName });
-
+    // The server reads the student's name from the database, so we don't send it.
     const { data, error } = await chatClient.functions.invoke('ask-tymercre', {
       body: {
         message: message,
-        userName: userName,
         subject: 'General',
-        history: conversationHistory.slice(-6)
+        history: conversationHistory.slice(-7)
       }
     });
-
-    console.log('📥 Raw response:', { data, error });
 
     typingEl.remove();
 
     if (error) {
-      addMessage('bot', `⚠️ Function error: ${error.message || JSON.stringify(error)}`);
-      return;
-    }
-
-    if (data?.error) {
-      addMessage('bot', `⚠️ AI error: ${data.error}`);
+      console.error('TymerCRE error:', error);
+      addMessage('bot', friendlyMessage(await readErrorInfo(error)));
       return;
     }
 
@@ -80,21 +85,13 @@ async function sendMessage(event) {
       addMessage('bot', data.response);
       conversationHistory.push({ role: 'model', text: data.response });
     } else {
-      addMessage('bot', `⚠️ No response from AI. Got: ${JSON.stringify(data)}`);
+      addMessage('bot', GENERIC_ERROR);
     }
 
   } catch (error) {
-    console.error('💥 Exception:', error);
+    console.error('TymerCRE exception:', error);
     if (typingEl && typingEl.parentNode) typingEl.remove();
-
-    let msg = 'Unknown error';
-    if (typeof error === 'string') msg = error;
-    else if (error?.message) msg = error.message;
-    else {
-      try { msg = JSON.stringify(error); } catch (e) { msg = 'Error'; }
-    }
-
-    addMessage('bot', `💥 Exception: ${msg}`);
+    addMessage('bot', GENERIC_ERROR);
   } finally {
     isProcessing = false;
     sendBtn.disabled = false;
