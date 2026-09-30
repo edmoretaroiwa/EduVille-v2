@@ -168,7 +168,7 @@ async function markComplete(event) {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof lucide !== 'undefined') lucide.createIcons();
-  loadLesson();
+  loadLesson();mountBookmarkButton('bookmark-slot', 'lesson', lesson.id);
 });
 <div class="lesson-actions">
   <h4>📌 Quick actions</h4>
