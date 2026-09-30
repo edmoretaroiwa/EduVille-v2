@@ -103,6 +103,11 @@ async function sendMessage(event) {
 // ADD MESSAGE
 // ============================================================
 
+// ============================================================
+// ADD MESSAGE
+// Renders AI replies as safe markdown; user messages as plain text.
+// ============================================================
+
 function addMessage(role, text) {
   const messages = document.getElementById('chat-messages');
   const welcome = messages.querySelector('.welcome-block');
@@ -110,14 +115,21 @@ function addMessage(role, text) {
 
   const msg = document.createElement('div');
   msg.className = `message ${role}`;
+
+  let body;
+  if (role === 'bot' && typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+    body = DOMPurify.sanitize(marked.parse(text || ''));
+  } else {
+    body = escapeHtml(text || '');
+  }
+
   msg.innerHTML = `
     <div class="message-avatar">${role === 'bot' ? '🤖' : '👤'}</div>
-    <div class="message-bubble">${escapeHtml(text)}</div>
+    <div class="message-bubble">${body}</div>
   `;
   messages.appendChild(msg);
   messages.scrollTop = messages.scrollHeight;
 }
-
 // ============================================================
 // TYPING INDICATOR
 // ============================================================
