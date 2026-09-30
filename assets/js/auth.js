@@ -214,14 +214,58 @@ function accessGateHtml(mode) {
 }
 
 // ============================================================
-// SHARED — form message helpers (used by all new form pages)
+// SHARED — role helpers (used by profile, add-video, add-paper)
 // ============================================================
 
-/**
- * Shows a message in #form-msg (or the first .form-msg on the page).
- * type: 'error' | 'success'
- * link: optional { href, text } to render an inline action link
- */
+async function getMyRole() {
+  try {
+    const { data: { session } } = await authClient.auth.getSession();
+    if (!session) return { session: null, role: null };
+
+    const { data: profile } = await authClient
+      .from('users')
+      .select('role')
+      .eq('id', session.user.id)
+      .maybeSingle();
+
+    return { session, role: (profile && profile.role) || 'student' };
+  } catch (e) {
+    console.error('getMyRole error:', e);
+    return { session: null, role: null };
+  }
+}
+
+function isTeacherRole(role) {
+  return role === 'teacher' || role === 'admin';
+}
+
+function accessGateHtml(mode) {
+  if (mode === 'teacher') {
+    const contact = escapeHtml(EDUVILLE_CONFIG.CONTACT_EMAIL);
+    return `
+      <div class="empty-state">
+        <div class="empty-state-icon">🎓</div>
+        <h3>Teacher access only</h3>
+        <p>This page is only for teachers. Email
+          <a href="mailto:${contact}">${contact}</a>
+          to request teacher access.</p>
+        <a href="index.html" class="btn btn-gold">Back to Home</a>
+      </div>`;
+  }
+  return `
+    <div class="empty-state">
+      <div class="empty-state-icon">🔐</div>
+      <h3>Please log in</h3>
+      <p>You need an account to view this page.</p>
+      <a href="login.html" class="btn btn-gold">Log in</a>
+      <a href="signup.html" class="btn btn-secondary">Create account</a>
+    </div>`;
+}
+
+// ============================================================
+// SHARED — form message helpers
+// ============================================================
+
 function showFormMessage(type, text, link) {
   const box = document.getElementById('form-msg') || document.querySelector('.form-msg');
   if (!box) { alert(text); return; }
