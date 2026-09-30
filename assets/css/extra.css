@@ -1,0 +1,259 @@
+/* ============================================================
+   EDUVILLE — EXTRA.CSS
+   Form, profile, notes styling for the new pages
+   ============================================================ */
+
+/* ----- Form cards ----- */
+.form-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-md);
+  padding: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+.form-card h2 {
+  color: var(--text-bright);
+  font-size: 1.15rem;
+  margin: 0 0 1rem 0;
+}
+.form-note {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+}
+.form-note a { color: var(--edu-blue-light); }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border-default);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--edu-blue-light);
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+.form-group input[readonly] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.form-group textarea {
+  min-height: 90px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.form-hint {
+  color: var(--text-dim, var(--text-secondary));
+  font-size: 0.78rem;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.form-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.form-msg {
+  display: none;
+  padding: 0.7rem 1rem;
+  border-radius: var(--r-sm);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.form-msg.show { display: block; }
+.form-msg.error   { background: rgba(218, 54, 51, 0.15);  border: 1px solid var(--accent-red);   color: #ff7b72; }
+.form-msg.success { background: rgba(63, 185, 80, 0.15);  border: 1px solid var(--accent-green); color: #7ee787; }
+.form-msg a { color: inherit; text-decoration: underline; margin-left: 0.3rem; }
+
+/* ----- Profile ----- */
+.profile-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--edu-blue), var(--edu-blue-light));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.4rem;
+  border: 2px solid var(--gold);
+  flex-shrink: 0;
+}
+.profile-name {
+  color: var(--text-bright);
+  font-size: 1.2rem;
+  margin: 0 0 0.2rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.profile-sub {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+.role-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--tag-blue-bg);
+  color: var(--tag-blue-text);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.profile-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+/* ----- Notes ----- */
+.notes-filters {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  padding: 0.4rem 0;
+  scrollbar-width: none;
+  margin-bottom: 0.6rem;
+}
+.notes-filters::-webkit-scrollbar { display: none; }
+.notes-chip {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+.notes-chip:hover { border-color: var(--gold); color: var(--text-primary); }
+.notes-chip.active { background: var(--accent-green); border-color: var(--accent-green); color: #fff; }
+
+.notes-search input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border-default);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  margin-bottom: 1rem;
+}
+.notes-search input:focus {
+  border-color: var(--edu-blue-light);
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+}
+
+.notes-group {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-md);
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 1rem;
+}
+.notes-group-head {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border-muted);
+}
+.notes-group-emoji { font-size: 1.5rem; flex-shrink: 0; }
+.notes-group-title {
+  color: var(--text-bright);
+  font-size: 1rem;
+  margin: 0 0 0.3rem 0;
+}
+.notes-group-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+
+.note-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.4rem;
+  border-radius: var(--r-sm);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.note-row:hover {
+  background: var(--bg-tertiary);
+  color: var(--gold);
+  text-decoration: none;
+}
+.note-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  min-width: 24px;
+}
+.note-title { flex: 1; min-width: 0; }
+.note-meta {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ----- User badge (for auth.js updateNavbarForUser) ----- */
+.user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--r-full);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
+}
+.user-badge:hover { border-color: var(--gold); color: var(--gold); }
+.user-badge svg { width: 14px; height: 14px; }
