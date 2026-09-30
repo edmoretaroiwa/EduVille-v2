@@ -54,22 +54,30 @@ function formatDate(isoString) {
 
 // ============================================================
 // LOAD HOMEPAGE STATS
+// Matches the .stat-card .stat-value markup in index.html
 // ============================================================
 
 async function loadRealStats() {
-  const statsRow = document.querySelector('.stats-row');
-  if (!statsRow) return;
+  const statStudents = document.getElementById('stat-students');
+  const statCourses = document.getElementById('stat-courses');
+  const statLessons = document.getElementById('stat-lessons');
+  const statPapers = document.getElementById('stat-papers');
+
+  // Bail early if we're not on the homepage
+  if (!statStudents && !statCourses && !statLessons && !statPapers) return;
 
   try {
-    // Counts come from a database function because the users table is private.
-    const { data, error } = await db.rpc('get_public_stats');
-    if (error) throw error;
+    const [users, courses, lessons, papers] = await Promise.all([
+      db.from('users').select('*', { count: 'exact', head: true }),
+      db.from('courses').select('*', { count: 'exact', head: true }),
+      db.from('lessons').select('*', { count: 'exact', head: true }),
+      db.from('papers').select('*', { count: 'exact', head: true })
+    ]);
 
-    const statVals = document.querySelectorAll('.mini-stat h3');
-    if (statVals[0]) statVals[0].textContent = (data.users || 0) + '+';
-    if (statVals[1]) statVals[1].textContent = (data.courses || 0) + '+';
-    if (statVals[2]) statVals[2].textContent = (data.lessons || 0) + '+';
-    if (statVals[3]) statVals[3].textContent = (data.papers || 0) + '+';
+    if (statStudents) statStudents.textContent = (users.count || 0) + '+';
+    if (statCourses) statCourses.textContent = (courses.count || 0) + '+';
+    if (statLessons) statLessons.textContent = (lessons.count || 0) + '+';
+    if (statPapers) statPapers.textContent = (papers.count || 0) + '+';
   } catch (e) {
     console.log('Stats error (OK):', e);
   }
