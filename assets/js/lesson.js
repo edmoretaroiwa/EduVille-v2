@@ -131,47 +131,36 @@ function showNotFound(message) {
 // ============================================================
 // MARK COMPLETE
 // ============================================================
+// ============================================================
+// MARK COMPLETE — delegates to progress.js
+// ============================================================
 
 async function markComplete(event) {
   if (!currentLesson) return;
+
   const btn = event?.target;
   if (btn) {
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;"></span> Saving...';
   }
 
-  try {
-    const { data: { session } } = await lessonClient.auth.getSession();
-    if (!session) {
-      alert('Please log in to save progress.');
-      if (btn) { btn.disabled = false; btn.innerHTML = '✓ Mark as Complete'; }
-      return;
-    }
+  const ok = await markLessonComplete(currentLesson.id, 'completed');
 
-    const { error } = await lessonClient
-      .from('progress')
-      .upsert({
-        user_id: session.user.id,
-        lesson_id: currentLesson.id,
-        status: 'completed',
-        completed_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }, { onConflict: 'user_id,lesson_id' });
-
-    if (error) throw error;
-
+  if (ok) {
     if (btn) {
       btn.innerHTML = '✅ Completed!';
       btn.classList.remove('btn-gold');
       btn.classList.add('btn-secondary');
     }
     alert('🎉 Lesson marked as complete!\n\nCommit to Your Future ✨');
-  } catch (error) {
-    console.error('Progress error:', error);
-    alert('Could not save: ' + error.message);
-    if (btn) { btn.disabled = false; btn.innerHTML = '✓ Mark as Complete'; }
+  } else {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '✓ Mark as Complete';
+    }
   }
 }
+
 
 // ============================================================
 // PAGE LOAD
