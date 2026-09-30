@@ -146,12 +146,6 @@ function showTyping() {
 // HELPERS
 // ============================================================
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
 function handleKeyDown(event) {
   if (event.key === 'Enter' && !event.shiftKey) {
     event.preventDefault();

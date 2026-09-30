@@ -9,13 +9,6 @@ const progressClient = window.db;
 // HELPERS
 // ============================================================
 
-function escapeHtml(text) {
-  if (!text) return '';
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
 function getGreeting() {
   const h = new Date().getHours();
   if (h < 12) return 'Good morning';
@@ -94,14 +87,36 @@ async function loadDashboard() {
         });
       }
       const c = coursesMap.get(course.id);
-      c.total++;
       if (p.status === 'completed') c.completed++;
       if (p.status === 'in_progress') c.inProgress++;
     });
 
+    // Count ALL published lessons in each started course, so the % is
+    // "completed out of the whole course", not "out of lessons opened".
+    const courseIds = Array.from(coursesMap.keys());
+    if (courseIds.length > 0) {
+      const { data: lessonRows, error: lessonsError } = await progressClient
+        .from('lessons')
+        .select('id, course_id')
+        .in('course_id', courseIds)
+        .eq('is_published', true);
+
+      if (lessonsError) throw lessonsError;
+
+      const totals = {};
+      (lessonRows || []).forEach(l => {
+        totals[l.course_id] = (totals[l.course_id] || 0) + 1;
+      });
+      coursesMap.forEach(c => {
+        // Math.max guards against a completed lesson that was later unpublished
+        c.total = Math.max(totals[c.id] || 0, c.completed + c.inProgress);
+      });
+    }
+
     const courses = Array.from(coursesMap.values());
-    const overallPercent = progress.length > 0
-      ? Math.round((completed / progress.length) * 100)
+    const totalLessons = courses.reduce((sum, c) => sum + c.total, 0);
+    const overallPercent = totalLessons > 0
+      ? Math.round((completed / totalLessons) * 100)
       : 0;
 
     // Recent activity (last 5 interactions)
@@ -197,14 +212,14 @@ function renderCourseProgress(course) {
                    : 'tag';
 
   return `
-    <a href="course.html?id=${course.id}" class="progress-card" style="display:block; text-decoration:none;">
+    <a href="course.html?id=${encodeURIComponent(course.id)}" class="progress-card" style="display:block; text-decoration:none;">
       <div class="progress-card-header">
-        <div class="progress-icon">${course.icon}</div>
+        <div class="progress-icon">${escapeHtml(course.icon)}</div>
         <div class="progress-title">
           <h3>${escapeHtml(course.title)}</h3>
           <p>
-            <span class="tag ${boardClass}" style="font-size:0.65rem;">${course.exam_board}</span>
-            <span class="tag" style="font-size:0.65rem;">${course.level}</span>
+            <span class="tag ${boardClass}" style="font-size:0.65rem;">${escapeHtml(course.exam_board)}</span>
+            <span class="tag" style="font-size:0.65rem;">${escapeHtml(course.level)}</span>
           </p>
         </div>
         <div class="progress-percent">${percent}%</div>
@@ -227,8 +242,8 @@ function renderRecentActivity(p) {
   const when = p.updated_at ? new Date(p.updated_at).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' }) : '';
 
   return `
-    <a href="lesson.html?id=${lesson.id}" class="activity-row">
-      <div class="activity-icon">${course.icon_emoji || '📖'}</div>
+    <a href="lesson.html?id=${encodeURIComponent(lesson.id)}" class="activity-row">
+      <div class="activity-icon">${escapeHtml(course.icon_emoji || '📖')}</div>
       <div class="activity-info">
         <h4>${escapeHtml(lesson.title || 'Lesson')}</h4>
         <p>${escapeHtml(course.title || '')} · ${status}</p>

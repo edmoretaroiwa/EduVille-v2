@@ -40,7 +40,7 @@ async function loadPapers() {
       <div class="empty-state" style="grid-column: 1 / -1;">
         <div class="empty-state-icon">⚠️</div>
         <h3>Could not load papers</h3>
-        <p>${error.message}</p>
+        <p>${escapeHtml(error.message)}</p>
       </div>
     `;
   }
@@ -107,15 +107,15 @@ function renderPapers() {
         <h3 class="paper-title">${escapeHtml(paper.title || 'Untitled')}</h3>
       </div>
       <div class="paper-tags">
-        <span class="tag ${boardClass}">${paper.exam_board || ''}</span>
-        <span class="tag">${paper.level || ''}</span>
-        <span class="tag">${paper.subject || ''}</span>
+        <span class="tag ${boardClass}">${escapeHtml(paper.exam_board)}</span>
+        <span class="tag">${escapeHtml(paper.level)}</span>
+        <span class="tag">${escapeHtml(paper.subject)}</span>
       </div>
       <div class="paper-meta">
-        ${paper.year ? `<span>📅 ${paper.year}</span>` : ''}
+        ${paper.year ? `<span>📅 ${escapeHtml(paper.year)}</span>` : ''}
       </div>
       <div class="paper-footer">
-        <a href="${paper.file_url}" target="_blank" rel="noopener" class="btn btn-gold btn-sm">
+        <a href="${escapeHtml(safeUrl(paper.file_url))}" target="_blank" rel="noopener" class="btn btn-gold btn-sm">
           📥 Download
         </a>
       </div>

@@ -43,7 +43,7 @@ async function loadVideos() {
       <div class="empty-state" style="grid-column: 1 / -1;">
         <div class="empty-state-icon">⚠️</div>
         <h3>Could not load videos</h3>
-        <p>${error.message}</p>
+        <p>${escapeHtml(error.message)}</p>
       </div>
     `;
   }
@@ -93,7 +93,7 @@ function renderVideos() {
 
     const card = document.createElement('a');
     card.className = 'video-card';
-    card.href = `video.html?id=${video.id}`;
+    card.href = `video.html?id=${encodeURIComponent(video.id)}`;
 
     card.innerHTML = `
       <div class="video-thumb">

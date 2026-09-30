@@ -134,7 +134,7 @@ async function updateNavbarForUser() {
   loginBtn.outerHTML = `
     <span class="user-badge" onclick="handleLogout()">
       <i data-lucide="user" style="width:14px;height:14px;"></i>
-      ${firstName}
+      ${escapeHtml(firstName)}
     </span>
   `;
 

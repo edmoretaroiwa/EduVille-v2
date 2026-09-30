@@ -48,14 +48,14 @@ async function loadCourse() {
     header.innerHTML = `
       <div class="course-header-block">
         <div class="course-header-content">
-          <div class="course-header-emoji">${course.icon_emoji || '📘'}</div>
+          <div class="course-header-emoji">${escapeHtml(course.icon_emoji || '📘')}</div>
           <div class="course-header-text">
             <h1>${escapeHtml(course.title)}</h1>
             <p>${escapeHtml(course.description || 'No description yet.')}</p>
             <div class="course-header-tags">
-              <span class="tag ${boardClass}">${course.exam_board}</span>
-              <span class="tag">${course.level}</span>
-              <span class="tag">${course.subject}</span>
+              <span class="tag ${boardClass}">${escapeHtml(course.exam_board)}</span>
+              <span class="tag">${escapeHtml(course.level)}</span>
+              <span class="tag">${escapeHtml(course.subject)}</span>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@ async function loadCourse() {
       <div class="empty-state">
         <div class="empty-state-icon">❌</div>
         <h3>Course not found</h3>
-        <p>${error.message}</p>
+        <p>${escapeHtml(error.message)}</p>
         <a href="courses.html" class="btn btn-gold">Browse All Courses</a>
       </div>
     `;
@@ -111,7 +111,7 @@ async function loadLessons(courseId) {
     list.innerHTML = '';
     lessons.forEach((lesson, i) => {
       const row = document.createElement('a');
-      row.href = `lesson.html?id=${lesson.id}`;
+      row.href = `lesson.html?id=${encodeURIComponent(lesson.id)}`;
       row.className = 'lesson-row';
       const duration = lesson.duration_minutes ? `${lesson.duration_minutes} min` : 'Video';
 
@@ -133,7 +133,7 @@ async function loadLessons(courseId) {
       <div class="empty-state">
         <div class="empty-state-icon">⚠️</div>
         <h3>Could not load lessons</h3>
-        <p>${error.message}</p>
+        <p>${escapeHtml(error.message)}</p>
       </div>
     `;
   }

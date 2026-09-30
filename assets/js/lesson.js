@@ -63,7 +63,7 @@ async function loadLesson() {
 
       if (course && breadcrumbCourse) {
         breadcrumbCourse.textContent = course.title;
-        breadcrumbCourse.href = `course.html?id=${course.id}`;
+        breadcrumbCourse.href = `course.html?id=${encodeURIComponent(course.id)}`;
       }
     }
 
@@ -73,9 +73,16 @@ async function loadLesson() {
     const duration = lesson.duration_minutes ? `${lesson.duration_minutes} min` : 'Lesson';
     metaEl.innerHTML = `📖 ${duration}`;
 
-    const markdownHtml = lesson.content_markdown
-      ? (typeof marked !== 'undefined' ? marked.parse(lesson.content_markdown) : '<pre>' + escapeHtml(lesson.content_markdown) + '</pre>')
-      : '<p><em>No content yet for this lesson.</em></p>';
+    // marked does NOT sanitize, so run its output through DOMPurify.
+    // If either library failed to load, fall back to plain escaped text.
+    let markdownHtml;
+    if (!lesson.content_markdown) {
+      markdownHtml = '<p><em>No content yet for this lesson.</em></p>';
+    } else if (typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+      markdownHtml = DOMPurify.sanitize(marked.parse(lesson.content_markdown));
+    } else {
+      markdownHtml = '<pre>' + escapeHtml(lesson.content_markdown) + '</pre>';
+    }
 
     const videoEmbed = extractYouTubeEmbed(lesson.video_url);
     const videoBlock = videoEmbed
@@ -115,7 +122,7 @@ function showNotFound(message) {
     <div class="empty-state">
       <div class="empty-state-icon">❌</div>
       <h3>Lesson not found</h3>
-      <p>${message}</p>
+      <p>${escapeHtml(message)}</p>
       <a href="courses.html" class="btn btn-gold">Browse All Courses</a>
     </div>
   `;

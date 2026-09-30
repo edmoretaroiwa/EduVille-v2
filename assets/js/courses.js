@@ -34,7 +34,7 @@ async function loadCourses() {
       <div class="empty-state" style="grid-column: 1 / -1;">
         <div class="empty-state-icon">⚠️</div>
         <h3>Could not load courses</h3>
-        <p>${error.message}</p>
+        <p>${escapeHtml(error.message)}</p>
       </div>
     `;
   }
@@ -91,18 +91,18 @@ function renderCourses() {
 
     const card = document.createElement('a');
     card.className = 'course-card';
-    card.href = `course.html?id=${course.id}`;
+    card.href = `course.html?id=${encodeURIComponent(course.id)}`;
 
     card.innerHTML = `
       <div class="course-card-header">
-        <div class="course-emoji">${course.icon_emoji || '📘'}</div>
+        <div class="course-emoji">${escapeHtml(course.icon_emoji || '📘')}</div>
         <h3 class="course-title">${escapeHtml(course.title)}</h3>
       </div>
       <p class="course-desc">${escapeHtml(course.description || 'No description yet.')}</p>
       <div class="course-tags">
-        <span class="tag ${boardClass}">${course.exam_board}</span>
-        <span class="tag">${course.level}</span>
-        <span class="tag">${course.subject}</span>
+        <span class="tag ${boardClass}">${escapeHtml(course.exam_board)}</span>
+        <span class="tag">${escapeHtml(course.level)}</span>
+        <span class="tag">${escapeHtml(course.subject)}</span>
       </div>
       <div class="course-footer">
         <span>👤 Teachers</span>

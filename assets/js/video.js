@@ -20,12 +20,6 @@ function extractYouTubeId(url) {
   return null;
 }
 
-function formatDate(isoString) {
-  if (!isoString) return '';
-  const d = new Date(isoString);
-  return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
-}
-
 async function loadVideo() {
   const videoId = getVideoId();
   const playerEl = document.getElementById('video-player');
@@ -61,7 +55,7 @@ async function loadVideo() {
         <div class="video-frame-wrapper">
           <iframe
             src="${embedUrl}"
-            title="${video.title || 'Video'}"
+            title="${escapeHtml(video.title || 'Video')}"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         </div>
@@ -77,14 +71,14 @@ async function loadVideo() {
     }
 
     const meta = [];
-    if (video.course) meta.push(`📘 ${video.course}`);
-    if (video.duration) meta.push(`⏱️ ${video.duration}`);
-    if (video.author) meta.push(`👤 ${video.author}`);
-    if (video.created_at) meta.push(`📅 ${formatDate(video.created_at)}`);
+    if (video.course) meta.push(`📘 ${escapeHtml(video.course)}`);
+    if (video.duration) meta.push(`⏱️ ${escapeHtml(video.duration)}`);
+    if (video.author) meta.push(`👤 ${escapeHtml(video.author)}`);
+    if (video.created_at) meta.push(`📅 ${escapeHtml(formatDate(video.created_at))}`);
 
     infoEl.innerHTML = `
       <div class="video-info">
-        <h1>${video.title || 'Untitled Video'}</h1>
+        <h1>${escapeHtml(video.title || 'Untitled Video')}</h1>
         <div class="video-meta-row">
           ${meta.map(m => `<span class="meta-item">${m}</span>`).join('')}
         </div>
@@ -93,7 +87,7 @@ async function loadVideo() {
       ${video.description ? `
         <div class="video-description">
           <h3>📝 About this lesson</h3>
-          <p>${video.description}</p>
+          <p>${escapeHtml(video.description)}</p>
         </div>
       ` : ''}
 
@@ -117,7 +111,7 @@ function showNotFound(message) {
     <div class="empty-state">
       <div class="empty-state-icon">❌</div>
       <h3>Video not found</h3>
-      <p>${message}</p>
+      <p>${escapeHtml(message)}</p>
       <a href="videos.html" class="btn btn-gold">Browse All Videos</a>
     </div>
   `;

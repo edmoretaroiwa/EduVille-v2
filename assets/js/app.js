@@ -25,11 +25,25 @@ function $$(selector) {
   return document.querySelectorAll(selector);
 }
 
+// Escapes text for safe use inside HTML text AND quoted attributes.
 function escapeHtml(text) {
-  if (!text) return '';
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+  if (text === null || text === undefined) return '';
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Only allows http/https links. Blocks javascript:, data:, etc.
+function safeUrl(url) {
+  try {
+    const u = new URL(url, window.location.origin);
+    return (u.protocol === 'http:' || u.protocol === 'https:') ? u.href : '#';
+  } catch (e) {
+    return '#';
+  }
 }
 
 function formatDate(isoString) {
