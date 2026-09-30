@@ -1,6 +1,6 @@
 /* ============================================================
    EDUVILLE 2.0 — AUTH.JS
-   Login, Signup, Session management
+   Login, Signup, Session management, shared helpers
    ============================================================ */
 
 const authClient = window.db;
@@ -117,26 +117,42 @@ async function handleLogin(event) {
 // ============================================================
 
 async function updateNavbarForUser() {
-  const loginBtn = document.querySelector('.btn-login');
-  if (!loginBtn) return;
+  const loginLink = document.querySelector('.btn-login');
+  if (!loginLink) return;
 
   const { data: { session } } = await authClient.auth.getSession();
   if (!session) return;
 
-  const { data: profile } = await authClient
-    .from('users')
-    .select('full_name')
-    .eq('id', session.user.id)
-    .single();
+  let firstName = 'You';
+  try {
+    const { data: profile } = await authClient
+      .from('users')
+      .select('full_name')
+      .eq('id', session.user.id)
+      .maybeSingle();
 
-  const firstName = (profile?.full_name || session.user.email || 'You').split(' ')[0];
+    firstName = (profile?.full_name || session.user.email || 'You').split(' ')[0];
+  } catch (e) {
+    firstName = (session.user.email || 'You').split('@')[0];
+  }
 
-  loginBtn.outerHTML = `
-    <span class="user-badge" onclick="handleLogout()">
-      <i data-lucide="user" style="width:14px;height:14px;"></i>
-      ${escapeHtml(firstName)}
-    </span>
-  `;
+  const li = loginLink.closest('li');
+
+  if (li) {
+    li.innerHTML = `
+      <button type="button" class="user-badge" onclick="handleLogout()" aria-label="Log out">
+        <i data-lucide="user" style="width:14px;height:14px;"></i>
+        <span>${escapeHtml(firstName)}</span>
+      </button>
+    `;
+  } else {
+    loginLink.outerHTML = `
+      <button type="button" class="user-badge" onclick="handleLogout()" aria-label="Log out">
+        <i data-lucide="user" style="width:14px;height:14px;"></i>
+        <span>${escapeHtml(firstName)}</span>
+      </button>
+    `;
+  }
 
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
@@ -149,72 +165,7 @@ async function handleLogout() {
 }
 
 // ============================================================
-// PAGE LOAD
-// ============================================================
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof lucide !== 'undefined') lucide.createIcons();
-  updateNavbarForUser();
-});
-// ============================================================
-// SHARED — role helpers (used by profile, add-video, add-paper)
-// ============================================================
-
-/**
- * Returns { session, role } for the current user.
- * role is read from the users table, defaulting to 'student'.
- */
-async function getMyRole() {
-  try {
-    const { data: { session } } = await authClient.auth.getSession();
-    if (!session) return { session: null, role: null };
-
-    const { data: profile } = await authClient
-      .from('users')
-      .select('role')
-      .eq('id', session.user.id)
-      .maybeSingle();
-
-    return { session, role: (profile && profile.role) || 'student' };
-  } catch (e) {
-    console.error('getMyRole error:', e);
-    return { session: null, role: null };
-  }
-}
-
-function isTeacherRole(role) {
-  return role === 'teacher' || role === 'admin';
-}
-
-/**
- * Returns an HTML block telling the user why they can't access a page.
- * mode: 'login' | 'teacher'
- */
-function accessGateHtml(mode) {
-  if (mode === 'teacher') {
-    const contact = escapeHtml(EDUVILLE_CONFIG.CONTACT_EMAIL);
-    return `
-      <div class="empty-state">
-        <div class="empty-state-icon">🎓</div>
-        <h3>Teacher access only</h3>
-        <p>This page is only for teachers. Email
-          <a href="mailto:${contact}">${contact}</a>
-          to request teacher access.</p>
-        <a href="index.html" class="btn btn-gold">Back to Home</a>
-      </div>`;
-  }
-  return `
-    <div class="empty-state">
-      <div class="empty-state-icon">🔐</div>
-      <h3>Please log in</h3>
-      <p>You need an account to view this page.</p>
-      <a href="login.html" class="btn btn-gold">Log in</a>
-      <a href="signup.html" class="btn btn-secondary">Create account</a>
-    </div>`;
-}
-
-// ============================================================
-// SHARED — role helpers (used by profile, add-video, add-paper)
+// SHARED — role helpers
 // ============================================================
 
 async function getMyRole() {
@@ -280,3 +231,12 @@ function hideFormMessage() {
   const box = document.getElementById('form-msg') || document.querySelector('.form-msg');
   if (box) { box.classList.remove('show'); box.textContent = ''; }
 }
+
+// ============================================================
+// PAGE LOAD
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+  updateNavbarForUser();
+});
