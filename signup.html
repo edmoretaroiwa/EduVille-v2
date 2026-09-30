@@ -8,24 +8,18 @@
   <meta name="theme-color" content="#0d1117">
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
 
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    /* Auth page layout */
     .auth-page {
       min-height: 100vh;
       display: flex;
@@ -105,6 +99,7 @@
       color: var(--text-secondary);
       cursor: pointer;
       transition: all var(--dur-fast) var(--ease);
+      text-decoration: none;
     }
 
     .auth-tab.active {
@@ -152,13 +147,9 @@
       margin-top: 0.3rem;
     }
 
-    .role-option {
-      cursor: pointer;
-    }
+    .role-option { cursor: pointer; }
 
-    .role-option input {
-      display: none;
-    }
+    .role-option input { display: none; }
 
     .role-option span {
       display: flex;
@@ -215,9 +206,7 @@
       margin-bottom: 1rem;
     }
 
-    .auth-error.show {
-      display: block;
-    }
+    .auth-error.show { display: block; }
 
     .auth-footer {
       text-align: center;
@@ -226,9 +215,7 @@
       font-size: 0.8rem;
     }
 
-    .auth-footer p {
-      margin-bottom: 0.3rem;
-    }
+    .auth-footer p { margin-bottom: 0.3rem; }
 
     .auth-back {
       display: inline-flex;
@@ -306,9 +293,10 @@
 
   <footer class="auth-footer">
     <p>© 2026 EduVille · Commit to Your Future</p>
-    <p>📧 ttaroiwa@gmail.com · 📞 +267 78 727 9982</p>
+    <p>📧 ttaroiwa@gmail.com · 📞 +263 78 727 9982</p>
+  </footer>
 
-      <script src="assets/js/config.js"></script>
+  <script src="assets/js/config.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="assets/js/auth.js"></script>
 </body>
