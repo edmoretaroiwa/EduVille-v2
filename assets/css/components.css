@@ -1,4 +1,28 @@
-/* ============================================================
+.user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--r-full);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
+}
+
+.user-badge:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.user-badge svg {
+  width: 14px;
+  height: 14px;
+}/* ============================================================
    EDUVILLE 2.0 — COMPONENTS.CSS
    Buttons, cards, forms, tags, badges, and UI primitives
    ============================================================ */
