@@ -92,12 +92,13 @@ const embedUrl = ytId ? safeUrl(`https://www.youtube.com/embed/${ytId}`) : null;
         </div>
       ` : ''}
 
-      <div class="video-actions">
-        <a href="videos.html" class="btn btn-secondary">
-          <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
-          All Videos
-        </a>
-      </div>
+      <div class="video-actions" style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+  <div id="bookmark-slot" style="min-width:140px; flex:0 0 auto;"></div>
+  <a href="videos.html" class="btn btn-secondary">
+    <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
+    All Videos
+  </a>
+</div>
     `;
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
