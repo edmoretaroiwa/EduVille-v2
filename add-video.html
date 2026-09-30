@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add a Video — EduVille</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/extra.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html" class="active">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="tymercre.html">🤖 TymerCRE</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+      <li><a href="profile.html" class="avatar-link" aria-label="Profile">👤</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="layout-no-sidebar">
+    <main class="main-feed" id="main">
+
+      <section class="hero hero-sm">
+        <h1>🎬 Add a <span class="gold">Video</span></h1>
+        <p>Share a YouTube lesson with students.</p>
+      </section>
+
+      <div id="gate"><div class="empty-state"><div class="spinner"></div><p>Checking your access...</p></div></div>
+
+      <form class="form-card" id="video-form" style="display:none;" novalidate>
+        <div class="form-msg" id="form-msg" role="status"></div>
+
+        <div class="form-group">
+          <label for="v-title">Title</label>
+          <input type="text" id="v-title" maxlength="120" placeholder="e.g. Solving quadratic equations" required>
+        </div>
+
+        <div class="form-group">
+          <label for="v-url">YouTube link</label>
+          <input type="url" id="v-url" placeholder="https://www.youtube.com/watch?v=..." required>
+          <div class="form-hint">Paste the video link from YouTube's Share button.</div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="v-course">Subject</label>
+            <select id="v-course" class="form-select">
+              <option>Mathematics</option>
+              <option>Physics</option>
+              <option>Chemistry</option>
+              <option>Biology</option>
+              <option>Computer Studies</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="v-duration">Length (optional)</label>
+            <input type="text" id="v-duration" maxlength="8" placeholder="12:30">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="v-author">Presenter name</label>
+          <input type="text" id="v-author" maxlength="80" required>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-gold" id="v-submit">Add Video</button>
+          <a href="videos.html" class="btn btn-ghost">Back to Videos</a>
+        </div>
+      </form>
+
+    </main>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Learn. Build. Share. Together.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="notes.html">Notes</a>
+        <a href="resources.html">Past Papers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/add-video.js"></script>
+</body>
+</html>
