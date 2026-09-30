@@ -122,5 +122,5 @@ function showNotFound(message) {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof lucide !== 'undefined') lucide.createIcons();
-  loadVideo();
+  loadVideo();mountBookmarkButton('bookmark-slot', 'video', video.id);
 });
