@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Notes — EduVille</title>
+  <meta name="description" content="Free study notes for ZIMSEC, BEC and Cambridge students. Read lesson notes in Mathematics, Physics, Chemistry, Biology and more.">
+  <link rel="canonical" href="https://eduvillelearning.africa/notes.html">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/extra.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="tymercre.html">🤖 TymerCRE</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+      <li><a href="profile.html" class="avatar-link" aria-label="Profile">👤</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="layout-no-sidebar">
+    <main class="main-feed" id="main">
+
+      <section class="hero hero-sm">
+        <h1>📝 Study <span class="gold">Notes</span></h1>
+        <p>Read lesson notes for ZIMSEC, BEC and Cambridge, all free.</p>
+      </section>
+
+      <section>
+        <div class="notes-filters" id="subject-filters" aria-label="Filter by subject"></div>
+        <div class="notes-search">
+          <label class="sr-only" for="notes-search">Search notes</label>
+          <input type="search" id="notes-search" placeholder="Search notes by lesson or course...">
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading-row">
+          <h3 class="section-heading" id="notes-heading">All Notes</h3>
+          <span class="text-muted" id="notes-count">Loading...</span>
+        </div>
+        <div id="notes-list">
+          <div class="empty-state"><div class="spinner"></div><p>Loading notes...</p></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Learn. Build. Share. Together.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="notes.html">Notes</a>
+        <a href="resources.html">Past Papers</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/notes.js"></script>
+</body>
+</html>
