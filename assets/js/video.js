@@ -47,8 +47,9 @@ async function loadVideo() {
 
     if (breadcrumbEl) breadcrumbEl.textContent = video.title || 'Video';
 
-    const ytId = extractYouTubeId(video.embed_url || video.original_url);
-    const embedUrl = ytId ? `https://www.youtube.com/embed/${ytId}` : null;
+    const rawUrl = video.embed_url || video.original_url || '';
+const ytId = extractYouTubeId(rawUrl);
+const embedUrl = ytId ? safeUrl(`https://www.youtube.com/embed/${ytId}`) : null;
 
     if (embedUrl) {
       playerEl.innerHTML = `
