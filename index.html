@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduVille — Free Education for Every African Student</title>
-  <meta name="description" content="EduVille provides free lessons, notes, past papers, and an AI tutor for ZIMSEC, Cambridge, and BEC students across Africa.">
-  <meta name="keywords" content="EduVille, ZIMSEC, Cambridge, BEC, O-Level, A-Level, free education, Zimbabwe, past papers">
+  <title>EduVille — Free ZIMSEC, Cambridge & BEC Study Companion for African Students</title>
+  <meta name="description" content="Free curriculum-aligned lessons, past papers, video tutorials, and an AI study tutor for ZIMSEC, Cambridge, and BEC students across Africa.">
+  <meta name="keywords" content="ZIMSEC, Cambridge, BEC, O-Level, A-Level, past papers, free education, Zimbabwe, Mathematics, Physics, Chemistry, Biology">
   <meta name="theme-color" content="#0d1117">
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="EduVille — Free Education for Every African Student">
-  <meta property="og:description" content="Free lessons, notes, past papers, and an AI tutor for ZIMSEC, Cambridge, and BEC students.">
+  <meta property="og:title" content="EduVille — Free Study Companion for African Students">
+  <meta property="og:description" content="Lessons, past papers, videos, and an AI tutor for ZIMSEC, Cambridge, and BEC.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://eduvillelearning.africa/">
   <meta property="og:image" content="https://eduvillelearning.africa/assets/images/hero-bg.png">
@@ -23,30 +22,199 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/extra.css">
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    /* Hero with background image */
-    .hero {
+    /* Hero */
+    .home-hero {
       background:
-        linear-gradient(135deg, rgba(15, 30, 74, 0.92), rgba(30, 58, 138, 0.75)),
+        linear-gradient(135deg, rgba(15, 30, 74, 0.94), rgba(30, 58, 138, 0.78)),
         url('assets/images/hero-bg.png') center/cover no-repeat;
-      min-height: 380px;
+      padding: 3rem 1.5rem 3.5rem;
+      border-radius: var(--r-lg);
+      border-bottom: 4px solid var(--gold);
+      margin-bottom: 2rem;
+      color: #fff;
+      text-align: center;
     }
-    .hero-tagline {
+    .home-hero .curriculum-badges {
+      display: inline-flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .home-hero .curriculum-badges span {
       display: inline-block;
-      padding: 0.35rem 0.9rem;
+      padding: 0.35rem 0.85rem;
       background: rgba(251, 191, 36, 0.15);
       border: 1px solid var(--gold);
       border-radius: var(--r-full);
       color: var(--gold);
       font-size: 0.72rem;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 1rem;
+    }
+    .home-hero h1 {
+      color: #fff;
+      font-size: clamp(1.7rem, 5vw, 2.6rem);
+      line-height: 1.15;
+      margin-bottom: 0.9rem;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .home-hero h1 .gold { color: var(--gold); }
+    .home-hero .hero-lead {
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 1.05rem;
+      line-height: 1.55;
+      max-width: 620px;
+      margin: 0 auto 1.8rem;
+    }
+    .home-hero .hero-actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Trust strip under hero */
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+    .trust-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 1rem 0.9rem;
+      text-align: center;
+    }
+    .trust-item .trust-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+    .trust-item .trust-label {
+      color: var(--text-bright);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+    }
+    .trust-item .trust-sub {
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+    }
+
+    /* AI tutor feature card */
+    .ai-section {
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-lg);
+      padding: 2rem 1.7rem;
+      margin-bottom: 2rem;
+      color: #fff;
+      border-bottom: 4px solid var(--gold);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 780px) {
+      .ai-section {
+        grid-template-columns: 1.4fr 1fr;
+        align-items: center;
+      }
+    }
+    .ai-section .ai-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid var(--gold);
+      border-radius: var(--r-full);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .ai-section h2 {
+      color: #fff;
+      font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+      margin: 0 0 0.6rem 0;
+    }
+    .ai-section h2 .gold { color: var(--gold); }
+    .ai-section p {
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    .ai-section .ai-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .ai-chat-preview {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--r-md);
+      padding: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .ai-chat-preview .msg {
+      margin-bottom: 0.7rem;
+    }
+    .ai-chat-preview .msg:last-child { margin-bottom: 0; }
+    .ai-chat-preview .who {
+      display: inline-block;
+      font-weight: 600;
+      color: var(--gold);
+      font-size: 0.75rem;
+      margin-bottom: 0.15rem;
+    }
+    .ai-chat-preview .who.user { color: #7ee787; }
+    .ai-chat-preview .body {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Curriculum cards */
+    .curriculum-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+    .curriculum-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 1.2rem 1rem;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+    .curriculum-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      text-decoration: none;
+    }
+    .curriculum-card .cc-flag { font-size: 1.6rem; margin-bottom: 0.3rem; }
+    .curriculum-card h4 {
+      color: var(--text-bright);
+      font-size: 0.98rem;
+      margin: 0 0 0.25rem 0;
+    }
+    .curriculum-card p {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin: 0;
     }
   </style>
 </head>
@@ -61,131 +229,124 @@
       <span class="logo-text">Edu<span class="gold">Ville</span></span>
     </a>
 
-    <label class="search-wrap">
-      <span class="sr-only">Search</span>
-      <i data-lucide="search" class="icon"></i>
-      <input type="search" placeholder="Search courses, videos, papers...">
-    </label>
-
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="courses.html">Courses</a></li>
       <li><a href="videos.html">Videos</a></li>
-      <li><a href="resources.html">Resources</a></li>
-      <li><a href="about.html">About</a></li>
-      <li>
-        <a href="login.html" class="btn-login">
-          <i data-lucide="lock" class="icon icon-sm"></i>
-          <span>Login</span>
-        </a>
-      </li>
+      <li><a href="resources.html">Past Papers</a></li>
+      <li><a href="tymercre.html">🤖 AI Tutor</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
     </ul>
   </nav>
 
   <div class="motto-bar">✨ Commit to Your Future ✨</div>
 
   <!-- MAIN LAYOUT -->
-  <div class="layout">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-      <div class="sidebar-section">
-        <h4 class="sidebar-heading">Quick Links</h4>
-        <a href="dashboard.html" class="side-link">
-          <i data-lucide="layout-dashboard" class="icon"></i>
-          <span>Dashboard</span>
-        </a>
-        <a href="courses.html" class="side-link">
-          <i data-lucide="book-open" class="icon"></i>
-          <span>Courses</span>
-        </a>
-        <a href="videos.html" class="side-link">
-          <i data-lucide="play-circle" class="icon"></i>
-          <span>Watch Videos</span>
-        </a>
-        <a href="resources.html" class="side-link">
-          <i data-lucide="folder-open" class="icon"></i>
-          <span>Past Papers</span>
-        </a>
-        <a href="tymercre.html" class="side-link">
-          <i data-lucide="bot" class="icon"></i>
-          <span>TymerCRE AI Tutor</span>
-        </a>
-      </div>
-
-      <div class="sidebar-section">
-        <h4 class="sidebar-heading">Coming Soon</h4>
-        <a href="#" class="side-link">
-          <i data-lucide="clipboard-list" class="icon"></i>
-          <span>Assignments</span>
-          <span class="coming-soon-badge">Soon</span>
-        </a>
-        <a href="#" class="side-link">
-          <i data-lucide="star" class="icon"></i>
-          <span>Starred</span>
-          <span class="coming-soon-badge">Soon</span>
-        </a>
-        <a href="#" class="side-link">
-          <i data-lucide="message-circle" class="icon"></i>
-          <span>Discussions</span>
-          <span class="coming-soon-badge">Soon</span>
-        </a>
-      </div>
-
-      <div class="sidebar-section">
-        <h4 class="sidebar-heading">Featured Subjects</h4>
-        <a href="courses.html" class="side-link">
-          <i data-lucide="calculator" class="icon"></i>
-          <span>Mathematics</span>
-        </a>
-        <a href="courses.html" class="side-link">
-          <i data-lucide="atom" class="icon"></i>
-          <span>Physics</span>
-        </a>
-        <a href="courses.html" class="side-link">
-          <i data-lucide="flask-conical" class="icon"></i>
-          <span>Chemistry</span>
-        </a>
-        <a href="courses.html" class="side-link">
-          <i data-lucide="dna" class="icon"></i>
-          <span>Biology</span>
-        </a>
-        <a href="courses.html" class="side-link">
-          <i data-lucide="monitor" class="icon"></i>
-          <span>Computer Studies</span>
-        </a>
-      </div>
-
-    </aside>
-
-    <!-- MAIN CONTENT -->
+  <div class="layout-no-sidebar">
     <main class="main-feed" id="main">
 
       <!-- HERO -->
-      <section class="hero">
-        <span class="hero-tagline">Free Forever · For Every African Student</span>
-        <h1>Welcome to <span class="gold">EduVille</span></h1>
-        <p>Free video lessons, study notes, past papers, and an AI tutor for ZIMSEC, Cambridge, and BEC students across Africa.</p>
+      <section class="home-hero">
+        <div class="curriculum-badges">
+          <span>ZIMSEC</span>
+          <span>Cambridge</span>
+          <span>BEC</span>
+        </div>
+        <h1>Free <span class="gold">study companion</span><br>for African students</h1>
+        <p class="hero-lead">
+          Master Mathematics, Physics, Chemistry, Biology and Computer Studies with
+          curriculum-aligned lessons, past papers, video tutorials and an AI tutor —
+          all completely free.
+        </p>
         <div class="hero-actions">
-          <a href="courses.html" class="btn btn-gold btn-lg">
-            <i data-lucide="play" class="icon"></i>
-            <span>Start Learning</span>
+          <a href="courses.html" class="btn btn-gold btn-lg">📚 Start Learning</a>
+          <a href="resources.html" class="btn btn-secondary btn-lg">📝 Past Papers</a>
+        </div>
+      </section>
+
+      <!-- TRUST STRIP -->
+      <section class="trust-strip">
+        <div class="trust-item">
+          <div class="trust-icon">📘</div>
+          <div class="trust-label">Curriculum aligned</div>
+          <div class="trust-sub">ZIMSEC · Cambridge · BEC</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">👩‍🏫</div>
+          <div class="trust-label">Teacher-created</div>
+          <div class="trust-sub">Real educators, real content</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🎯</div>
+          <div class="trust-label">Exam focused</div>
+          <div class="trust-sub">Built for O & A-Level</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🆓</div>
+          <div class="trust-label">Free forever</div>
+          <div class="trust-sub">No paywalls, no ads</div>
+        </div>
+      </section>
+
+      <!-- AI TUTOR FEATURE -->
+      <section class="ai-section">
+        <div>
+          <span class="ai-badge">Powered by TymerCRE</span>
+          <h2>Meet your <span class="gold">AI study partner</span></h2>
+          <p>
+            Stuck on a question? Ask TymerCRE anything about your subjects and get
+            step-by-step explanations in simple English — any time, any day, for free.
+          </p>
+          <div class="ai-actions">
+            <a href="tymercre.html" class="btn btn-gold">🤖 Try the AI Tutor</a>
+            <a href="about.html" class="btn btn-secondary">Learn more</a>
+          </div>
+        </div>
+        <div class="ai-chat-preview" aria-hidden="true">
+          <div class="msg">
+            <span class="who user">Student</span>
+            <div class="body">Explain quadratic equations</div>
+          </div>
+          <div class="msg">
+            <span class="who">TymerCRE</span>
+            <div class="body">
+              A quadratic equation has the form <strong>ax² + bx + c = 0</strong>.
+              <br><br>
+              To solve it you can: factorise, complete the square, or use the formula
+              x = (−b ± √(b²−4ac)) / 2a.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CURRICULUM CARDS -->
+      <section>
+        <div class="section-heading-row">
+          <h3 class="section-heading">🎯 Choose your curriculum</h3>
+        </div>
+        <div class="curriculum-grid">
+          <a href="courses.html" class="curriculum-card">
+            <div class="cc-flag">🇿🇼</div>
+            <h4>ZIMSEC</h4>
+            <p>O-Level & A-Level</p>
           </a>
-          <a href="about.html" class="btn btn-secondary btn-lg">
-            <i data-lucide="info" class="icon"></i>
-            <span>Our Story</span>
+          <a href="courses.html" class="curriculum-card">
+            <div class="cc-flag">🇬🇧</div>
+            <h4>Cambridge</h4>
+            <p>IGCSE, AS & A2</p>
+          </a>
+          <a href="courses.html" class="curriculum-card">
+            <div class="cc-flag">🇧🇼</div>
+            <h4>BEC</h4>
+            <p>Botswana Examinations</p>
           </a>
         </div>
       </section>
 
       <!-- STATS -->
-      <section>
+      <section style="margin-top:2rem;">
         <div class="section-heading-row">
-          <h3 class="section-heading">
-            <i data-lucide="bar-chart-3" class="icon"></i>
-            <span>Platform Overview</span>
-          </h3>
+          <h3 class="section-heading">📊 Platform overview</h3>
         </div>
         <div class="grid-stats">
           <div class="stat-card">
@@ -207,17 +368,11 @@
         </div>
       </section>
 
-      <!-- FEATURED COURSES -->
-      <section>
+      <!-- POPULAR SUBJECTS -->
+      <section style="margin-top:2rem;">
         <div class="section-heading-row">
-          <h3 class="section-heading">
-            <i data-lucide="flame" class="icon"></i>
-            <span>Popular Subjects</span>
-          </h3>
-          <a href="courses.html" class="btn btn-ghost btn-sm">
-            <span>View all</span>
-            <i data-lucide="arrow-right" class="icon icon-sm"></i>
-          </a>
+          <h3 class="section-heading">🔥 Popular subjects</h3>
+          <a href="courses.html" class="btn btn-ghost btn-sm">View all →</a>
         </div>
         <div class="grid-courses" id="featured-courses">
           <a href="courses.html" class="repo-card">
@@ -268,16 +423,10 @@
       </section>
 
       <!-- LATEST VIDEOS -->
-      <section>
+      <section style="margin-top:2rem;">
         <div class="section-heading-row">
-          <h3 class="section-heading">
-            <i data-lucide="play-circle" class="icon"></i>
-            <span>Latest Video Lessons</span>
-          </h3>
-          <a href="videos.html" class="btn btn-ghost btn-sm">
-            <span>View all</span>
-            <i data-lucide="arrow-right" class="icon icon-sm"></i>
-          </a>
+          <h3 class="section-heading">🎬 Latest video lessons</h3>
+          <a href="videos.html" class="btn btn-ghost btn-sm">View all →</a>
         </div>
         <div class="grid-featured" id="latest-videos">
           <p class="loading-text">
@@ -287,30 +436,43 @@
         </div>
       </section>
 
-      <!-- RECENT ACTIVITY -->
-      <section>
+      <!-- WHY EDUVILLE -->
+      <section style="margin-top:2rem;">
         <div class="section-heading-row">
-          <h3 class="section-heading">
-            <i data-lucide="megaphone" class="icon"></i>
-            <span>What's New</span>
-          </h3>
+          <h3 class="section-heading">💎 Why students choose EduVille</h3>
         </div>
-        <div class="card">
+        <div class="card" style="padding:1.3rem 1.5rem;">
           <div class="activity-feed">
             <div class="activity-item">
               <span class="dot gold-dot"></span>
-              <p><strong>EduVille 2.0 launched</strong> — new platform on eduvillelearning.africa</p>
+              <p><strong>Curriculum-aligned content</strong> — every lesson matches ZIMSEC, Cambridge, or BEC syllabi.</p>
             </div>
             <div class="activity-item">
               <span class="dot blue-dot"></span>
-              <p><strong>TymerCRE AI Tutor</strong> is now live — ask any question, get help instantly</p>
+              <p><strong>Teacher-created resources</strong> — written and reviewed by practising educators.</p>
             </div>
             <div class="activity-item">
               <span class="dot green-dot"></span>
-              <p><strong>Past papers library</strong> now open — free downloads for all students</p>
+              <p><strong>Free forever</strong> — no paywalls, no ads, no hidden costs. Ever.</p>
+            </div>
+            <div class="activity-item">
+              <span class="dot gold-dot"></span>
+              <p><strong>AI tutor included</strong> — ask TymerCRE anything, any time, for free.</p>
+            </div>
+            <div class="activity-item">
+              <span class="dot blue-dot"></span>
+              <p><strong>Built for Africa</strong> — lightweight, mobile-first, works on any device.</p>
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- CTA -->
+      <section style="margin-top:2rem; text-align:center;">
+        <a href="signup.html" class="btn btn-gold btn-lg">🚀 Create your free account</a>
+        <p style="color:var(--text-secondary); margin-top:0.8rem; font-size:0.9rem;">
+          No payment. No spam. Just learning.
+        </p>
       </section>
 
     </main>
@@ -328,8 +490,8 @@
         <h4>Explore</h4>
         <a href="courses.html">Courses</a>
         <a href="videos.html">Videos</a>
+        <a href="notes.html">Notes</a>
         <a href="resources.html">Past Papers</a>
-        <a href="about.html">About Us</a>
       </div>
       <div>
         <h4>Legal</h4>
@@ -352,4 +514,4 @@
   <script src="assets/js/app.js"></script>
   <script src="assets/js/auth.js"></script>
 </body>
-  </html>
+</html>
