@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TymerCRE — Your Free AI Study Tutor | EduVille</title>
+  <meta name="description" content="Meet TymerCRE, EduVille's free AI study tutor. Get step-by-step explanations for Mathematics, Physics, Chemistry, Biology, and Computer Studies — any time, for free.">
+  <meta name="keywords" content="AI tutor, TymerCRE, ZIMSEC AI, Cambridge AI tutor, free AI tutor Africa, EduVille AI">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="canonical" href="https://eduvillelearning.africa/ai-tutor.html">
+
+  <meta property="og:title" content="TymerCRE — Your Free AI Study Tutor">
+  <meta property="og:description" content="Step-by-step explanations for ZIMSEC, Cambridge, and BEC subjects. Free forever.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/extra.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .ai-hero {
+      background:
+        linear-gradient(135deg, rgba(15, 30, 74, 0.94), rgba(30, 58, 138, 0.78)),
+        url('assets/images/hero-bg.png') center/cover no-repeat;
+      padding: 3rem 1.5rem;
+      border-radius: var(--r-lg);
+      border-bottom: 4px solid var(--gold);
+      margin-bottom: 2rem;
+      color: #fff;
+      text-align: center;
+    }
+    .ai-hero .ai-badge {
+      display: inline-block;
+      padding: 0.3rem 0.85rem;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid var(--gold);
+      border-radius: var(--r-full);
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .ai-hero h1 {
+      color: #fff;
+      font-size: clamp(1.7rem, 4.5vw, 2.3rem);
+      margin-bottom: 0.7rem;
+    }
+    .ai-hero h1 .gold { color: var(--gold); }
+    .ai-hero p {
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.55;
+    }
+    .ai-hero .hero-actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .ai-section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 1.8rem;
+      margin-bottom: 1.3rem;
+    }
+    .ai-section h2 {
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin: 0 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+    .ai-section p {
+      color: var(--text-primary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .ai-section p:last-child { margin-bottom: 0; }
+    .ai-section strong { color: var(--text-bright); }
+
+    .ai-capabilities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+    .cap-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 1.1rem;
+    }
+    .cap-card .cap-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+    .cap-card h4 {
+      color: var(--text-bright);
+      font-size: 0.95rem;
+      margin: 0 0 0.35rem 0;
+    }
+    .cap-card p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .ai-chat-demo {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 1.2rem;
+      margin-top: 1rem;
+    }
+    .ai-chat-demo .msg {
+      margin-bottom: 1rem;
+    }
+    .ai-chat-demo .msg:last-child { margin-bottom: 0; }
+    .ai-chat-demo .who {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .ai-chat-demo .who.user { color: var(--edu-blue-light); }
+    .ai-chat-demo .body {
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      padding-left: 0.6rem;
+      border-left: 2px solid var(--border-default);
+    }
+
+    .ai-disclaimer {
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid var(--gold);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--r-sm);
+      padding: 1rem 1.2rem;
+      margin-top: 1rem;
+    }
+    .ai-disclaimer p {
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .ai-disclaimer strong { color: var(--gold); }
+
+    .ai-faq details {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-sm);
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+    .ai-faq summary {
+      color: var(--text-bright);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      list-style: none;
+    }
+    .ai-faq summary::-webkit-details-marker { display: none; }
+    .ai-faq summary::before {
+      content: '▸ ';
+      color: var(--gold);
+      font-weight: 700;
+      margin-right: 0.3rem;
+    }
+    .ai-faq details[open] summary::before { content: '▾ '; }
+    .ai-faq details p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin: 0.7rem 0 0 0;
+    }
+
+    .ai-final-cta {
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-lg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: #fff;
+      border-bottom: 4px solid var(--gold);
+      margin-top: 2rem;
+    }
+    .ai-final-cta h2 {
+      color: var(--gold);
+      margin: 0 0 0.5rem 0;
+      font-size: 1.4rem;
+    }
+    .ai-final-cta p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1.3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Past Papers</a></li>
+      <li><a href="ai-tutor.html" class="active">🤖 AI Tutor</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="layout-no-sidebar">
+    <main class="main-feed" id="main">
+
+      <!-- HERO -->
+      <section class="ai-hero">
+        <span class="ai-badge">Powered by TymerCRE</span>
+        <h1>Your free <span class="gold">AI study partner</span></h1>
+        <p>
+          Stuck on a question? Ask TymerCRE anything about your subjects and get
+          clear, step-by-step explanations — any time, any day, for free.
+        </p>
+        <div class="hero-actions">
+          <a href="tymercre.html" class="btn btn-gold btn-lg">🤖 Try the AI Tutor</a>
+          <a href="#how" class="btn btn-secondary btn-lg">How it works</a>
+        </div>
+      </section>
+
+      <!-- WHAT IT IS -->
+      <section class="ai-section">
+        <h2>What is TymerCRE?</h2>
+        <p>
+          <strong>TymerCRE</strong> is EduVille's AI study tutor. It's a chat assistant that
+          helps you understand topics from your ZIMSEC, Cambridge, or BEC syllabus.
+          You type a question, and it explains the answer in simple English — the
+          same way a patient teacher would.
+        </p>
+        <p>
+          It was built specifically for EduVille students. It's not a general-purpose
+          chatbot; it's focused on school subjects and exam preparation.
+        </p>
+      </section>
+
+      <!-- WHAT IT CAN DO -->
+      <section class="ai-section">
+        <h2>What can it help with?</h2>
+        <p>TymerCRE supports the subjects taught on EduVille:</p>
+        <div class="ai-capabilities">
+          <div class="cap-card">
+            <div class="cap-icon">📘</div>
+            <h4>Mathematics</h4>
+            <p>Algebra, geometry, calculus, statistics — step-by-step working.</p>
+          </div>
+          <div class="cap-card">
+            <div class="cap-icon">🔬</div>
+            <h4>Physics</h4>
+            <p>Mechanics, waves, electricity, and modern physics concepts.</p>
+          </div>
+          <div class="cap-card">
+            <div class="cap-icon">⚗️</div>
+            <h4>Chemistry</h4>
+            <p>Organic, physical and inorganic chemistry — reactions explained.</p>
+          </div>
+          <div class="cap-card">
+            <div class="cap-icon">🧬</div>
+            <h4>Biology</h4>
+            <p>Cells, genetics, ecology, and human physiology.</p>
+          </div>
+          <div class="cap-card">
+            <div class="cap-icon">💻</div>
+            <h4>Computer Studies</h4>
+            <p>Programming basics, databases, and computer systems.</p>
+          </div>
+          <div class="cap-card">
+            <div class="cap-icon">🎯</div>
+            <h4>Exam technique</h4>
+            <p>How to structure answers, avoid common mistakes, and manage time.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="ai-section" id="how">
+        <h2>How it works</h2>
+        <p>Ask a question the way you'd ask a teacher. Here's what a typical chat looks like:</p>
+
+        <div class="ai-chat-demo">
+          <div class="msg">
+            <span class="who user">You</span>
+            <div class="body">Explain quadratic equations</div>
+          </div>
+          <div class="msg">
+            <span class="who">TymerCRE</span>
+            <div class="body">
+              A quadratic equation has the form <strong>ax² + bx + c = 0</strong>.<br><br>
+              To solve it, you have three main methods:<br>
+              1. <strong>Factorise</strong> — works when the numbers are simple<br>
+              2. <strong>Complete the square</strong> — useful for finding the vertex<br>
+              3. <strong>Quadratic formula</strong> — always works:<br>
+              &nbsp;&nbsp;&nbsp;x = (−b ± √(b² − 4ac)) / 2a
+            </div>
+          </div>
+          <div class="msg">
+            <span class="who user">You</span>
+            <div class="body">Can you solve 2x² + 5x − 3 = 0?</div>
+          </div>
+          <div class="msg">
+            <span class="who">TymerCRE</span>
+            <div class="body">
+              Yes! Here, a = 2, b = 5, c = −3.<br><br>
+              Using the formula:<br>
+              x = (−5 ± √(25 − 4·2·(−3))) / 4<br>
+              x = (−5 ± √49) / 4<br>
+              x = (−5 ± 7) / 4<br><br>
+              So x = 0.5 or x = −3.
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top:1rem;">
+          You can ask follow-up questions, request simpler explanations, or ask for
+          more examples. TymerCRE remembers the conversation within a session so you
+          don't have to repeat yourself.
+        </p>
+      </section>
+
+      <!-- LIMITS AND HONESTY -->
+      <section class="ai-section">
+        <h2>What it can't do (and why that matters)</h2>
+        <p>
+          TymerCRE is a study assistant, <strong>not an unquestionable authority</strong>.
+          Like all AI tools, it can sometimes:
+        </p>
+        <ul style="margin: 0.5rem 0 1rem 1.5rem; color: var(--text-primary); line-height: 1.7;">
+          <li>Give a wrong answer confidently</li>
+          <li>Misunderstand a question</li>
+          <li>Miss exam-specific conventions or marking-scheme requirements</li>
+        </ul>
+
+        <div class="ai-disclaimer">
+          <p>
+            <strong>⚠️ Always verify important answers</strong> with your teacher, your
+            textbook, or an official marking scheme. Use TymerCRE to help you
+            <em>understand</em>, not to replace your own working.
+          </p>
+        </div>
+      </section>
+
+      <!-- DATA AND PRIVACY -->
+      <section class="ai-section">
+        <h2>Your data and privacy</h2>
+        <p>
+          We take student privacy seriously. Here's what you should know about how
+          TymerCRE handles your information:
+        </p>
+        <ul style="margin: 0.5rem 0 1rem 1.5rem; color: var(--text-primary); line-height: 1.7;">
+          <li><strong>No personal data required</strong> — you can use TymerCRE without giving your name or email.</li>
+          <li><strong>Chats are stored anonymously</strong> — for improving the tutor and for safety review. They aren't linked to any personal profile.</li>
+          <li><strong>Your questions go to Google's Gemini API</strong> — the AI that powers TymerCRE. Their privacy policy applies to the AI processing.</li>
+          <li><strong>We never sell your data</strong> — to anyone, for any reason.</li>
+        </ul>
+        <p>
+          For full details, see our <a href="privacy.html" style="color: var(--edu-blue-light);">Privacy Policy</a>.
+        </p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="ai-section ai-faq">
+        <h2>Frequently asked questions</h2>
+
+        <details>
+          <summary>Is TymerCRE really free?</summary>
+          <p>Yes. Completely free, with no limits and no ads. We may add paid features in the future, but the core AI tutor will always be free for students.</p>
+        </details>
+
+        <details>
+          <summary>Do I need an account to use it?</summary>
+          <p>No. You can start chatting right away without signing up. If you create an account, we'll be able to remember your progress on other EduVille features.</p>
+        </details>
+
+        <details>
+          <summary>Which subjects does it support best?</summary>
+          <p>Mathematics, Physics, Chemistry, Biology, and Computer Studies. It can also help with exam technique and study skills.</p>
+        </details>
+
+        <details>
+          <summary>Is it ChatGPT?</summary>
+          <p>No. TymerCRE is built specifically for EduVille using Google's Gemini AI. It's tuned to explain concepts at a secondary-school level and focused on ZIMSEC, Cambridge, and BEC content.</p>
+        </details>
+
+        <details>
+          <summary>Can it write my essays for me?</summary>
+          <p>It can help you structure ideas and understand how to approach a question, but it won't do your homework for you — and it shouldn't. The goal is to help you learn, not to replace your own work.</p>
+        </details>
+
+        <details>
+          <summary>What if it gives a wrong answer?</summary>
+          <p>Check with your teacher, textbook, or an official marking scheme. If you spot something repeatedly wrong, please let us know — we're constantly improving TymerCRE. Report issues at <a href="mailto:ttaroiwa@gmail.com" style="color: var(--edu-blue-light);">ttaroiwa@gmail.com</a>.</p>
+        </details>
+
+        <details>
+          <summary>Does it work on my phone?</summary>
+          <p>Yes. TymerCRE works on any phone with a web browser. It's lightweight and doesn't require a fast connection.</p>
+        </details>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section class="ai-final-cta">
+        <h2>Ready to try it?</h2>
+        <p>Ask TymerCRE a question about any subject — it takes 5 seconds to start.</p>
+        <a href="tymercre.html" class="btn btn-gold btn-lg">🤖 Open the AI Tutor</a>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Free education for every African student.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="notes.html">Notes</a>
+        <a href="resources.html">Past Papers</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+        <a href="tel:+263788923710">+263 78 892 3710</a>
+        <a href="tel:+263787279982">+263 78 727 9982</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
