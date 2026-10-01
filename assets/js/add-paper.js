@@ -74,17 +74,21 @@ async function handleAddPaper(event) {
   btn.textContent = 'Adding...';
 
   try {
-    const { error } = await addPaperClient
-      .from('papers')
-      .insert({
-        title: title,
-        exam_board: board,
-        level: level,
-        subject: subject,
-        year: year,
-        paper_type: paperType,
-        file_url: fileUrl
-      });
+    const { data: { session } } = await addPaperClient.auth.getSession();
+if (!session) throw new Error('Please log in again and retry.');
+
+const { error } = await addPaperClient
+  .from('papers')
+  .insert({
+    title: title,
+    exam_board: board,
+    level: level,
+    subject: subject,
+    year: year,
+    paper_type: paperType,
+    file_url: fileUrl,
+    author_id: session.user.id
+  });
 
     if (error) throw error;
 
