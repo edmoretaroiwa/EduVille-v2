@@ -452,3 +452,114 @@
   opacity: 0.7;
 }
 .bm-card-missing .bm-icon { color: var(--text-secondary); }
+/* ----- Teacher dashboard ----- */
+.td-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-md);
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+.td-row:hover { border-color: var(--gold); }
+
+.td-main {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 0;
+  flex: 1;
+}
+.td-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.td-info {
+  min-width: 0;
+}
+.td-info h4 {
+  color: var(--text-bright);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.15rem 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.td-info p {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.td-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.td-danger {
+  color: #ff7b72;
+}
+.td-danger:hover {
+  border-color: var(--accent-red);
+  color: #ff7b72;
+}
+
+/* ----- Edit modal ----- */
+.td-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+  animation: fadeIn 0.15s ease;
+}
+.td-modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-md);
+  padding: 1.4rem 1.5rem;
+  box-shadow: var(--shadow-lg);
+}
+.td-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.td-modal-head h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-bright);
+}
+.td-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--r-sm);
+}
+.td-modal-close:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-bright);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
