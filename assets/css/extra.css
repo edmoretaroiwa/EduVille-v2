@@ -563,3 +563,199 @@
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+/* ============================================================
+   UNIVERSAL NAVBAR — replaces per-page navbars
+   ============================================================ */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-default);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar .logo-img {
+  height: 28px;
+  width: auto;
+}
+
+.navbar .logo-text {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+.navbar .logo-text .gold { color: var(--gold); }
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.navbar .nav-links > li { position: relative; }
+
+.navbar .nav-links a,
+.navbar .nav-links button.nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: var(--r-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+.navbar .nav-links a:hover,
+.navbar .nav-links button.nav-item:hover {
+  color: var(--text-bright);
+  background: var(--bg-tertiary);
+  text-decoration: none;
+}
+.navbar .nav-links a.active {
+  color: var(--gold);
+}
+
+/* "More" dropdown */
+.nav-more-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 200px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-md);
+  padding: 0.4rem;
+  box-shadow: var(--shadow-lg);
+  display: none;
+  z-index: 200;
+}
+.nav-more-menu.open { display: block; }
+.nav-more-menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--r-sm);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.88rem;
+  width: 100%;
+  justify-content: flex-start;
+}
+.nav-more-menu a:hover {
+  background: var(--bg-tertiary);
+  color: var(--gold);
+  text-decoration: none;
+}
+.nav-more-menu .divider {
+  height: 1px;
+  background: var(--border-muted);
+  margin: 0.35rem 0;
+}
+
+/* Mobile hamburger button (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-sm);
+  padding: 0.35rem 0.6rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+/* Mobile menu */
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 500;
+}
+.nav-mobile-menu.open { display: block; }
+
+.nav-mobile-panel {
+  position: absolute;
+  top: 0; right: 0;
+  width: min(300px, 82vw);
+  height: 100vh;
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border-default);
+  padding: 1rem;
+  overflow-y: auto;
+}
+.nav-mobile-panel h4 {
+  color: var(--gold);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 1rem 0 0.4rem;
+  padding: 0 0.5rem;
+}
+.nav-mobile-panel h4:first-of-type { margin-top: 2.5rem; }
+.nav-mobile-panel a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.6rem;
+  border-radius: var(--r-sm);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  width: 100%;
+}
+.nav-mobile-panel a:hover,
+.nav-mobile-panel a.active {
+  background: var(--bg-tertiary);
+  color: var(--gold);
+  text-decoration: none;
+}
+.nav-mobile-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.9rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Media query — hide desktop links, show hamburger under 900px */
+@media (max-width: 900px) {
+  .navbar .nav-links { display: none; }
+  .navbar .nav-toggle { display: inline-flex; }
+}
