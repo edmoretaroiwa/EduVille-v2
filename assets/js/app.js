@@ -145,3 +145,45 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 console.log('🚀 EduVille 2.0 loaded');
+
+// ============================================================
+// PWA — register service worker + inject manifest
+// ============================================================
+
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((reg) => console.log('✅ Service worker registered:', reg.scope))
+      .catch((err) => console.warn('Service worker registration failed:', err));
+  });
+}
+
+// Inject manifest link (works in Chrome/Edge/Safari)
+(function injectManifest() {
+  if (document.querySelector('link[rel="manifest"]')) return;
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = '/manifest.json';
+  document.head.appendChild(link);
+
+  // Apple touch icon for iOS home screen
+  if (!document.querySelector('link[rel="apple-touch-icon"]')) {
+    const apple = document.createElement('link');
+    apple.rel = 'apple-touch-icon';
+    apple.href = '/assets/images/logo-icon.png';
+    document.head.appendChild(apple);
+  }
+
+  // Apple PWA support
+  if (!document.querySelector('meta[name="apple-mobile-web-app-capable"]')) {
+    const meta = document.createElement('meta');
+    meta.name = 'apple-mobile-web-app-capable';
+    meta.content = 'yes';
+    document.head.appendChild(meta);
+
+    const statusBar = document.createElement('meta');
+    statusBar.name = 'apple-mobile-web-app-status-bar-style';
+    statusBar.content = 'black-translucent';
+    document.head.appendChild(statusBar);
+  }
+})();
