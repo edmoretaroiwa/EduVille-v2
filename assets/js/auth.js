@@ -11,7 +11,7 @@ const authClient = window.db;
 
 function showError(message) {
   const box = document.getElementById('error-box');
-  if (!box) { alert(message); return; }
+  if (!box) { console.warn('[auth]', message); return; }
   box.textContent = message;
   box.classList.add('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -43,34 +43,30 @@ async function handleSignup(event) {
   event.preventDefault();
   hideError();
 
+  if (!authClient) { showError('⚠️ Connection unavailable. Please refresh and try again.'); return; }
+
   const name = document.getElementById('signup-name').value.trim();
   const email = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
   const role = document.querySelector('input[name="role"]:checked')?.value || 'student';
 
-  if (password.length < 6) {
-    showError('⚠️ Password must be at least 6 characters.');
-    return;
-  }
+  if (password.length < 6) { showError('⚠️ Password must be at least 6 characters.'); return; }
 
   setLoading('signup-btn', true);
 
   try {
     const { data, error } = await authClient.auth.signUp({
-      email: email,
-      password: password,
-      options: { data: { full_name: name, role: role } }
+      email, password,
+      options: { data: { full_name: name, role } }
     });
 
     if (error) throw error;
-    if (!data.user) throw new Error('Signup failed. Please try again.');
+    if (!data?.user) throw new Error('Signup failed. Please try again.');
 
-    alert(`🎓 Welcome to EduVille, ${name}!\n\nCommit to Your Future ✨`);
     window.location.href = 'index.html';
-
   } catch (error) {
     console.error('Signup error:', error);
-    let msg = error.message;
+    let msg = error.message || 'Signup failed.';
     if (msg.includes('already registered') || msg.includes('already exists')) {
       msg = '⚠️ This email is already registered. Try logging in.';
     }
@@ -87,6 +83,8 @@ async function handleLogin(event) {
   event.preventDefault();
   hideError();
 
+  if (!authClient) { showError('⚠️ Connection unavailable. Please refresh and try again.'); return; }
+
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
 
@@ -96,12 +94,10 @@ async function handleLogin(event) {
     const { error } = await authClient.auth.signInWithPassword({ email, password });
     if (error) throw error;
 
-    alert('🎉 Welcome back!\n\nCommit to Your Future ✨');
     window.location.href = 'index.html';
-
   } catch (error) {
     console.error('Login error:', error);
-    let msg = error.message;
+    let msg = error.message || 'Login failed.';
     if (msg.includes('Invalid login credentials') || msg.includes('invalid')) {
       msg = '❌ Invalid email or password.';
     } else if (msg.includes('Email not confirmed')) {
@@ -118,49 +114,52 @@ async function handleLogin(event) {
 
 async function updateNavbarForUser() {
   const loginLink = document.querySelector('.btn-login');
-  if (!loginLink) return;
+  if (!loginLink || !authClient) return;
 
-  const { data: { session } } = await authClient.auth.getSession();
-  if (!session) return;
-
-  let firstName = 'You';
   try {
-    const { data: profile } = await authClient
-      .from('users')
-      .select('full_name')
-      .eq('id', session.user.id)
-      .maybeSingle();
+    const { data: { session } } = await authClient.auth.getSession();
+    if (!session?.user) return;
 
-    firstName = (profile?.full_name || session.user.email || 'You').split(' ')[0];
+    let firstName = 'You';
+    try {
+      const { data: profile } = await authClient
+        .from('users')
+        .select('full_name')
+        .eq('id', session.user.id)
+        .maybeSingle();
+
+      const source = profile?.full_name || session.user.email || 'You';
+      firstName = source.split(' ')[0].split('@')[0];
+    } catch (e) {
+      firstName = (session.user.email || 'You').split('@')[0];
+    }
+
+    const li = loginLink.closest('li');
+    const badge = `
+      <button type="button" class="user-badge" onclick="handleLogout()" aria-label="Log out">
+        <i data-lucide="user" style="width:14px;height:14px;"></i>
+        <span>${escapeHtml(firstName)}</span>
+      </button>
+    `;
+
+    if (li) li.innerHTML = badge;
+    else loginLink.outerHTML = badge;
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   } catch (e) {
-    firstName = (session.user.email || 'You').split('@')[0];
+    console.warn('Navbar update failed (OK):', e);
   }
-
-  const li = loginLink.closest('li');
-
-  if (li) {
-    li.innerHTML = `
-      <button type="button" class="user-badge" onclick="handleLogout()" aria-label="Log out">
-        <i data-lucide="user" style="width:14px;height:14px;"></i>
-        <span>${escapeHtml(firstName)}</span>
-      </button>
-    `;
-  } else {
-    loginLink.outerHTML = `
-      <button type="button" class="user-badge" onclick="handleLogout()" aria-label="Log out">
-        <i data-lucide="user" style="width:14px;height:14px;"></i>
-        <span>${escapeHtml(firstName)}</span>
-      </button>
-    `;
-  }
-
-  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 async function handleLogout() {
+  if (!authClient) return;
   if (!confirm('Log out of EduVille?')) return;
-  await authClient.auth.signOut();
-  alert('👋 You have been logged out.\n\nSee you soon!');
+
+  try {
+    await authClient.auth.signOut();
+  } catch (e) {
+    console.warn('Logout error (continuing):', e);
+  }
   window.location.href = 'index.html';
 }
 
@@ -170,8 +169,9 @@ async function handleLogout() {
 
 async function getMyRole() {
   try {
+    if (!authClient) return { session: null, role: null };
     const { data: { session } } = await authClient.auth.getSession();
-    if (!session) return { session: null, role: null };
+    if (!session?.user) return { session: null, role: null };
 
     const { data: profile } = await authClient
       .from('users')
@@ -192,7 +192,7 @@ function isTeacherRole(role) {
 
 function accessGateHtml(mode) {
   if (mode === 'teacher') {
-    const contact = escapeHtml(EDUVILLE_CONFIG.CONTACT_EMAIL);
+    const contact = escapeHtml(EDUVILLE_CONFIG?.CONTACT_EMAIL || 'ttaroiwa@gmail.com');
     return `
       <div class="empty-state">
         <div class="empty-state-icon">🎓</div>
@@ -219,7 +219,7 @@ function accessGateHtml(mode) {
 
 function showFormMessage(type, text, link) {
   const box = document.getElementById('form-msg') || document.querySelector('.form-msg');
-  if (!box) { alert(text); return; }
+  if (!box) { console.warn('[form]', text); return; }
 
   box.className = 'form-msg show ' + type;
   box.innerHTML = escapeHtml(text) +
