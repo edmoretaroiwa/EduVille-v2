@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline — EduVille</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/extra.css">
+
+  <style>
+    .offline-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      background: linear-gradient(135deg, #0d1117 0%, #0F1E4A 100%);
+    }
+    .offline-card {
+      max-width: 440px;
+      text-align: center;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-lg);
+      padding: 2.5rem 1.8rem;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+    .offline-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+      border-radius: var(--r-lg) var(--r-lg) 0 0;
+    }
+    .offline-emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+    .offline-card h1 {
+      color: var(--text-bright);
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+    .offline-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .offline-card .actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="offline-wrap">
+    <div class="offline-card">
+      <span class="offline-emoji">📡</span>
+      <h1>You're offline</h1>
+      <p>
+        EduVille needs a connection for this page. Check your data or Wi-Fi and try again.
+      </p>
+      <p style="font-size:0.85rem; color:var(--text-dim); margin-bottom:1.2rem;">
+        Pages you've visited before may still be available — try going back.
+      </p>
+      <div class="actions">
+        <a href="/" class="btn btn-gold">🏠 Go to Homepage</a>
+        <button type="button" class="btn btn-secondary" onclick="location.reload()">🔄 Try again</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
