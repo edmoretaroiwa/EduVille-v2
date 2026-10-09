@@ -222,22 +222,73 @@
 
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- NAVBAR -->
-  <nav class="navbar" aria-label="Main">
-    <a href="index.html" class="logo">
-      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
-      <span class="logo-text">Edu<span class="gold">Ville</span></span>
-    </a>
+  <!-- NAVBAR (universal) -->
+<nav class="navbar" aria-label="Main">
+  <a href="index.html" class="logo">
+    <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+    <span class="logo-text">Edu<span class="gold">Ville</span></span>
+  </a>
 
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="courses.html">Courses</a></li>
-      <li><a href="videos.html">Videos</a></li>
-      <li><a href="resources.html">Past Papers</a></li>
-      <li><a href="tymercre.html">🤖 AI Tutor</a></li>
-      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
-    </ul>
-  </nav>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="practice.html">Practice</a></li>
+    <li><a href="videos.html">Videos</a></li>
+    <li><a href="ai-tutor.html">AI Tutor</a></li>
+
+    <li>
+      <button type="button" class="nav-item" id="nav-more-btn" aria-haspopup="true" aria-expanded="false">
+        More ▾
+      </button>
+      <div class="nav-more-menu" id="nav-more-menu" role="menu">
+        <a href="notes.html">📝 Notes</a>
+        <a href="resources.html">📄 Past Papers</a>
+        <a href="bookmarks.html">🔖 My Bookmarks</a>
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="profile.html">👤 My Profile</a>
+        <div class="divider"></div>
+        <a href="blog.html">📰 Blog</a>
+        <a href="about.html">ℹ️ About</a>
+        <a href="contact.html">📬 Contact</a>
+      </div>
+    </li>
+
+    <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+  </ul>
+
+  <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu">☰</button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <div class="nav-mobile-panel">
+    <button type="button" class="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">✕</button>
+
+    <h4>Main</h4>
+    <a href="index.html">🏠 Home</a>
+    <a href="courses.html">📚 Courses</a>
+    <a href="practice.html">🎯 Practice</a>
+    <a href="videos.html">🎬 Videos</a>
+    <a href="ai-tutor.html">🤖 AI Tutor</a>
+
+    <h4>Study</h4>
+    <a href="notes.html">📝 Notes</a>
+    <a href="resources.html">📄 Past Papers</a>
+    <a href="bookmarks.html">🔖 Bookmarks</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+
+    <h4>Account</h4>
+    <a href="profile.html">👤 My Profile</a>
+    <a href="login.html">🔐 Login</a>
+
+    <h4>Company</h4>
+    <a href="about.html">ℹ️ About</a>
+    <a href="blog.html">📰 Blog</a>
+    <a href="contact.html">📬 Contact</a>
+    <a href="privacy.html">🔒 Privacy</a>
+    <a href="terms.html">📜 Terms</a>
+  </div>
+</div>
 
   <div class="motto-bar">✨ Commit to Your Future ✨</div>
 
