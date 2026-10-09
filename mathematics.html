@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathematics — Free ZIMSEC, Cambridge & BEC Lessons | EduVille</title>
+  <meta name="description" content="Free Mathematics lessons, videos and past-paper-style practice for ZIMSEC, Cambridge and BEC students. Algebra, geometry, calculus, statistics — all free.">
+  <meta name="keywords" content="ZIMSEC Mathematics, Cambridge Mathematics, O-Level Maths Zimbabwe, A-Level Maths, free Maths lessons, EduVille Mathematics">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="canonical" href="https://eduvillelearning.africa/mathematics.html">
+
+  <meta property="og:title" content="Mathematics — Free Lessons for ZIMSEC, Cambridge & BEC">
+  <meta property="og:description" content="Master Mathematics with free lessons, videos and an AI tutor. Built for African students.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://eduvillelearning.africa/mathematics.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/extra.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .subject-hero {
+      background: linear-gradient(135deg, rgba(15, 30, 74, 0.94), rgba(30, 58, 138, 0.78)),
+        url('assets/images/hero-bg.png') center/cover no-repeat;
+      padding: 2.5rem 1.5rem;
+      border-radius: var(--r-lg);
+      border-bottom: 4px solid var(--gold);
+      margin-bottom: 1.5rem;
+      color: #fff;
+      text-align: center;
+    }
+    .subject-hero .subject-emoji {
+      font-size: 2.6rem;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .subject-hero h1 {
+      color: #fff;
+      font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+      margin-bottom: 0.6rem;
+    }
+    .subject-hero h1 .gold { color: var(--gold); }
+    .subject-hero p {
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 620px;
+      margin: 0 auto 1.2rem;
+      line-height: 1.6;
+    }
+    .subject-hero .hero-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .subject-hero .board-tags {
+      display: inline-flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+    }
+    .subject-hero .board-tags span {
+      padding: 0.3rem 0.75rem;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid var(--gold);
+      border-radius: var(--r-full);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    /* Quick stats under hero */
+    .subject-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .subject-stats .s-stat {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 0.9rem 0.5rem;
+      text-align: center;
+    }
+    .subject-stats .s-num {
+      color: var(--gold);
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .subject-stats .s-label {
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 0.3rem;
+    }
+
+    /* AI CTA */
+    .subject-ai-cta {
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-lg);
+      padding: 1.6rem 1.4rem;
+      color: #fff;
+      border-bottom: 4px solid var(--gold);
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .subject-ai-cta .txt {
+      flex: 1;
+      min-width: 220px;
+    }
+    .subject-ai-cta h3 {
+      color: var(--gold);
+      font-size: 1.15rem;
+      margin: 0 0 0.3rem 0;
+    }
+    .subject-ai-cta p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.9rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Syllabus links */
+    .syllabus-links {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 1.3rem 1.4rem;
+      margin-top: 2rem;
+    }
+    .syllabus-links h3 {
+      color: var(--gold);
+      font-size: 1rem;
+      margin: 0 0 0.7rem 0;
+    }
+    .syllabus-links p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      margin: 0 0 0.9rem 0;
+      line-height: 1.6;
+    }
+    .syllabus-links ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .syllabus-links li {
+      margin-bottom: 0.5rem;
+    }
+    .syllabus-links a {
+      color: var(--edu-blue-light);
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .syllabus-links a:hover {
+      color: var(--gold);
+      text-decoration: underline;
+    }
+
+    /* Related subjects */
+    .related-subjects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 1rem 0.8rem;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+    .related-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+    .related-card .rc-emoji { font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .related-card h4 {
+      color: var(--text-bright);
+      font-size: 0.85rem;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div id="subject-config" data-subject="Mathematics" style="display:none;"></div>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Past Papers</a></li>
+      <li><a href="ai-tutor.html">🤖 AI Tutor</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="layout-no-sidebar">
+    <main class="main-feed" id="main">
+
+      <!-- HERO -->
+      <section class="subject-hero">
+        <span class="subject-emoji">📘</span>
+        <div class="board-tags">
+          <span>ZIMSEC</span>
+          <span>Cambridge</span>
+          <span>BEC</span>
+        </div>
+        <h1>Free <span class="gold">Mathematics</span> lessons</h1>
+        <p>
+          Master Algebra, Geometry, Calculus and Statistics with curriculum-aligned
+          lessons, video tutorials and an AI tutor — all free for African students.
+        </p>
+        <div class="hero-actions">
+          <a href="courses.html" class="btn btn-gold btn-lg">📚 Start learning</a>
+          <a href="ai-tutor.html?subject=Mathematics" class="btn btn-secondary btn-lg">🤖 Ask the AI Tutor</a>
+        </div>
+      </section>
+
+      <!-- QUICK STATS -->
+      <section class="subject-stats">
+        <div class="s-stat">
+          <div class="s-num" data-stat="courses">—</div>
+          <div class="s-label">Courses</div>
+        </div>
+        <div class="s-stat">
+          <div class="s-num" data-stat="lessons">—</div>
+          <div class="s-label">Lessons</div>
+        </div>
+        <div class="s-stat">
+          <div class="s-num" data-stat="videos">—</div>
+          <div class="s-label">Videos</div>
+        </div>
+      </section>
+
+      <!-- CONTENT -->
+      <div id="subject-content">
+        <div class="empty-state"><div class="spinner"></div><p>Loading Mathematics content...</p></div>
+      </div>
+
+      <!-- AI CTA -->
+      <section class="subject-ai-cta">
+        <div class="txt">
+          <h3>Stuck on a Maths problem?</h3>
+          <p>Ask TymerCRE to explain any topic — step by step, in simple English, any time.</p>
+        </div>
+        <a href="ai-tutor.html?subject=Mathematics" class="btn btn-gold">🤖 Ask the AI Tutor</a>
+      </section>
+
+      <!-- SYLLABUS -->
+      <section class="syllabus-links">
+        <h3>📄 Official syllabus</h3>
+        <p>Always check your exam board's latest syllabus for the full topic list and assessment objectives.</p>
+        <ul>
+          <li>🇿🇼 <a href="https://www.zimsec.co.zw/" target="_blank" rel="noopener">ZIMSEC official website</a></li>
+          <li>🇬🇧 <a href="https://www.cambridgeinternational.org/" target="_blank" rel="noopener">Cambridge Assessment International Education</a></li>
+          <li>🇧🇼 <a href="https://www.bec.co.bw/" target="_blank" rel="noopener">Botswana Examinations Council</a></li>
+        </ul>
+      </section>
+
+      <!-- RELATED SUBJECTS -->
+      <section style="margin-top:2rem;">
+        <div class="section-heading-row">
+          <h3 class="section-heading">🎯 Explore other subjects</h3>
+        </div>
+        <div class="related-subjects">
+          <a href="physics.html" class="related-card">
+            <div class="rc-emoji">🔬</div>
+            <h4>Physics</h4>
+          </a>
+          <a href="chemistry.html" class="related-card">
+            <div class="rc-emoji">⚗️</div>
+            <h4>Chemistry</h4>
+          </a>
+          <a href="biology.html" class="related-card">
+            <div class="rc-emoji">🧬</div>
+            <h4>Biology</h4>
+          </a>
+          <a href="computer-studies.html" class="related-card">
+            <div class="rc-emoji">💻</div>
+            <h4>Computer Studies</h4>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Free education for every African student.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="notes.html">Notes</a>
+        <a href="resources.html">Past Papers</a>
+        <a href="ai-tutor.html">AI Tutor</a>
+      </div>
+      <div>
+        <h4>Subjects</h4>
+        <a href="mathematics.html">Mathematics</a>
+        <a href="physics.html">Physics</a>
+        <a href="chemistry.html">Chemistry</a>
+        <a href="biology.html">Biology</a>
+        <a href="computer-studies.html">Computer Studies</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+        <a href="tel:+263788923710">+263 78 892 3710</a>
+        <a href="tel:+263787279982">+263 78 727 9982</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/subject.js"></script>
+</body>
+</html>
