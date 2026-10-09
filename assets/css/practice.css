@@ -1,0 +1,178 @@
+/* ============================================================
+   EDUVILLE — PRACTICE.CSS
+   Question cards, options, feedback, results
+   ============================================================ */
+
+.question-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-md);
+  padding: 1.2rem 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.question-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+}
+
+.question-num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+.question-diff {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+}
+.diff-easy { background: rgba(63, 185, 80, 0.15); color: #7ee787; }
+.diff-medium { background: rgba(251, 191, 36, 0.15); color: var(--gold); }
+.diff-hard { background: rgba(218, 54, 51, 0.15); color: #ff7b72; }
+
+.question-prompt {
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+}
+
+.question-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.question-option {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-sm);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.question-option:hover {
+  border-color: var(--edu-blue-light);
+}
+.question-option input {
+  display: none;
+}
+.question-option .option-letter {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+.question-option .option-text {
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+.question-option input:checked ~ .option-letter {
+  background: var(--gold);
+  color: var(--edu-blue-dark);
+}
+.question-option input:checked ~ .option-text {
+  color: var(--text-bright);
+  font-weight: 500;
+}
+.question-option.correct {
+  border-color: var(--accent-green);
+  background: rgba(63, 185, 80, 0.08);
+}
+.question-option.correct .option-letter {
+  background: var(--accent-green);
+  color: #fff;
+}
+.question-option.wrong {
+  border-color: var(--accent-red);
+  background: rgba(218, 54, 51, 0.08);
+}
+.question-option.wrong .option-letter {
+  background: var(--accent-red);
+  color: #fff;
+}
+
+.question-feedback {
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-muted);
+}
+.fb-line {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+.fb-ok { color: #7ee787; }
+.fb-no { color: #ff7b72; }
+.fb-explain {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  padding-left: 0.8rem;
+  border-left: 3px solid var(--border-default);
+}
+
+/* Results banner */
+.result-banner {
+  background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+  border-radius: var(--r-lg);
+  padding: 1.6rem 1.4rem;
+  color: #fff;
+  border-bottom: 4px solid var(--gold);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.result-score {
+  font-family: var(--font-head);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.result-message {
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+.result-detail {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+.result-saved {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 1rem;
+}
+.result-saved a { color: var(--gold); }
+.result-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+</style>
+</body>
+</html>
