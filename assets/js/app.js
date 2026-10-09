@@ -141,7 +141,54 @@ async function loadHomepageVideos() {
     console.error('Videos error:', error);
   }
 }
+// ============================================================
+// UNIVERSAL NAVBAR — dropdown + mobile menu
+// ============================================================
 
+document.addEventListener('DOMContentLoaded', () => {
+  const moreBtn = document.getElementById('nav-more-btn');
+  const moreMenu = document.getElementById('nav-more-menu');
+  const toggle = document.getElementById('nav-toggle');
+  const mobile = document.getElementById('nav-mobile-menu');
+  const closeBtn = document.getElementById('nav-mobile-close');
+
+  if (moreBtn && moreMenu) {
+    moreBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = moreMenu.classList.toggle('open');
+      moreBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!moreMenu.contains(e.target) && e.target !== moreBtn) {
+        moreMenu.classList.remove('open');
+        moreBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        moreMenu.classList.remove('open');
+        moreBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  if (toggle && mobile && closeBtn) {
+    toggle.addEventListener('click', () => mobile.classList.add('open'));
+    closeBtn.addEventListener('click', () => mobile.classList.remove('open'));
+    mobile.addEventListener('click', (e) => {
+      if (e.target === mobile) mobile.classList.remove('open');
+    });
+  }
+
+  // Highlight the current page in the mobile menu
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-mobile-panel a, .nav-links a').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (href === currentPage) link.classList.add('active');
+  });
+});
 // ============================================================
 // PWA — service worker + manifest (relative paths for safety)
 // ============================================================
