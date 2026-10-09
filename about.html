@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us — EduVille</title>
-  <meta name="description" content="Learn about EduVille — a free education platform built by Zimbabwean students, for African students.">
+  <title>About EduVille — Free Education Built in Zimbabwe for African Students</title>
+  <meta name="description" content="EduVille is a free education platform built by Zimbabwean students, for African students. Learn who we are, how we work, and why it's free.">
+  <meta name="keywords" content="EduVille, about, Zimbabwe education, free learning, ZIMSEC, Cambridge, BEC">
   <meta name="theme-color" content="#0d1117">
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <meta property="og:title" content="About EduVille — Free Education for Every African Student">
+  <meta property="og:description" content="Built by students, for students. Learn who's behind EduVille and why it exists.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://eduvillelearning.africa/about.html">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,13 +21,14 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/extra.css">
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     .about-page {
-      max-width: 900px;
+      max-width: 860px;
       margin: 0 auto;
       padding: 2rem 1.5rem;
     }
@@ -43,22 +50,24 @@
       border: 1px solid var(--gold);
       border-radius: var(--r-full);
       color: var(--gold);
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.72rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
       margin-bottom: 1rem;
     }
     .about-hero h1 {
       color: #fff;
-      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      font-size: clamp(1.7rem, 4.5vw, 2.3rem);
       margin-bottom: 0.6rem;
     }
+    .about-hero h1 .gold { color: var(--gold); }
     .about-hero p {
       color: rgba(255, 255, 255, 0.9);
       font-size: 1rem;
-      max-width: 550px;
+      max-width: 580px;
       margin: 0 auto;
+      line-height: 1.6;
     }
 
     /* SECTION CARDS */
@@ -66,13 +75,13 @@
       background: var(--bg-secondary);
       border: 1px solid var(--border-default);
       border-radius: var(--r-md);
-      padding: 2rem;
-      margin-bottom: 1.5rem;
+      padding: 1.8rem;
+      margin-bottom: 1.3rem;
     }
     .about-section h2 {
       color: var(--gold);
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      margin: 0 0 1rem 0;
       padding-bottom: 0.5rem;
       border-bottom: 2px solid var(--gold);
       display: inline-block;
@@ -85,6 +94,12 @@
     .about-section p:last-child { margin-bottom: 0; }
     .about-section strong { color: var(--text-bright); }
     .about-section em { color: var(--gold); font-style: italic; }
+    .about-section ul {
+      margin: 0.5rem 0 1rem 1.5rem;
+      color: var(--text-primary);
+      line-height: 1.75;
+    }
+    .about-section li { margin-bottom: 0.4rem; }
 
     /* MISSION CARD */
     .mission-card {
@@ -92,82 +107,80 @@
       color: #fff;
       text-align: center;
       padding: 2.5rem 2rem;
+      border: none;
     }
     .mission-card h2 {
       color: var(--gold);
       border-bottom-color: var(--gold);
     }
+    .mission-card p {
+      color: rgba(255, 255, 255, 0.92);
+    }
     .mission-card .motto-big {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--gold);
       font-style: italic;
-      margin-top: 1rem;
+      margin-top: 1.3rem;
       font-family: var(--font-head);
     }
 
     /* FOUNDERS GRID */
     .founders-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.3rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
       margin-top: 1.2rem;
     }
     .founder-card {
       background: var(--bg-primary);
       border: 1px solid var(--border-default);
       border-radius: var(--r-md);
-      padding: 1.5rem;
+      padding: 1.5rem 1.3rem;
       text-align: center;
       border-top: 4px solid var(--gold);
     }
     .founder-avatar {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--edu-blue), var(--edu-blue-light));
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 1rem;
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       border: 3px solid var(--gold);
     }
     .founder-card h3 {
       color: var(--text-bright);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       margin-bottom: 0.2rem;
     }
     .founder-role {
       color: var(--gold);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.7rem;
     }
     .founder-bio {
       color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-bottom: 0.8rem;
-    }
-    .founder-tags {
-      display: flex;
-      gap: 0.4rem;
-      justify-content: center;
-      flex-wrap: wrap;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      margin: 0;
     }
 
     /* TIMELINE */
     .timeline {
-      margin-top: 1.5rem;
+      margin-top: 1rem;
       padding-left: 1.5rem;
       border-left: 2px solid var(--border-default);
     }
     .timeline-item {
       position: relative;
-      padding-bottom: 1.5rem;
+      padding-bottom: 1.4rem;
       padding-left: 1rem;
     }
     .timeline-item:last-child { padding-bottom: 0; }
@@ -184,80 +197,102 @@
     }
     .timeline-item h4 {
       color: var(--text-bright);
-      font-size: 1rem;
-      margin-bottom: 0.2rem;
+      font-size: 0.98rem;
+      margin: 0 0 0.2rem 0;
     }
     .timeline-item .date {
       color: var(--gold);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       margin-bottom: 0.3rem;
     }
     .timeline-item p {
       color: var(--text-secondary);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       margin: 0;
+      line-height: 1.55;
     }
 
     /* VALUES GRID */
     .values-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 1.2rem;
+      gap: 0.9rem;
+      margin-top: 1rem;
     }
     .value-card {
       text-align: center;
-      padding: 1.3rem 1rem;
+      padding: 1.2rem 0.9rem;
       background: var(--bg-primary);
       border: 1px solid var(--border-default);
       border-radius: var(--r-md);
     }
     .value-icon {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.7rem;
+      margin-bottom: 0.4rem;
     }
     .value-card h4 {
       color: var(--text-bright);
-      font-size: 0.95rem;
-      margin-bottom: 0.3rem;
+      font-size: 0.92rem;
+      margin: 0 0 0.3rem 0;
     }
     .value-card p {
       color: var(--text-secondary);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       margin: 0;
+      line-height: 1.5;
     }
+
+    /* TRUST BOX */
+    .trust-box {
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid var(--gold);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--r-sm);
+      padding: 1.1rem 1.3rem;
+      margin-top: 1rem;
+    }
+    .trust-box p {
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .trust-box strong { color: var(--gold); }
 
     /* CTA */
     .about-cta {
       text-align: center;
       margin-top: 2rem;
     }
+    .about-cta .cta-note {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 0.8rem;
+    }
 
     @media (max-width: 600px) {
-      .about-section { padding: 1.4rem; }
-      .mission-card { padding: 2rem 1.5rem; }
-      .mission-card .motto-big { font-size: 1.3rem; }
+      .about-section { padding: 1.3rem; }
+      .mission-card { padding: 2rem 1.3rem; }
+      .mission-card .motto-big { font-size: 1.25rem; }
     }
   </style>
 </head>
 <body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <nav class="navbar" aria-label="Main">
     <a href="index.html" class="logo">
       <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
       <span class="logo-text">Edu<span class="gold">Ville</span></span>
     </a>
-    <label class="search-wrap">
-      <span class="sr-only">Search</span>
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="search" placeholder="Search...">
-    </label>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="courses.html">Courses</a></li>
       <li><a href="videos.html">Videos</a></li>
-      <li><a href="resources.html">Resources</a></li>
+      <li><a href="resources.html">Past Papers</a></li>
+      <li><a href="ai-tutor.html">🤖 AI Tutor</a></li>
       <li><a href="about.html" class="active">About</a></li>
       <li><a href="login.html" class="btn-login">🔐 Login</a></li>
     </ul>
@@ -270,47 +305,47 @@
     <!-- HERO -->
     <header class="about-hero">
       <span class="logo-badge">About EduVille</span>
-      <h1>Built by students, for students</h1>
-      <p>EduVille is a free education platform, created in Zimbabwe, for every African student with a dream to learn.</p>
+      <h1>Built by students, <span class="gold">for students</span></h1>
+      <p>A free education platform, created in Zimbabwe, for every African student with a dream to learn.</p>
     </header>
 
     <!-- MISSION -->
     <div class="about-section mission-card">
-      <h2>🎯 Our Mission</h2>
-      <p>To provide every African student with free, high-quality education — no matter where they live, what school they attend, or how much money they have.</p>
+      <h2>🎯 Our mission</h2>
+      <p>To give every African student free, high-quality education — no matter where they live, what school they attend, or how much money they have.</p>
       <p class="motto-big">"Commit to Your Future."</p>
     </div>
 
     <!-- STORY -->
     <div class="about-section">
-      <h2>📖 Our Story</h2>
+      <h2>📖 Our story</h2>
       <p>EduVille was born in <strong>Chitungwiza, Zimbabwe</strong>, in 2025 — from an idea that started with one student asking a simple question:</p>
-      <p><em>"What if there was a GitHub for education — a place where students could share notes, past papers, and tutorials freely?"</em></p>
+      <p><em>"What if there was a place where students could share notes, past papers and tutorials freely?"</em></p>
       <p>That student was <strong>Edmore Taroiwa</strong>, then in Form 5 at Seke 4 High School. He imagined a platform where African students could access the same quality of study material regardless of their background.</p>
-      <p>Together with his friend <strong>Benjamin Nyamukusa</strong>, he started building EduVille. First on <strong>Termux</strong>, then on GitHub Pages with Firebase. The platform grew — with video lessons, study notes, past papers, an AI tutor, and progress tracking.</p>
-      <p>Today, EduVille serves students across Zimbabwe, Botswana, and beyond — and it remains <strong>completely free</strong>.</p>
+      <p>Together with his friend <strong>Benjamin Nyamukusa</strong>, he started building EduVille. First on Termux, then on GitHub Pages. The platform grew — with video lessons, study notes, past paper references, an AI tutor, and progress tracking.</p>
+      <p>Today, EduVille serves students across Zimbabwe, Botswana and beyond — and it remains <strong>completely free</strong>.</p>
     </div>
 
     <!-- TIMELINE -->
     <div class="about-section">
-      <h2>⏳ Our Journey</h2>
+      <h2>⏳ Our journey</h2>
       <div class="timeline">
 
         <div class="timeline-item">
           <div class="date">Early 2025</div>
-          <h4>💡 The Idea</h4>
-          <p>The concept of "GitHub for education" is formed while studying at Seke 4 High School.</p>
+          <h4>💡 The idea</h4>
+          <p>The concept of a free, student-built learning platform is formed while studying at Seke 4 High School.</p>
         </div>
 
         <div class="timeline-item">
           <div class="date">Mid 2025</div>
-          <h4>🤝 The Founding</h4>
+          <h4>🤝 The founding</h4>
           <p>Edmore and Benjamin decide to officially start the project and name it <strong>EduVille</strong>.</p>
         </div>
 
         <div class="timeline-item">
           <div class="date">Late 2025</div>
-          <h4>🌐 First Version Live</h4>
+          <h4>🌐 First version live</h4>
           <p>EduVille v1 launches on GitHub Pages — proving the concept works.</p>
         </div>
 
@@ -325,7 +360,7 @@
 
     <!-- FOUNDERS -->
     <div class="about-section">
-      <h2>👥 Meet the Founders</h2>
+      <h2>👥 Meet the founders</h2>
       <p>EduVille is built and maintained by two students from Seke 4 High School, Chitungwiza.</p>
 
       <div class="founders-grid">
@@ -334,11 +369,7 @@
           <div class="founder-avatar">👨‍💻</div>
           <h3>Edmore Taroiwa</h3>
           <p class="founder-role">Founder & Lead Developer</p>
-          <p class="founder-bio">Currently in Form 6 (A-Level) at Seke 4 High School. Built EduVille from the ground up — the design, code, and vision.</p>
-          <div class="founder-tags">
-            <span class="tag tag-zimsec">Seke 4 High</span>
-            <span class="tag tag-bec">Form 6</span>
-          </div>
+          <p class="founder-bio">Form 6 (A-Level) at Seke 4 High School. Built EduVille from the ground up — design, code, and vision.</p>
         </div>
 
         <div class="founder-card">
@@ -346,42 +377,93 @@
           <h3>Benjamin Nyamukusa</h3>
           <p class="founder-role">Co-Founder</p>
           <p class="founder-bio">Partner in building the EduVille vision. Helped shape the platform's direction and educational mission from day one.</p>
-          <div class="founder-tags">
-            <span class="tag tag-zimsec">Seke 4 High</span>
-            <span class="tag tag-cambridge">Co-Founder</span>
-          </div>
         </div>
 
       </div>
     </div>
 
+    <!-- HOW WE WORK (new — trust) -->
+    <div class="about-section">
+      <h2>🛠️ How we work</h2>
+      <p>We know that trust matters. Here's exactly how EduVille operates:</p>
+
+      <ul>
+        <li><strong>Curriculum-aligned content.</strong> Every lesson and video is matched to the ZIMSEC, Cambridge, or BEC syllabus it belongs to.</li>
+        <li><strong>Teacher-created and reviewed.</strong> Content is written by practising educators, or submitted by teachers and checked before it goes live.</li>
+        <li><strong>No copyrighted material hosted.</strong> We do not host paid or copyrighted textbooks, exam papers, or course material without permission. Where we can, we link to official sources.</li>
+        <li><strong>Original practice questions.</strong> Our practice and revision content is written by our team — not copied from anywhere.</li>
+        <li><strong>Content corrections welcome.</strong> If you spot a mistake, tell us. We fix it and credit you. Email <a href="mailto:ttaroiwa@gmail.com" style="color: var(--edu-blue-light);">ttaroiwa@gmail.com</a>.</li>
+      </ul>
+    </div>
+
+    <!-- AI POLICY (new — trust) -->
+    <div class="about-section">
+      <h2>🤖 Our AI policy</h2>
+      <p>TymerCRE, our AI study tutor, is a study <em>assistant</em> — not an authority. We want students to understand its limits:</p>
+
+      <ul>
+        <li><strong>AI can make mistakes.</strong> Always verify important answers with your teacher, textbook, or an official marking scheme.</li>
+        <li><strong>Powered by Google Gemini.</strong> Your questions are processed by Google's AI service. We do not use your chats for advertising.</li>
+        <li><strong>No personal data required.</strong> You can use the AI tutor without giving your name or email.</li>
+        <li><strong>Anonymous storage.</strong> Chat logs are stored anonymously to improve the tutor and for safety review.</li>
+      </ul>
+
+      <div class="trust-box">
+        <p>
+          <strong>Read our full AI tutor policy →</strong>
+          <a href="ai-tutor.html" style="color: var(--edu-blue-light);">Learn more about TymerCRE</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- FREE FOREVER (new — trust) -->
+    <div class="about-section">
+      <h2>🆓 Our promise to students</h2>
+      <p>EduVille will always be free for students. Not "free with ads." Not "free until graduation." Not "free — sign up to unlock."</p>
+      <p><strong>Free. Period.</strong></p>
+      <p>We fund the platform ourselves, through our own time and, in the future, through partnerships with organisations that share our mission — never by charging students or selling their data.</p>
+      <p>If EduVille ever has to change that, we'll tell you publicly, on this page, before it happens. That's our commitment.</p>
+    </div>
+
     <!-- VALUES -->
     <div class="about-section">
-      <h2>💎 What We Stand For</h2>
+      <h2>💎 What we stand for</h2>
       <div class="values-grid">
 
         <div class="value-card">
           <div class="value-icon">🆓</div>
-          <h4>Always Free</h4>
-          <p>Education should never depend on money. EduVille is free forever.</p>
+          <h4>Always free</h4>
+          <p>Education should never depend on money.</p>
         </div>
 
         <div class="value-card">
           <div class="value-icon">🌍</div>
-          <h4>African Focused</h4>
-          <p>Built for ZIMSEC, Cambridge, and BEC students — designed for African realities.</p>
+          <h4>African focused</h4>
+          <p>Built for ZIMSEC, Cambridge and BEC students.</p>
         </div>
 
         <div class="value-card">
           <div class="value-icon">📱</div>
-          <h4>Mobile First</h4>
-          <p>Works on any phone, any network. Light enough for slow connections.</p>
+          <h4>Mobile first</h4>
+          <p>Works on any phone, any network.</p>
         </div>
 
         <div class="value-card">
           <div class="value-icon">🤝</div>
-          <h4>Community Driven</h4>
-          <p>Teachers and students share content. Everyone learns together.</p>
+          <h4>Community driven</h4>
+          <p>Teachers and students share. Everyone learns.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🔍</div>
+          <h4>Open about limits</h4>
+          <p>We say what we can and can't do.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🎯</div>
+          <h4>Exam focused</h4>
+          <p>Built for real results, not gimmicks.</p>
         </div>
 
       </div>
@@ -389,17 +471,18 @@
 
     <!-- WHY WE DO THIS -->
     <div class="about-section">
-      <h2>❤️ Why We Do This</h2>
+      <h2>❤️ Why we do this</h2>
       <p>We started EduVille because we know what it's like to study without proper resources.</p>
-      <p>We know the struggle of finding quality notes, the cost of past paper books, the frustration of not understanding a topic and having no one to ask.</p>
-      <p><strong>EduVille is our answer to that.</strong> It's a platform we wish we'd had when we started Form 1.</p>
+      <p>We know the struggle of finding quality notes, the cost of textbooks, the frustration of not understanding a topic and having no one to ask.</p>
+      <p><strong>EduVille is our answer to that.</strong> It's the platform we wish we'd had when we started Form 1.</p>
       <p>If even one student passes their exams because of EduVille, the work is worth it.</p>
     </div>
 
     <!-- CTA -->
     <div class="about-cta">
-      <a href="courses.html" class="btn btn-gold btn-lg">🚀 Start Learning</a>
-      <a href="contact.html" class="btn btn-secondary btn-lg" style="margin-left: 0.5rem;">📬 Contact Us</a>
+      <a href="courses.html" class="btn btn-gold btn-lg">📚 Start Learning</a>
+      <a href="contact.html" class="btn btn-secondary btn-lg">📬 Contact Us</a>
+      <p class="cta-note">Questions or corrections? We read every email.</p>
     </div>
 
   </div>
@@ -409,14 +492,15 @@
       <div>
         <h3>Edu<span class="gold">Ville</span></h3>
         <p class="motto"><em>"Commit to Your Future"</em></p>
-        <p>Learn. Build. Share. Together.</p>
+        <p>Free education for every African student.</p>
       </div>
       <div>
         <h4>Explore</h4>
         <a href="courses.html">Courses</a>
         <a href="videos.html">Videos</a>
+        <a href="notes.html">Notes</a>
         <a href="resources.html">Past Papers</a>
-        <a href="about.html">About Us</a>
+        <a href="ai-tutor.html">AI Tutor</a>
       </div>
       <div>
         <h4>Legal</h4>
@@ -435,7 +519,7 @@
     <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
   </footer>
 
-    <script src="assets/js/config.js"></script>
+  <script src="assets/js/config.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="assets/js/auth.js"></script>
 </body>
