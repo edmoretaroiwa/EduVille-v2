@@ -1,0 +1,27 @@
+/* Shared navbar: dropdowns + mobile hamburger */
+.navbar { position: relative; flex-wrap: wrap; }
+.nav-burger { display: none; margin-left: auto; background: none; border: 1px solid var(--border, #30363d);
+  color: var(--text-primary, #fff); font-size: 1.3rem; line-height: 1; padding: .35rem .65rem; border-radius: 8px; cursor: pointer; }
+.nav-dd { position: relative; }
+.nav-dd-btn { background: none; border: 0; color: var(--text-primary, #fff); font: inherit; font-size: var(--fs-sm, .9rem);
+  font-weight: 500; padding: .5rem .75rem; border-radius: 6px; cursor: pointer; }
+.nav-dd-btn:hover, .nav-dd.open > .nav-dd-btn, .nav-dd.has-active > .nav-dd-btn { color: var(--gold, #f5b82e); background: var(--bg-tertiary, #21262d); }
+.nav-dd-menu { display: none; position: absolute; top: 100%; left: 0; min-width: 210px; z-index: 1000; list-style: none;
+  margin: .25rem 0 0; padding: .4rem; background: var(--bg-secondary, #161b22); border: 1px solid var(--border, #30363d);
+  border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+.nav-dd.open > .nav-dd-menu { display: block; }
+.nav-dd-menu a { display: flex !important; width: 100%; padding: .55rem .75rem; white-space: nowrap; }
+.footer-sitemap { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem 1rem; padding: 1rem 0;
+  margin-top: 1rem; border-top: 1px solid var(--border, #30363d); font-size: .85rem; }
+.footer-sitemap a { color: var(--text-secondary, #8b949e); text-decoration: none; }
+.footer-sitemap a:hover { color: var(--gold, #f5b82e); }
+
+@media (max-width: 1100px) {
+  .nav-burger { display: block; }
+  .navbar .nav-links { display: none; width: 100%; flex-direction: column; align-items: stretch; gap: 2px; margin: 0;
+    max-height: 75vh; overflow-y: auto; padding-top: .5rem; }
+  .navbar.nav-open .nav-links { display: flex; }
+  .navbar .nav-links > li > a, .nav-dd-btn { display: block; width: 100%; text-align: left; padding: .7rem .9rem; font-size: 1rem; }
+  .nav-dd-menu { position: static; display: none; box-shadow: none; border: 0; margin: 0 0 0 .8rem; background: transparent; }
+  .navbar .btn-login { text-align: center; justify-content: center; }
+}
