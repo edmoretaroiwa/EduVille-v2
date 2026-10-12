@@ -185,6 +185,10 @@ async function handlePublish(event) {
   btn.textContent = 'Publishing...';
 
   try {
+    // Get session for created_by
+    const { data: { session } } = await addLessonClient.auth.getSession();
+    if (!session) throw new Error('Session expired. Please log in again.');
+
     // 1. Insert lesson
     const { data: lesson, error: lErr } = await addLessonClient
       .from('lessons')
@@ -195,7 +199,8 @@ async function handlePublish(event) {
         video_url: videoUrl || null,
         duration_minutes: duration,
         is_published: true,
-        order_index: 999
+        order_index: 999,
+        created_by: session.user.id
       })
       .select('id')
       .single();
@@ -228,10 +233,7 @@ async function handlePublish(event) {
     addQuestion();
   } catch (error) {
     console.error('Publish error:', error);
-    const denied = error && (error.code === '42501' || /row-level security/i.test(error.message || ''));
-    showFormMessage('error', denied
-      ? 'You do not have permission to publish lessons with this account.'
-      : `Could not publish: ${error.message}`);
+    showFormMessage('error', `❌ ${error.message || 'Unknown error'} · code: ${error.code || 'none'}`);
   } finally {
     btn.disabled = false;
     btn.textContent = '✓ Publish lesson';
