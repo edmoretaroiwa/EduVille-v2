@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why I Built EduVille From a Phone in Chitungwiza — EduVille Blog</title>
+  <meta name="description" content="The story behind EduVille — a free education platform built by a Zimbabwean student with no money, no laptop, and no team. Just a phone and a goal.">
+  <meta name="keywords" content="EduVille, Edmore Taroiwa, Zimbabwe education, free learning platform, Chitungwiza, ZIMSEC, African EdTech">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="canonical" href="https://eduvillelearning.africa/blog-why-i-built-eduville.html">
+
+  <meta property="og:title" content="Why I Built EduVille From a Phone in Chitungwiza">
+  <meta property="og:description" content="No laptop. No money. No team. Just a phone and a goal to help African students learn for free.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://eduvillelearning.africa/blog-why-i-built-eduville.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/extra.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    .post-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    .post-hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-lg);
+      border-bottom: 4px solid var(--gold);
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .post-category {
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid var(--gold);
+      border-radius: var(--r-full);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+    }
+    .post-hero h1 {
+      color: #fff;
+      font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+      margin-bottom: 0.9rem;
+      line-height: 1.25;
+    }
+    .post-meta {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.85rem;
+    }
+
+    .post-body {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 2rem;
+      line-height: 1.75;
+    }
+    .post-body p {
+      color: var(--text-primary);
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+    .post-body h2 {
+      color: var(--gold);
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+    .post-body h3 {
+      color: var(--text-bright);
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .post-body strong { color: var(--text-bright); }
+    .post-body em { color: var(--gold); font-style: italic; }
+    .post-body a { color: var(--edu-blue-light); text-decoration: underline; }
+    .post-body blockquote {
+      border-left: 4px solid var(--gold);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      background: var(--bg-primary);
+      border-radius: var(--r-sm);
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+    .post-body ul, .post-body ol {
+      margin: 0.8rem 0 1.2rem 1.5rem;
+    }
+    .post-body li {
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .post-author-box {
+      background: linear-gradient(135deg, var(--edu-blue-dark), var(--edu-blue));
+      border-radius: var(--r-md);
+      padding: 1.4rem 1.5rem;
+      margin-top: 2rem;
+      color: #fff;
+      border-left: 4px solid var(--gold);
+    }
+    .post-author-box p {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .post-author-box strong { color: var(--gold); }
+
+    .post-cta {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-md);
+      padding: 1.6rem 1.5rem;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .post-cta h3 {
+      color: var(--text-bright);
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+    }
+    .post-cta p {
+      color: var(--text-secondary);
+      margin: 0 0 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .post-body { padding: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navbar" aria-label="Main">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo-full.png" alt="EduVille" class="logo-img" onerror="this.style.display='none'">
+      <span class="logo-text">Edu<span class="gold">Ville</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="resources.html">Past Papers</a></li>
+      <li><a href="tymercre.html">AI Tutor</a></li>
+      <li><a href="login.html" class="btn-login">🔐 Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="motto-bar">✨ Commit to Your Future ✨</div>
+
+  <div class="post-page">
+
+    <header class="post-hero">
+      <span class="post-category">Founder's Story</span>
+      <h1>Why I Built EduVille From a Phone in Chitungwiza</h1>
+      <p class="post-meta">📅 13 October 2026 · ⏱️ 6 min read · ✍️ Edmore Taroiwa</p>
+    </header>
+
+    <article class="post-body">
+
+      <p>I'm writing this from a phone. A simple Android. No laptop, no desk, no office. Same phone I use to text my friends, listen to music, and scroll through TikTok.</p>
+
+      <p>This is also the same phone I've been using to build <strong>EduVille</strong> — a free education platform for African students. It's live right now at eduvillelearning.africa, and it's been used by students in Zimbabwe, Botswana, and beyond.</p>
+
+      <p>I want to tell you how it started, because I think a lot of students are where I was two years ago — and I want them to know what's possible.</p>
+
+      <h2>Where it started</h2>
+
+      <p>I was born on 28 November 2007 in Harare. I spent my early years in Sanyati village, at Sanyati Baptist Primary School. Life was small but good. I had my crew — Leon, Agrippa, Tadiwa, Tanatswa. We did everything together.</p>
+
+      <p>Then things changed. I moved to Chitungwiza, and had to start over. New school, new people, new accent that people laughed at. I got over it. That's what you learn to do when you're young and life moves you around.</p>
+
+      <p>By Form 3, I'd found my brothers again — Dioney, Elvis, and Benjamin. We called ourselves the <strong>League of Legends</strong>, a joke on the League of Nations. We studied together, argued together, and passed Form 4 together.</p>
+
+      <h2>The thing that kept bothering me</h2>
+
+      <p>I've always been the ambitious kid. In Form 3, I started making beats on my phone using FL Studio Mobile. In Form 5, I started learning to code — on Termux, with Python, with a lot of help from AI.</p>
+
+      <p>But something else was bothering me, quietly, the whole time.</p>
+
+      <p>I'd watch classmates struggle to find quality notes. I'd see students miss school because they couldn't afford exam fees. I'd hear people talk about "getting access to resources" like it was some kind of privilege — when it should just be normal.</p>
+
+      <p>Where I was, that <em>was</em> normal. Not having things was normal.</p>
+
+      <blockquote>
+        "What if there was a place where every student — no matter where they live or how much money they have — could find the same quality of study material?"
+      </blockquote>
+
+      <p>That question wouldn't leave me alone.</p>
+
+      <h2>The first version</h2>
+
+      <p>In 2025, I started building. Not with a laptop (I didn't have one). Not with money (I didn't have that either). Just with my phone, a free GitHub account, and Google as my teacher.</p>
+
+      <p>The first version was ugly. It didn't work very well. But it was online, and it was mine.</p>
+
+      <p>Then in 2026, I met GitHub Copilot and other AI tools. They changed everything. Suddenly I could ask questions and get real answers. I could write code that actually worked. I could build things that used to feel impossible.</p>
+
+      <p>I rebuilt EduVille from scratch. I added an AI tutor. I added video lessons. I added progress tracking. I bought a domain — <strong>eduvillelearning.africa</strong> — for about $6 a year.</p>
+
+      <p>Today, that platform is used by real students. It runs on free services. It costs me about $6 a year to keep alive.</p>
+
+      <h2>What I want students to know</h2>
+
+      <p>I've thought about this a lot. There are two things I wish someone had told me two years ago.</p>
+
+      <h3>1. You don't need what you think you need</h3>
+
+      <p>I used to think I needed a laptop. Or a good WiFi connection. Or money for courses. Or a mentor. Or a team.</p>
+
+      <p>I didn't. I needed a phone, a free internet connection when I could get one, and the willingness to be bad at something before I got good at it.</p>
+
+      <p>If you have a phone, you have enough to start. That's the truth. The rest is just details you figure out on the way.</p>
+
+      <h3>2. Building something real is the fastest way to learn</h3>
+
+      <p>I didn't learn to code by watching tutorials. I learned by building a site that students would actually use. Every bug I fixed taught me something a course couldn't.</p>
+
+      <p>If you want to learn anything — coding, writing, drawing, business — build something with it. Something real. Something someone else can use. The learning comes fast when the stakes are real.</p>
+
+      <h2>What EduVille is now</h2>
+
+      <p>EduVille is a free study companion for African students. Right now, it offers:</p>
+
+      <ul>
+        <li>Lessons aligned with ZIMSEC, Cambridge, and BEC curricula</li>
+        <li>Video tutorials on key topics</li>
+        <li>A free AI tutor called TymerCRE that explains things in simple English</li>
+        <li>Progress tracking so students can see themselves improving</li>
+      </ul>
+
+      <p>Everything is free. It will always be free.</p>
+
+      <p>Not "free with ads." Not "free for now." Not "free until it gets popular."</p>
+
+      <p><strong>Free. Period.</strong></p>
+
+      <p>I'm funding it myself with what little I have. If it grows, I'll find grants or partners who share the mission. But the student will never be the customer.</p>
+
+      <h2>What comes next</h2>
+
+      <p>EduVille isn't where I want it to be yet. It needs more lessons, more practice questions, more videos, more teachers willing to contribute.</p>
+
+      <p>But it's real. It's live. Students are using it.</p>
+
+      <p>That's more than I had 12 months ago. It's more than most people my age have. And it's proof that "I can't" is often a story we tell ourselves.</p>
+
+      <blockquote>
+        I thought I needed fancy gadgets. I didn't. I needed determination, consistency, and hard work.
+      </blockquote>
+
+      <p>If you're a student reading this, and you've been waiting for the right moment, the right tool, the right setup — stop waiting. Start with what you have. The rest will come.</p>
+
+      <p>And if you're a student who could use EduVille, it's already waiting for you:</p>
+
+      <p style="text-align:center; font-size:1.1rem; margin:1.5rem 0;">
+        <strong>👉 <a href="index.html">eduvillelearning.africa</a></strong>
+      </p>
+
+      <p>No signup needed to start. Just open it and learn.</p>
+
+      <p style="color: var(--gold); font-weight:600; text-align:center; margin-top:2rem;">
+        Commit to Your Future. ✨
+      </p>
+
+      <div class="post-author-box">
+        <p><strong>Written by Edmore Taroiwa</strong> — Founder of EduVille, Form 6 (A-Level) student at Seke 4 High School, Chitungwiza, Zimbabwe. Building free education for African students from a phone.</p>
+      </div>
+
+    </article>
+
+    <div class="post-cta">
+      <h3>🎓 Ready to start learning?</h3>
+      <p>Free lessons, videos, and an AI tutor. No signup required.</p>
+      <a href="courses.html" class="btn btn-gold">Browse Courses</a>
+      <a href="blog.html" class="btn btn-ghost" style="margin-left:0.4rem;">← All Posts</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>Edu<span class="gold">Ville</span></h3>
+        <p class="motto"><em>"Commit to Your Future"</em></p>
+        <p>Free education for every African student.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="courses.html">Courses</a>
+        <a href="videos.html">Videos</a>
+        <a href="resources.html">Past Papers</a>
+        <a href="blog.html">Blog</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:ttaroiwa@gmail.com">ttaroiwa@gmail.com</a>
+        <a href="mailto:edmoretaroiwa@gmail.com">edmoretaroiwa@gmail.com</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 EduVille. Commit to Your Future.</p>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/nav.js"></script>
+</body>
+    </html>
