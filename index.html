@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EduVille — Free ZIMSEC, Cambridge & BEC Study Companion for African Students</title>
+  <link rel="canonical" href="https://eduvillelearning.africa/">
   <meta name="description" content="Free curriculum-aligned lessons, past papers, video tutorials, and an AI study tutor for ZIMSEC, Cambridge, and BEC students across Africa.">
   <meta name="keywords" content="ZIMSEC, Cambridge, BEC, O-Level, A-Level, past papers, free education, Zimbabwe, Mathematics, Physics, Chemistry, Biology">
   <meta name="theme-color" content="#0d1117">
-  <link rel="canonical" href="https://eduvillelearning.africa/">
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
   <meta property="og:title" content="EduVille — Free Study Companion for African Students">
@@ -88,9 +88,9 @@
     /* Trust strip under hero */
     .trust-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 0.8rem;
-      margin-bottom: 2rem;
+      margin: 0 0 2rem;
     }
     .trust-item {
       background: var(--bg-secondary);
@@ -113,6 +113,24 @@
       color: var(--text-secondary);
       font-size: 0.78rem;
     }
+
+    @media (min-width: 760px) { .trust-strip { grid-template-columns: repeat(4, 1fr); } }
+    .trust-item { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: transform .15s, border-color .2s; }
+    .trust-item:hover { transform: translateY(-2px); border-color: var(--gold, #f5b82e); }
+    .hero-search { display: flex; gap: .5rem; max-width: 520px; margin: 1.25rem auto 0; }
+    .hero-search input { flex: 1; min-width: 0; padding: .85rem 1rem; border-radius: 12px; font-size: 1rem; color: #fff; outline: none;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    .hero-search input::placeholder { color: rgba(255,255,255,.65); }
+    .hero-search input:focus { border-color: var(--gold, #f5b82e); }
+    .hero-search button { padding: 0 1.1rem; border-radius: 12px; border: 0; font-size: 1.1rem; cursor: pointer;
+      background: var(--gold, #f5b82e); color: #111; font-weight: 700; }
+    .quick-subjects { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin-top: 1rem; }
+    .quick-subjects a { padding: .45rem .9rem; border-radius: 999px; font-size: .88rem; text-decoration: none; color: #fff;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    .quick-subjects a:hover { border-color: var(--gold, #f5b82e); background: rgba(245,184,46,.18); }
+
 
     /* AI tutor feature card */
     .ai-section {
@@ -263,6 +281,14 @@
         <div class="hero-actions">
           <a href="courses.html" class="btn btn-gold btn-lg">📚 Start Learning</a>
           <a href="resources.html" class="btn btn-secondary btn-lg">📝 Past Papers</a>
+        </div>
+        <form class="hero-search" action="search.html" method="get" role="search">
+          <input type="search" name="q" placeholder="Search lessons, papers, videos…" aria-label="Search EduVille" autocomplete="off">
+          <button type="submit" aria-label="Search">🔍</button>
+        </form>
+        <div class="quick-subjects">
+          <a href="mathematics.html">➗ Maths</a><a href="physics.html">⚛️ Physics</a><a href="chemistry.html">🧪 Chemistry</a>
+          <a href="biology.html">🧬 Biology</a><a href="computer-studies.html">💻 Computer Studies</a>
         </div>
       </section>
 

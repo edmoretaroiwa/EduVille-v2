@@ -1,10 +1,20 @@
-# EduVille — Robots.txt
-# https://eduvillelearning.africa
-
+# EduVille robots.txt
 User-agent: *
 Allow: /
+Disallow: /add-lesson.html
+Disallow: /add-paper.html
+Disallow: /add-video.html
+Disallow: /dashboard.html
+Disallow: /profile.html
+Disallow: /bookmarks.html
+Disallow: /teacher-dashboard.html
+Disallow: /login.html
+Disallow: /signup.html
+Disallow: /reset-password.html
+Disallow: /forgot-password.html
+Disallow: /groups.html
+Disallow: /group.html
+Disallow: /admin-moderation.html
+Disallow: /offline.html
 
-# Sitemap location
 Sitemap: https://eduvillelearning.africa/sitemap.xml
-
-# Block nothing — we want everything indexed

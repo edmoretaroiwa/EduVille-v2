@@ -9,10 +9,12 @@
   "background_color": "#0d1117",
   "theme_color": "#0d1117",
   "lang": "en",
-  "categories": ["education"],
+  "categories": [
+    "education"
+  ],
   "icons": [
     {
-      "src": "/assets/images/logo-icon.png",
+      "src": "/assets/images/logo-icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
@@ -25,7 +27,7 @@
     },
     {
       "src": "/assets/images/logo-icon.png",
-      "sizes": "any",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
