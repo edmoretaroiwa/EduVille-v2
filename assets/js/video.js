@@ -48,19 +48,11 @@ async function loadVideo() {
     if (breadcrumbEl) breadcrumbEl.textContent = video.title || 'Video';
 
     const rawUrl = video.embed_url || video.original_url || '';
-const ytId = extractYouTubeId(rawUrl);
-const embedUrl = ytId ? safeUrl(`https://www.youtube.com/embed/${ytId}`) : null;
+    const ytId = extractYouTubeId(rawUrl);
 
-    if (embedUrl) {
-      playerEl.innerHTML = `
-        <div class="video-frame-wrapper">
-          <iframe
-            src="${embedUrl}"
-            title="${escapeHtml(video.title || 'Video')}"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-        </div>
-      `;
+    if (ytId) {
+      playerEl.innerHTML = '<div class="video-frame-wrapper" id="player-box"></div>';
+      ytFacade(document.getElementById('player-box'), ytId, video.title || 'Video');
     } else {
       playerEl.innerHTML = `
         <div class="empty-state" style="margin-bottom: 1.5rem;">
@@ -102,10 +94,32 @@ const embedUrl = ytId ? safeUrl(`https://www.youtube.com/embed/${ytId}`) : null;
     `;
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
+    try { if (typeof mountBookmarkButton === 'function') mountBookmarkButton('bookmark-slot', 'video', video.id); } catch (e) { console.warn(e); }
+    loadRelated(video);
   } catch (error) {
     console.error('Video error:', error);
     showNotFound(error.message);
   }
+}
+
+async function loadRelated(video) {
+  const section = document.getElementById('related-section');
+  const grid = document.getElementById('related-grid');
+  if (!section || !grid) return;
+  try {
+    let q = videoClient.from('videos').select('id,title,course,duration,embed_url,original_url').neq('id', video.id).limit(6);
+    if (video.course) q = q.eq('course', video.course);
+    const { data, error } = await q.order('created_at', { ascending: false });
+    if (error || !data || !data.length) return;
+    grid.innerHTML = data.map(v => {
+      const id = extractYouTubeId(v.embed_url || v.original_url);
+      return `<a class="related-card" href="video.html?id=${encodeURIComponent(v.id)}">
+        <div class="related-thumb">${id ? `<img src="${ytThumb(id)}" alt="" width="320" height="180" loading="lazy" decoding="async">` : ''}</div>
+        <div class="related-body"><h4>${escapeHtml(v.title || 'Untitled')}</h4><p>${escapeHtml(v.duration || v.course || '')}</p></div>
+      </a>`;
+    }).join('');
+    section.style.display = 'block';
+  } catch (e) { console.warn('related error', e); }
 }
 
 function showNotFound(message) {
@@ -122,5 +136,5 @@ function showNotFound(message) {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof lucide !== 'undefined') lucide.createIcons();
-  loadVideo();mountBookmarkButton('bookmark-slot', 'video', video.id);
+  loadVideo();
 });

@@ -135,7 +135,7 @@ function renderSubjectPage(root, subject, courses, lessons, videos) {
     ? `<p class="form-note" style="text-align:center;">Videos coming soon.</p>`
     : videos.map(v => {
         const ytId = extractYouTubeId(v.embed_url || v.original_url || '');
-        const thumb = ytId ? `https://img.youtube.com/vi/${ytId}/mqdefault.jpg` : '';
+        const thumb = ytId ? `https://i.ytimg.com/vi/${ytId}/mqdefault.jpg` : '';
         return `
           <a href="video.html?id=${encodeURIComponent(v.id)}" class="video-card">
             <div class="video-thumb">

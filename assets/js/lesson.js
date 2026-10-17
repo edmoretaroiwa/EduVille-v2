@@ -85,8 +85,9 @@ async function loadLesson() {
     }
 
     const videoEmbed = extractYouTubeEmbed(lesson.video_url);
-    const videoBlock = videoEmbed
-      ? `<div class="video-wrapper"><iframe src="${videoEmbed}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`
+    const lessonYt = videoEmbed ? (videoEmbed.match(/embed\/([A-Za-z0-9_-]{11})/) || [])[1] : null;
+    const videoBlock = lessonYt
+      ? `<div class="video-wrapper" id="lesson-video-box"></div>`
       : `<div class="video-wrapper no-video">📹 No video for this lesson</div>`;
 
     contentEl.innerHTML = `
@@ -98,6 +99,7 @@ async function loadLesson() {
           ${videoBlock}
           <div class="lesson-actions">
             <h4>📌 Quick actions</h4>
+            <div id="bookmark-slot"></div>
             <button class="btn btn-gold btn-sm" onclick="markComplete(event)">
               ✓ Mark as Complete
             </button>
@@ -108,6 +110,8 @@ async function loadLesson() {
         </aside>
       </div>
     `;
+    try { if (typeof mountBookmarkButton === 'function') mountBookmarkButton('bookmark-slot', 'lesson', lesson.id); } catch (e) { console.warn(e); }
+    if (lessonYt && typeof ytFacade === 'function') ytFacade(document.getElementById('lesson-video-box'), lessonYt, lesson.title || 'Lesson video');
   } catch (error) {
     console.error('Lesson error:', error);
     showNotFound(error.message);
@@ -168,15 +172,5 @@ async function markComplete(event) {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof lucide !== 'undefined') lucide.createIcons();
-  loadLesson();mountBookmarkButton('bookmark-slot', 'lesson', lesson.id);
+  loadLesson();
 });
-<div class="lesson-actions">
-  <h4>📌 Quick actions</h4>
-  <div id="bookmark-slot"></div>
-  <button class="btn btn-gold btn-sm" onclick="markComplete(event)">
-    ✓ Mark as Complete
-  </button>
-  <a href="courses.html" class="btn btn-ghost btn-sm">
-    ← Back to Courses
-  </a>
-</div>
