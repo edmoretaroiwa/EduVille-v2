@@ -4,7 +4,7 @@
 
   var SECTIONS = [
     { title: 'Learn', items: [
-      ['🏠', 'Home', 'index.html'], ['📚', 'Courses', 'courses.html'],
+      ['🏠', 'Home', 'index.html'], ['🔍', 'Search', 'search.html'], ['📚', 'Courses', 'courses.html'],
       ['🎬', 'Videos', 'videos.html'], ['📝', 'Past Papers', 'resources.html'],
       ['🎯', 'Practice', 'practice.html'], ['🗒️', 'Notes', 'notes.html'],
       ['🤖', 'AI Tutor', 'tymercre.html']
@@ -16,15 +16,15 @@
     ]},
     { title: 'My Space', items: [
       ['📊', 'Dashboard', 'dashboard.html'], ['🔖', 'Bookmarks', 'bookmarks.html'],
-      ['👤', 'Profile', 'profile.html']
+      ['💬', 'Study Groups', 'groups.html'], ['👤', 'Profile', 'profile.html']
     ]},
     { title: 'Teachers', items: [
       ['🧑‍🏫', 'Teacher Dashboard', 'teacher-dashboard.html'], ['➕', 'Add Lesson', 'add-lesson.html'],
-      ['📄', 'Add Paper', 'add-paper.html'], ['🎥', 'Add Video', 'add-video.html']
+      ['📄', 'Add Paper', 'add-paper.html'], ['🎥', 'Add Video', 'add-video.html'], ['🛡️', 'Moderation', 'admin-moderation.html']
     ]},
     { title: 'EduVille', items: [
       ['📰', 'Blog', 'blog.html'], ['ℹ️', 'About', 'about.html'], ['✉️', 'Contact', 'contact.html'],
-      ['🔒', 'Privacy', 'privacy.html'], ['📜', 'Terms', 'terms.html']
+      ['📜', 'Group Rules', 'chat-rules.html'], ['🔒', 'Privacy', 'privacy.html'], ['📜', 'Terms', 'terms.html']
     ]}
   ];
 
@@ -44,6 +44,13 @@
     burger.innerHTML = '<span></span><span></span><span></span>';
     nav.insertBefore(burger, nav.firstChild);
 
+    var sbtn = document.createElement('a');
+    sbtn.href = 'search.html';
+    sbtn.className = 'nav-search';
+    sbtn.setAttribute('aria-label', 'Search');
+    sbtn.innerHTML = '🔍';
+    nav.insertBefore(sbtn, ul);
+
     var overlay = document.createElement('div');
     overlay.className = 'drawer-overlay';
     var drawer = document.createElement('aside');
@@ -52,6 +59,9 @@
     drawer.innerHTML =
       '<div class="drawer-head"><span class="drawer-brand">Edu<b>Ville</b></span>' +
       '<button type="button" class="drawer-close" aria-label="Close menu">✕</button></div>' +
+      '<form class="drawer-search" action="search.html" method="get" role="search">' +
+      '<input type="search" name="q" placeholder="🔍 Search lessons, papers, videos…" aria-label="Search" autocomplete="off">' +
+      '</form>' +
       '<div class="drawer-body">' +
       SECTIONS.map(function (s) {
         return '<div class="drawer-title">' + s.title + '</div><div class="drawer-group">' +
