@@ -3,7 +3,7 @@
    Caches the app shell so students can use EduVille offline.
    ============================================================ */
 
-const VERSION = 'eduville-v1.2.0';
+const VERSION = 'eduville-v1.3.0';
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 
@@ -36,12 +36,14 @@ const PRECACHE_URLS = [
   '/assets/css/layout.css',
   '/assets/css/extra.css',
   '/assets/css/nav.css',
+  '/assets/css/fast.css',
 
   // JS core (avoid caching data-heavy scripts like courses.js — they query Supabase)
   '/assets/js/config.js',
   '/assets/js/app.js',
   '/assets/js/auth.js',
   '/assets/js/nav.js',
+  '/assets/js/yt-facade.js',
   '/assets/js/search.js',
 
   // Images
