@@ -14,6 +14,7 @@ Disallow: /reset-password.html
 Disallow: /forgot-password.html
 Disallow: /groups.html
 Disallow: /group.html
+Disallow: /admin.html
 Disallow: /admin-moderation.html
 Disallow: /offline.html
 

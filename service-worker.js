@@ -3,7 +3,7 @@
    Caches the app shell so students can use EduVille offline.
    ============================================================ */
 
-const VERSION = 'eduville-v1.3.0';
+const VERSION = 'eduville-v1.4.0';
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 
@@ -24,6 +24,7 @@ const PRECACHE_URLS = [
   '/notes.html',
   '/tymercre.html',
   '/search.html',
+  '/library.html',
   '/privacy.html',
   '/terms.html',
   '/about.html',
@@ -45,6 +46,9 @@ const PRECACHE_URLS = [
   '/assets/js/nav.js',
   '/assets/js/yt-facade.js',
   '/assets/js/search.js',
+  '/assets/js/library-core.js',
+  '/assets/js/library.js',
+  '/assets/css/library.css',
 
   // Images
   '/assets/images/favicon.svg',
