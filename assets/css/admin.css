@@ -1,0 +1,28 @@
+/* Admin dashboard */
+.ad-tabs { display:flex; gap:.5rem; overflow-x:auto; padding:.2rem 0 .8rem; scrollbar-width:none; }
+.ad-tabs::-webkit-scrollbar { display:none; }
+.ad-tab { flex:0 0 auto; padding:.55rem 1rem; border-radius:12px; cursor:pointer; font:inherit; font-weight:600; color:#fff;
+  background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.22); }
+.ad-tab.active { border-color:var(--gold,#f5b82e); background:linear-gradient(135deg,rgba(245,184,46,.3),rgba(245,184,46,.08)); }
+.ad-stats { display:grid; grid-template-columns:repeat(2,1fr); gap:.7rem; margin-bottom:1rem; }
+@media (min-width:760px){ .ad-stats { grid-template-columns:repeat(4,1fr); } }
+.ad-stat { padding:1rem; border-radius:16px; text-align:center; background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.16); }
+.ad-stat b { display:block; font-size:1.7rem; color:var(--gold,#f5b82e); }
+.ad-stat span { font-size:.82rem; opacity:.8; }
+.ad-stat.alert { border-color:#f0a028; background:rgba(240,160,40,.15); }
+.ad-row { padding:.8rem 1rem; border-radius:14px; margin-bottom:.6rem; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); }
+.ad-row .ad-top { display:flex; justify-content:space-between; gap:.6rem; align-items:flex-start; flex-wrap:wrap; }
+.ad-row small { opacity:.7; word-break:break-all; }
+.ad-actions { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin-top:.6rem; }
+.ad-actions select { padding:.4rem .6rem; border-radius:10px; font:inherit; color:inherit; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.22); }
+.ad-actions option { color:#111; }
+.ad-role { display:inline-block; font-size:.7rem; padding:.15rem .6rem; border-radius:999px; margin-left:.4rem; border:1px solid rgba(255,255,255,.25); }
+.ad-role.admin { background:rgba(245,184,46,.22); border-color:var(--gold,#f5b82e); }
+.ad-role.teacher { background:rgba(47,111,237,.3); border-color:#2f6fed; }
+.ad-role.owner { background:rgba(126,231,135,.2); border-color:#7ee787; }
+.ad-role.banned { background:rgba(220,50,50,.25); border-color:#dc3232; }
+.ad-bar { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:.8rem; }
+.ad-bar input { flex:1; min-width:150px; padding:.65rem .9rem; border-radius:12px; font:inherit; color:inherit; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.22); }
+.ad-bar select { padding:.65rem .8rem; border-radius:12px; font:inherit; color:inherit; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.22); }
+.ad-bar option { color:#111; }

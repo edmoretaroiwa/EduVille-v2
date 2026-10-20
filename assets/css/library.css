@@ -1,0 +1,11 @@
+.lib-bar { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; margin:.6rem 0; }
+@media (min-width:760px){ .lib-bar { grid-template-columns:repeat(4,1fr); } }
+.lib-bar select, #lib-input { width:100%; padding:.7rem .8rem; border-radius:12px; font:inherit; color:inherit; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.22); }
+#lib-input { font-size:1rem; padding:.9rem 1rem; }
+.lib-bar option { color:#111; }
+.lib-card { padding:1rem 1.1rem; border-radius:16px; margin-bottom:.7rem; background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.16); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.lib-card h3 { margin:0 0 .5rem; font-size:1rem; word-break:break-word; }
+.lib-tags { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.7rem; }
+.lib-tag { font-size:.72rem; padding:.15rem .6rem; border-radius:999px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.06); }
+.lib-actions { display:flex; gap:.5rem; flex-wrap:wrap; }
