@@ -36,7 +36,8 @@
         want('videos') ? client.from('videos').select('id,title,author,course,duration')
           .or('title.ilike.' + like + ',author.ilike.' + like + ',course.ilike.' + like).limit(20) : { data: [] },
         want('papers') ? client.from('papers').select('id,title,subject,exam_board,level,year,file_url')
-          .or('title.ilike.' + like + ',subject.ilike.' + like + ',exam_board.ilike.' + like + yr).limit(30) : { data: [] }
+          .or('title.ilike.' + like + ',subject.ilike.' + like + ',exam_board.ilike.' + like + yr).limit(30) : { data: [] },
+        want('library') && window.EduLibrary ? window.EduLibrary.search(q, 12).catch(function () { return []; }) : []
       ]);
       if (q !== last) return; // a newer search started
       var html = '', n = 0;
@@ -54,6 +55,8 @@
         return card('🎬', v.title, [v.course, v.author, v.duration], 'video.html?id=' + encodeURIComponent(v.id)); });
       section('📄 Past Papers', res[3].data, function (p) {
         return card('📄', p.title, [p.exam_board, p.level, p.subject, p.year], safeUrl(p.file_url), '', true); });
+      section('📄 PDF Library', (res[4] || []).filter(function (x) { return !x.more; }), function (p) {
+        return card('📄', p.title, [p.kind, p.subject, p.level, p.year], p.url, '', true); });
       out.innerHTML = html || '<div class="empty-state"><p>No results for “' + escapeHtml(q) + '”. Try a subject name like <b>algebra</b>, <b>physics</b> or a year like <b>2023</b>.</p></div>';
       status.textContent = n ? n + ' result' + (n === 1 ? '' : 's') + ' for “' + q + '”' : '';
       history.replaceState(null, '', '?q=' + encodeURIComponent(q));

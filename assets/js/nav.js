@@ -5,7 +5,7 @@
   var SECTIONS = [
     { title: 'Learn', items: [
       ['🏠', 'Home', 'index.html'], ['🔍', 'Search', 'search.html'], ['📚', 'Courses', 'courses.html'],
-      ['🎬', 'Videos', 'videos.html'], ['📝', 'Past Papers', 'resources.html'],
+      ['🎬', 'Videos', 'videos.html'], ['📝', 'Past Papers', 'resources.html'], ['📄', 'PDF Library', 'library.html'],
       ['🎯', 'Practice', 'practice.html'], ['🗒️', 'Notes', 'notes.html'],
       ['🤖', 'AI Tutor', 'tymercre.html']
     ]},
@@ -20,7 +20,7 @@
     ]},
     { title: 'Teachers', items: [
       ['🧑‍🏫', 'Teacher Dashboard', 'teacher-dashboard.html'], ['➕', 'Add Lesson', 'add-lesson.html'],
-      ['📄', 'Add Paper', 'add-paper.html'], ['🎥', 'Add Video', 'add-video.html'], ['🛡️', 'Moderation', 'admin-moderation.html']
+      ['📄', 'Add Paper', 'add-paper.html'], ['🎥', 'Add Video', 'add-video.html'], ['🛠️', 'Admin Dashboard', 'admin.html'], ['🛡️', 'Moderation', 'admin-moderation.html']
     ]},
     { title: 'EduVille', items: [
       ['📰', 'Blog', 'blog.html'], ['ℹ️', 'About', 'about.html'], ['✉️', 'Contact', 'contact.html'],

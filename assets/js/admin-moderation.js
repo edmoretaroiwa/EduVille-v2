@@ -15,6 +15,7 @@
     var o = await db.rpc('chat_admin_overview');
     if (o.error) { root.textContent = 'Could not load: ' + o.error.message + ' (did you run the SQL script?)'; return; }
     root.textContent = '';
+    var back = el('a', 'g-btn sm', '← Admin dashboard'); back.href = 'admin.html'; back.style.textDecoration = 'none'; back.style.display = 'inline-block'; back.style.marginBottom = '.8rem'; root.appendChild(back);
     var hot = o.data.filter(function (g) { return g.open_reporters > 0; });
     root.appendChild(el('h3', 'section-heading', '⚠️ Groups with open reports (' + hot.length + ')'));
     if (!hot.length) root.appendChild(el('p', 'text-muted', 'Nothing to review. 🎉'));
