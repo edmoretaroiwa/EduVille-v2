@@ -238,6 +238,39 @@
     </main>
   </div>
 
+  <!-- In-page PDF reader -->
+  <section class="pdf-reader" id="pdf-reader" role="dialog" aria-modal="true" aria-labelledby="pdf-reader-title" aria-hidden="true" hidden>
+    <div class="pdf-reader__panel">
+      <header class="pdf-reader__header">
+        <div class="pdf-reader__heading">
+          <span class="pdf-reader__eyebrow">EDUVILLE DOCUMENT READER</span>
+          <h2 id="pdf-reader-title">Reading PDF</h2>
+        </div>
+        <button type="button" class="pdf-reader__close" id="pdf-reader-close" aria-label="Close PDF reader">×</button>
+      </header>
+      <div class="pdf-reader__toolbar" aria-label="PDF controls">
+        <div class="pdf-reader__page-controls">
+          <button type="button" id="pdf-prev" disabled aria-label="Previous page">‹</button>
+          <label for="pdf-page-number" class="sr-only">Page number</label>
+          <input id="pdf-page-number" type="number" min="1" value="1" inputmode="numeric">
+          <span class="pdf-reader__page-total">of <span id="pdf-page-count">—</span></span>
+          <button type="button" id="pdf-next" disabled aria-label="Next page">›</button>
+        </div>
+        <div class="pdf-reader__zoom-controls">
+          <button type="button" id="pdf-zoom-out" aria-label="Zoom out">−</button>
+          <span id="pdf-zoom-value">100%</span>
+          <button type="button" id="pdf-zoom-in" aria-label="Zoom in">+</button>
+        </div>
+        <a id="pdf-open-new" class="pdf-reader__open" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
+      </div>
+      <p class="pdf-reader__status" id="pdf-reader-status" role="status">Preparing document…</p>
+      <div class="pdf-reader__stage" id="pdf-reader-stage">
+        <canvas id="pdf-page-canvas" aria-label="PDF page"></canvas>
+      </div>
+      <p class="pdf-reader__footnote">For best results, use the zoom controls or open the PDF in a new tab. Some documents may take a moment to load.</p>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-content">

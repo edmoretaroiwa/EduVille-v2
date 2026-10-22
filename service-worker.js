@@ -3,7 +3,7 @@
    Caches the app shell so students can use EduVille offline.
    ============================================================ */
 
-const VERSION = 'eduville-v1.4.0';
+const VERSION = 'eduville-v1.6.0';
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 
