@@ -59,7 +59,7 @@ async function handleSignup(event) {
     const { data, error } = await authClient.auth.signUp({
       email: email,
       password: password,
-      options: { data: { full_name: name, role: role } }
+      options: { data: { full_name: name, role: role }, emailRedirectTo: window.location.origin + '/login.html' }
     });
 
     if (error) throw error;

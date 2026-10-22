@@ -92,6 +92,20 @@
       .map(function (i) { return '<a href="' + i[2] + '">' + i[1] + '</a>'; }).join('');
     var c = f.querySelector('.copyright');
     c ? f.insertBefore(d, c) : f.appendChild(d);
+    // "Share with a friend" on every page: native share sheet on phones, WhatsApp link elsewhere
+    if (!f.querySelector('.footer-share')) {
+      var sh = document.createElement('div'); sh.className = 'footer-share';
+      var p = document.createElement('p'); p.textContent = 'Know a student who needs free lessons and past papers?';
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'footer-share-btn'; b.textContent = '📲 Share EduVille';
+      b.addEventListener('click', function () {
+        var url = location.href.split('#')[0];
+        var text = (document.title && document.title.indexOf('EduVille') !== -1 ? document.title : 'EduVille') + ' — free ZIMSEC & Cambridge lessons, past papers and an AI tutor.';
+        if (navigator.share) { navigator.share({ title: 'EduVille', text: text, url: url }).catch(function () {}); }
+        else { window.open('https://wa.me/?text=' + encodeURIComponent(text + ' ' + url), '_blank', 'noopener'); }
+      });
+      sh.appendChild(p); sh.appendChild(b);
+      f.insertBefore(sh, d);
+    }
   }
 
   function init() { build(); footer(); }
